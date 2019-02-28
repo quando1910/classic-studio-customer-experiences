@@ -1,14 +1,14 @@
 <template>
   <div>
-    <button @click="show = !show">
+    <!-- <button @click="show = !show">
       Toggle render
-    </button>
+    </button> 
     <transition
       name="custom-classes-transition"
       enter-active-class="animated tada"
       leave-active-class="animated bounceOutRight">
-      <p v-if="show">hello</p>
-    </transition>
+      <p v-if="show">hello</p> 
+    </transition> -->
     <router-view/>
   </div>
 </template>

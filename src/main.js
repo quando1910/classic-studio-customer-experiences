@@ -14,6 +14,7 @@ import VueProgressiveImage from 'vue-progressive-image'
 import VueLazyload from 'vue-lazyload'
 import 'element-ui/lib/theme-chalk/index.css'
 import './assets/animation/animate.css'
+import './assets/styling/style.scss'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
   faFileContract,
