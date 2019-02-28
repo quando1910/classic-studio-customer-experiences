@@ -23,3 +23,17 @@ $grey-dark: #777;
 $grey-dark-2: #333;
 $white: #fff;
 $black: #000;
+
+// GRID
+$grid-width: 70rem;
+$gutter-vertical: 8rem;
+$gutter-horizontal: 6rem;
+
+// == Breakpoints ===
+$breakpoints: (
+  small: 480px,
+  medium: 768px,
+  wide: 960px,
+  large: 1024px,
+  largest: 1280px
+);
