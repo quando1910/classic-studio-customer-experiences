@@ -34,7 +34,14 @@ build/Release
 
 # Dependency directories
 node_modules/
+node_modules
 jspm_packages/
+
+# Dist
+dist
+
+# Git ignore
+.gitignore
 
 # TypeScript v1 declaration files
 typings/
