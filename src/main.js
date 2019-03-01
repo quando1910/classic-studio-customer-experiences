@@ -14,20 +14,7 @@ import VueProgressiveImage from 'vue-progressive-image'
 import VueLazyload from 'vue-lazyload'
 import 'element-ui/lib/theme-chalk/index.css'
 import './assets/animation/animate.css'
-import { library } from '@fortawesome/fontawesome-svg-core'
-import {
-  faFileContract,
-  faList,
-  faUsers
-} from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-
-library.add(
-  faFileContract,
-  faList,
-  faUsers
-)
-Vue.component('font-awesome-icon', FontAwesomeIcon)
+import './assets/styling/style.scss'
 
 Vue.use(ElementUI)
 Vue.use(VueI18n)

@@ -7,3 +7,33 @@ $noti-red-color: #ff3860;
 $noti-green-color: #23d160;
 $noti-yellow-color: #ffdd57;
 $heart-color: #a52a2a;
+// COLOR INTRODUCTION
+$primary: #55c57a;
+$primary-light: #7ed56f;
+$primary-dark: #28b485;
+
+$secondary-light: #ffb900;
+$secondary-dark: #ff7730;
+$tertiary-light: #2998ff;
+$tertiary-dark: #5643fa;
+
+$grey-light-1: #f7f7f7;
+$grey-light-2: #eee;
+$grey-dark: #777;
+$grey-dark-2: #333;
+$white: #fff;
+$black: #000;
+
+// GRID
+$grid-width: 70rem;
+$gutter-vertical: 8rem;
+$gutter-horizontal: 6rem;
+
+// == Breakpoints ===
+$breakpoints: (
+  small: 480px,
+  medium: 768px,
+  wide: 960px,
+  large: 1024px,
+  largest: 1280px
+);
