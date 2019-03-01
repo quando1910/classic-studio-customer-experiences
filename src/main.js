@@ -14,7 +14,21 @@ import VueProgressiveImage from 'vue-progressive-image'
 import VueLazyload from 'vue-lazyload'
 import 'element-ui/lib/theme-chalk/index.css'
 import './assets/animation/animate.css'
-import './assets/styling/style.scss'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import VueScrollTo from 'vue-scrollto'
+import {
+  faFileContract,
+  faList,
+  faUsers
+} from '@fortawesome/free-solid-svg-icons'
+
+library.add(
+  faFileContract,
+  faList,
+  faUsers
+)
+Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.use(ElementUI)
 Vue.use(VueI18n)
@@ -22,6 +36,19 @@ Vue.use(router)
 Vue.use(VueResource)
 Vue.use(GlobalComponents)
 Vue.use(VueProgressiveImage)
+Vue.use(VueScrollTo, {
+  container: "body",
+  duration: 500,
+  easing: "ease",
+  offset: 0,
+  force: true,
+  cancelable: true,
+  onStart: false,
+  onDone: false,
+  onCancel: false,
+  x: false,
+  y: true
+})
 
 Vue.use(VueLazyload, {
   preLoad: 2.0,

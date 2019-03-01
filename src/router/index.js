@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/pages/home'
+import Viewer from '@/components/pages/viewer.vue'
 
 // const Showrooms = () => import(/* webpackChunkName: "group-news" */ '@/components/showrooms.vue')
 // const Preview = () => import(/* webpackChunkName: "group-news" */ '@/components/post/post-preview')
@@ -25,7 +26,12 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      redirect: '/home'
+      redirect: '/viewer'
+    },
+    {
+      path: '/viewer',
+      name: 'Viewer',
+      component: Viewer
     },
     {
       path: '/home',
