@@ -125,6 +125,28 @@
         </div>
       </div>
     </section>
+    <section class="section-booking">
+      <div class="popup" id="popup">
+        <div class="popup__content">
+            <div class="popup__left">
+              <img src="../../assets/images/package1.jpg" alt="booking1" class="popup__image">
+              <img src="../../assets/images/package2.jpg" alt="booking2" class="popup__image">
+            </div>
+            <div class="popup__right">
+              <a href="#option-heading" class="popup__close">&times;</a>
+              <h2 class="heading-secondary">Start booking</h2>
+              <h3 class="heading-tertiary">Details</h3>
+              <p class="popup__text u-m-b-medium">Aenean imperdiet. Curabitur vestibulum aliquam leo. 
+                Aenean commodo ligula eget dolor. Aenean vulputate eleifend tellus.
+                Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis, ipsum. Phasellus accumsan cursus velit. Sed a libero. Suspendisse feugiat.
+                Maecenas malesuada. Phasellus tempus. Cras id dui. Praesent adipiscing.
+                Nulla sit amet est. Nullam dictum felis eu pede mollis pretium. Nunc nulla. In hac habitasse platea dictumst.
+              </p>
+              <a href="#" class="btn-float btn-green">Book now</a>
+            </div>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
