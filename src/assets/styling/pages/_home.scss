@@ -1,4 +1,4 @@
-.header {
+.section-about {
   height: 100vh;
   background-image: linear-gradient(to right bottom,
                                     rgba(126, 213, 111, 0.5),
@@ -22,8 +22,7 @@
   }
 }
 .section-option {
-  background-color: $grey-light-1;
-  @include pxRem('padding', 100 0);
+  @include pxRem('padding', 200 0);
   .option-heading {
     @include pxRem('margin-bottom', 100);
     text-align: center;
@@ -171,10 +170,15 @@
   }
 }
 .section-package {
-  background-color: $grey-light-1;
   @include pxRem('padding', 100);
   color: black;
   height: 100vh;
+  -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-transition: -webkit-transform 0.6s ease-in-out;
+    transition: transform 0.6s ease-in-out;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
   .mock-heading {
     visibility: hidden;
   }
