@@ -6,23 +6,23 @@
     <div>menu</div>
     <nav>
       <ul>
-        <li class="nav-item" :class="{ active: isActive(1) }">
-          <a v-scroll-to="'#contract'" @click="setActive(1)">
+        <li>
+          <router-link class="nav-item" tag="li" to="/viewer/contract">
             <font-awesome-icon icon="file-contract"/>
             <p class="nav-text">Thông Tin Hợp Đồng</p>
-          </a>
+          </router-link>
         </li>
-        <li class="nav-item" :class="{ active: isActive(2) }">
-          <a v-scroll-to="'#list-user'" @click="setActive(2)">
+        <li>
+          <router-link class="nav-item" tag="li" to="/viewer/list-use">
             <font-awesome-icon icon="list"/>
             <p class="nav-text">Danh Sách Lớp</p>
-          </a>
+          </router-link>
         </li>
-        <li class="nav-item" :class="{active: isActive(3)}">
-          <a v-scroll-to="'#info-user'" @click="setActive(3)">
+        <li>
+          <router-link class="nav-item" tag="li" to="/viewer/info-user">
             <font-awesome-icon icon="users"/>
             <p class="nav-text">Dịch Vụ Cá Nhân</p>
-          </a>
+          </router-link>
         </li>
       </ul>
     </nav>
@@ -41,44 +41,19 @@ export default {
     };
   },
   methods: {
-    isActive: function(menuItem) {
+    isActive: menuItem => {
       return this.activeItem === menuItem;
     },
     setActive: function(menuItem) {
       this.activeItem = menuItem; // no need for Vue.set()
-    },
-    handleScroll: () => {
-      this.posContract =
-        document.getElementById("contract").getBoundingClientRect().top +
-        window.scrollY;
-      this.posInfo =
-        document.getElementById("info-user").getBoundingClientRect().top +
-        window.scrollY;
-      this.posList =
-        document.getElementById("list-user").getBoundingClientRect().top +
-        window.scrollY;
-      switch (true) {
-        case this.posContract <= window.scrollY &&
-          window.scrollY < this.posList:
-          this.activeItem = 1;
-          break;
-        case this.posList <= window.scrollY && window.scrollY < this.posInfo:
-          this.activeItem = 2;
-          break;
-        case this.posInfo <= window.scrollY:
-          this.activeItem = 3;
-          break;
-        default:
-          break;
-      }
     }
-  },
-  created() {
-    window.addEventListener("scroll", this.handleScroll);
-  },
-  destroyed() {
-    window.removeEventListener("scroll", this.handleScroll);
   }
+  // created() {
+  //   window.addEventListener("scroll", this.handleScroll);
+  // },
+  // destroyed() {
+  //   window.removeEventListener("scroll", this.handleScroll);
+  // }
 };
 </script>
 
@@ -114,7 +89,7 @@ export default {
       .nav-text {
         transition: 0.6s;
         opacity: 1;
-        transform: translateX(20%);
+        transform: translateX(105%);
       }
     }
   }
@@ -122,7 +97,7 @@ export default {
     color: white;
     background-color: black;
     position: absolute;
-    left: 40px;
+    left: -100px;
     top: 0;
     padding: 10px;
     margin: 0;
@@ -130,12 +105,6 @@ export default {
     opacity: 0;
     border-radius: 5px;
     cursor: pointer;
-  }
-}
-.active {
-  border: 1px solid orange !important;
-  a {
-    color: orange !important;
   }
 }
 @keyframes change-radius {

@@ -16,6 +16,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 import './assets/animation/animate.css'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import SortedTablePlugin from "vue-sorted-table"
 import VueScrollTo from 'vue-scrollto'
 import {
   faFileContract,
@@ -29,7 +30,7 @@ library.add(
   faUsers
 )
 Vue.component('font-awesome-icon', FontAwesomeIcon)
-
+Vue.use(SortedTablePlugin);
 Vue.use(ElementUI)
 Vue.use(VueI18n)
 Vue.use(router)

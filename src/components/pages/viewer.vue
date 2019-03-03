@@ -1,20 +1,16 @@
 <template>
   <div class="viewer">
-    <NavBar/>
-    <Contracts/>
-    <ListUser/>
-    <InfoUser/>
+    <nav-bar/>
+    <router-view/>
   </div>
 </template>
 
 <script>
-import NavBar from "../public/nav-bar";
 import Contracts from "./contracts";
 import ListUser from "./list-user";
-import InfoUser from "./info-use";
+import InfoUser from "./info-user";
 export default {
   components: {
-    NavBar,
     Contracts,
     ListUser,
     InfoUser

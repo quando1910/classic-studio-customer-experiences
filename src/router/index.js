@@ -1,7 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/pages/home'
-import Viewer from '@/components/pages/viewer.vue'
+import Viewer from '@/components/pages/viewer'
+import Contract from '@/components/pages/contracts'
+import ListUse from '@/components/pages/list-user'
+import InfoUse from '@/components/pages/info-user'
 
 // const Showrooms = () => import(/* webpackChunkName: "group-news" */ '@/components/showrooms.vue')
 // const Preview = () => import(/* webpackChunkName: "group-news" */ '@/components/post/post-preview')
@@ -20,18 +23,28 @@ Vue.use(Router)
 const router = new Router({
   base: '/',
   mode: 'history',
+  linkExactActiveClass: 'is-active',
   scrollBehavior () {
     return { x: 0, y: 0 }
   },
   routes: [
     {
       path: '/',
-      redirect: '/viewer'
+      redirect: '/home'
     },
     {
-      path: '/viewer',
-      name: 'Viewer',
-      component: Viewer
+      path: '/viewer', component: Viewer,
+      children: [
+        {
+          path: 'contract', component: Contract,
+        },
+        {
+          path: 'list-use', component: ListUse,
+        },
+        {
+          path: 'info-user', component: InfoUse,
+        }
+      ]
     },
     {
       path: '/home',
