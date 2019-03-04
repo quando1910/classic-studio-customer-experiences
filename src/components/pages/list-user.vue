@@ -1,28 +1,15 @@
 <template>
   <section id="list-user">
     <h1>Lists user</h1>
-    <SortedTable :values="values">
-      <thead>
-        <tr>
-          <th scope="col" style="text-align: left; width: 10rem;">
-            <SortLink name="id">ID</SortLink>
-          </th>
-          <th scope="col" style="text-align: left; width: 10rem;">
-            <SortLink name="name">Name</SortLink>
-          </th>
-          <th scope="col" style="text-align: left; width: 10rem;">
-            <SortLink name="hits">Hits</SortLink>
-          </th>
-        </tr>
-      </thead>
-      <tbody slot="body" slot-scope="sort">
-        <tr v-for="value in sort.values" :key="value.id">
-          <td>{{ value.id }}</td>
-          <td>{{ value.name }}</td>
-          <td>{{ value.hits }}</td>
-        </tr>
-      </tbody>
-    </SortedTable>
+    <el-table
+      :data="tableData"
+      :default-sort="{prop: 'date', order: 'descending'}"
+      style="width: 100%"
+    >
+      <el-table-column prop="date" label="Date" sortable width="180"></el-table-column>
+      <el-table-column prop="name" label="Name" width="180"></el-table-column>
+      <el-table-column prop="address" label="Address" :formatter="formatter"></el-table-column>
+    </el-table>
   </section>
 </template>
 
@@ -31,12 +18,34 @@ export default {
   mounted() {},
   data: function() {
     return {
-      values: [
-        { name: "Plugin Foo", id: 2, hits: 33 },
-        { name: "Plugin Bar", id: 1, hits: 42 },
-        { name: "Plugin Foo Bar", id: 3, hits: 79 }
+      tableData: [
+        {
+          date: "2016-05-03",
+          name: "Tom",
+          address: "No. 189, Grove St, Los Angeles"
+        },
+        {
+          date: "2016-05-02",
+          name: "Tom",
+          address: "No. 189, Grove St, Los Angeles"
+        },
+        {
+          date: "2016-05-04",
+          name: "Tom",
+          address: "No. 189, Grove St, Los Angeles"
+        },
+        {
+          date: "2016-05-01",
+          name: "Tom",
+          address: "No. 189, Grove St, Los Angeles"
+        }
       ]
     };
+  },
+  methods: {
+    formatter(row, column) {
+      return row.address;
+    }
   }
 };
 </script>
@@ -45,6 +54,5 @@ export default {
 <style lang="scss" scoped>
 #list-user {
   height: 800px;
-  background-color: indianred;
 }
 </style>

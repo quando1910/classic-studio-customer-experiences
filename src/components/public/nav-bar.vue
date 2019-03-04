@@ -101,7 +101,7 @@ export default {
     top: 0;
     padding: 10px;
     margin: 0;
-    width: 145px;
+    width: 165px;
     opacity: 0;
     border-radius: 5px;
     cursor: pointer;

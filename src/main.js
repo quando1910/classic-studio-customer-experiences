@@ -18,6 +18,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import SortedTablePlugin from "vue-sorted-table"
 import VueScrollTo from 'vue-scrollto'
+import './assets/styling/style.scss'
 import {
   faFileContract,
   faList,

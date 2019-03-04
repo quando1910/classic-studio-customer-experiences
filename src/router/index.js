@@ -23,7 +23,7 @@ Vue.use(Router)
 const router = new Router({
   base: '/',
   mode: 'history',
-  linkExactActiveClass: 'is-active',
+  linkExactActiveClass: 'activated',
   scrollBehavior () {
     return { x: 0, y: 0 }
   },
