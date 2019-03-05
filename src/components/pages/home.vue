@@ -1,6 +1,6 @@
 <template>
 <div id="main">
-  <section class="section-about panel" id="section-about">
+  <section class="section-about full" id="section-about">
     <div class="text-box">
       <h1 class="heading-primary">
         <span class="heading-primary-main">Bạn là</span>
@@ -10,7 +10,7 @@
       <a href="#heading-mock" class="btn-float btn-float-white btn-sv">Sinh viên</a>
     </div>
   </section>
-  <section class="section-package panel" id="section-package">
+  <section class="section-package" id="section-package">
     <h1 id="heading-mock" class="mock-heading">mock</h1>
       <div class="package-container">
         <div class="col-6 image-container">
@@ -29,7 +29,7 @@
         
       </div>
     </section>
-  <section class="section-option panel" id="section-option">
+  <section class="section-option" id="section-option">
       <div class="option-heading" id="option-heading">
         <h2 class="heading-secondary">Chọn option</h2>
       </div>
@@ -125,7 +125,7 @@
         </div>
       </div>
     </section>
-    <section class="section-booking panel">
+    <section class="section-booking">
       <div class="popup" id="popup">
         <div class="popup__content">
             <div class="popup__left">
@@ -142,9 +142,39 @@
                 Maecenas malesuada. Phasellus tempus. Cras id dui. Praesent adipiscing.
                 Nulla sit amet est. Nullam dictum felis eu pede mollis pretium. Nunc nulla. In hac habitasse platea dictumst.
               </p>
-              <a href="#option-heading" class="btn-float btn-green">Book now</a>
+              <a href="#section-night" class="btn-float btn-green">Book now</a>
             </div>
         </div>
+      </div>
+    </section>
+    <section class="section-night full" id="section-night">
+      <div class="text-box">
+        <h1 class="heading-primary">
+          <span class="heading-primary-main">Bạn có muốn chụp đêm không?</span>
+          <span class="heading-primary-sub">Chọn "Có" để biết thêm chi tiết</span>
+        </h1>
+        <a href="#heading-mock" class="btn-float btn-float-white btn-hs">Có, tôi muốn!</a>
+        <a href="#heading-mock" class="btn-float btn-float-white btn-sv">Không, cám ơn!</a>
+      </div>
+    </section>
+    <section class="section-decorate full" id="section-decorate">
+      <div class="text-box">
+        <h1 class="heading-primary">
+          <span class="heading-primary-main">Bạn có muốn trang trí không?</span>
+          <span class="heading-primary-sub">Chọn "Có" để biết thêm chi tiết</span>
+        </h1>
+        <a href="#heading-mock" class="btn-float btn-float-white btn-hs">Có, tôi muốn!</a>
+        <a href="#heading-mock" class="btn-float btn-float-white btn-sv">Không, cám ơn!</a>
+      </div>
+    </section>
+    <section class="section-vehicle full" id="section-vehicle">
+      <div class="text-box">
+        <h1 class="heading-primary">
+          <span class="heading-primary-main">Bạn có muốn thuê xe không?</span>
+          <span class="heading-primary-sub">Chọn "Có" để biết thêm chi tiết</span>
+        </h1>
+        <a href="#heading-mock" class="btn-float btn-float-white btn-hs">Có, tôi muốn!</a>
+        <a href="#heading-mock" class="btn-float btn-float-white btn-sv">Không, cám ơn!</a>
       </div>
     </section>
   </div>

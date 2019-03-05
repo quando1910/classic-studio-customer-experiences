@@ -1,12 +1,33 @@
-.section-about {
+.full {
   height: 100vh;
+  background-size: cover;
+  background-position: top;
+  position: relative;
+}
+.section-about {
   background-image: linear-gradient(to right bottom,
                                     rgba(126, 213, 111, 0.5),
                                     rgba(40, 180, 131, 0.5)),
                     url('../../assets/images/about-1.jpg');
-  background-size: cover;
-  background-position: top;
-  position: relative;
+}
+.section-night {
+  background-image: linear-gradient(to right bottom,
+                                    rgba(208, 144, 62, 0.5),
+                                    rgba(85, 51, 35, 0.5)),
+                    url('../../assets/images/night.jpg');
+}
+.section-decorate {
+  background-image: linear-gradient(to right bottom,
+                                    rgba(208, 62, 149, 0.5),
+                                    rgba(66, 42, 51, 0.5)),
+                    url('../../assets/images/decorator.jpg');
+  background-position: center;
+}
+.section-vehicle {
+  background-image: linear-gradient(to right bottom,
+                                    rgba(205, 208, 62, 0.5),
+                                    rgba(157, 165, 92, 0.5)),
+                    url('../../assets/images/van.jpg');
 }
 .text-box {
   position: absolute;
@@ -192,7 +213,7 @@
           box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.4);
           position: absolute;
           transition: all 0.2s;
-          height: 80vh;
+          height: 70vh;
           @include pxRem('max-width', 550);
       
           &--p1 {
