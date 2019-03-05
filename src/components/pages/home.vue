@@ -1,6 +1,6 @@
 <template>
 <div id="main">
-  <section class="section-about full" id="section-about">
+  <section class="section-about section" id="section-about">
     <div class="text-box">
       <h1 class="heading-primary">
         <span class="heading-primary-main">Bạn là</span>
@@ -9,8 +9,11 @@
       <a href="#heading-mock" class="btn-float btn-float-white btn-hs">Học Sinh</a>
       <a href="#heading-mock" class="btn-float btn-float-white btn-sv">Sinh viên</a>
     </div>
+    <div class="arrow-down">
+      <a></a>
+    </div>
   </section>
-  <section class="section-package" id="section-package">
+  <section class="section-package section" id="section-package">
     <h1 id="heading-mock" class="mock-heading">mock</h1>
       <div class="package-container">
         <div class="col-6 image-container">
@@ -26,10 +29,12 @@
           </p>
           <a href="#option-heading" class="btn-text package-button">Learn more &rAarr;</a>
         </div>
-        
+      </div>
+      <div class="arrow-down">
+        <a></a>
       </div>
     </section>
-  <section class="section-option" id="section-option">
+  <section class="section-option section" id="section-option">
       <div class="option-heading" id="option-heading">
         <h2 class="heading-secondary">Chọn option</h2>
       </div>
@@ -124,6 +129,9 @@
           </div>
         </div>
       </div>
+      <div class="arrow-down">
+        <a></a>
+      </div>
     </section>
     <section class="section-booking">
       <div class="popup" id="popup">
@@ -147,7 +155,7 @@
         </div>
       </div>
     </section>
-    <section class="section-night full" id="section-night">
+    <section class="section-night section" id="section-night">
       <div class="text-box">
         <h1 class="heading-primary">
           <span class="heading-primary-main">Bạn có muốn chụp đêm không?</span>
@@ -156,8 +164,11 @@
         <a href="#heading-mock" class="btn-float btn-float-white btn-hs">Có, tôi muốn!</a>
         <a href="#heading-mock" class="btn-float btn-float-white btn-sv">Không, cám ơn!</a>
       </div>
+      <div class="arrow-down">
+        <a></a>
+      </div>
     </section>
-    <section class="section-decorate full" id="section-decorate">
+    <section class="section-decorate section" id="section-decorate">
       <div class="text-box">
         <h1 class="heading-primary">
           <span class="heading-primary-main">Bạn có muốn trang trí không?</span>
@@ -166,8 +177,11 @@
         <a href="#heading-mock" class="btn-float btn-float-white btn-hs">Có, tôi muốn!</a>
         <a href="#heading-mock" class="btn-float btn-float-white btn-sv">Không, cám ơn!</a>
       </div>
+      <div class="arrow-down">
+        <a></a>
+      </div>
     </section>
-    <section class="section-vehicle full" id="section-vehicle">
+    <section class="section-vehicle section" id="section-vehicle">
       <div class="text-box">
         <h1 class="heading-primary">
           <span class="heading-primary-main">Bạn có muốn thuê xe không?</span>
@@ -175,6 +189,54 @@
         </h1>
         <a href="#heading-mock" class="btn-float btn-float-white btn-hs">Có, tôi muốn!</a>
         <a href="#heading-mock" class="btn-float btn-float-white btn-sv">Không, cám ơn!</a>
+      </div>
+      <div class="arrow-down">
+        <a></a>
+      </div>
+    </section>
+    <section class="section-invoice section" id="section-invoice">
+      <div class="invoice-container">
+        <table>
+          <tr>
+            <th>Dịch Vụ</th>
+            <th>Đơn Giá</th>
+            <th>Số Lượng (Gói)</th>
+            <th>Options</th>
+            <th>Thành Tiền</th>
+          </tr>
+          <tr>
+            <td>Chụp Sinh Viên</td>
+            <td>$299</td>
+            <td>1</td>
+            <td>Gói chụp đêm</td>
+            <td class="total">$299</td>
+          </tr>
+          <tr>
+            <td>Chụp Sinh Viên</td>
+            <td>$299</td>
+            <td>1</td>
+            <td>Gói chụp đêm</td>
+            <td class="total">$299</td>
+          </tr>
+          <tr>
+            <td>Chụp Sinh Viên</td>
+            <td>$299</td>
+            <td>1</td>
+            <td>Gói chụp đêm</td>
+            <td class="total">$299</td>
+          </tr>
+          <tr>
+            <td>Chụp Sinh Viên</td>
+            <td>$299</td>
+            <td>1</td>
+            <td>Gói chụp đêm</td>
+            <td class="total">$299</td>
+          </tr>
+          <tr class="total" rowspan=5>
+            <td colspan="4">Tổng cộng</td>
+            <td>$299</td>
+          </tr>
+        </table>
       </div>
     </section>
   </div>
