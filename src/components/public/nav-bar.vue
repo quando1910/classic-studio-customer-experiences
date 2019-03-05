@@ -3,9 +3,14 @@
     <div class="logo">
       <img src alt>
     </div>
-    <div>menu</div>
     <nav>
       <ul>
+        <li>
+          <router-link class="nav-item" tag="li" to="/viewer">
+            <font-awesome-icon icon="home"/>
+            <p class="nav-text">Viewer</p>
+          </router-link>
+        </li>
         <li>
           <router-link class="nav-item" tag="li" to="/viewer/contract">
             <font-awesome-icon icon="file-contract"/>
@@ -66,6 +71,7 @@ export default {
   height: 100%;
   top: 0;
   left: 0;
+  z-index: 10;
   ul {
     list-style: none;
     margin: 0;

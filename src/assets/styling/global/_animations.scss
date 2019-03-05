@@ -85,3 +85,15 @@
     opacity: 1;
   }
 }
+.show-out {
+  animation: show-out 1s;
+}
+
+@keyframes show-out {
+  0% {
+    opacity: 0.1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
