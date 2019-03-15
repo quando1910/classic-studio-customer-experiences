@@ -284,7 +284,6 @@ export default {
   border-bottom: 1px solid #dedede;
 }
 $container-shadow: 0.5rem 0.5rem 2rem 0 rgba(black, 0.2);
-
 $gutter: 30px;
 $border-width: 4px;
 $dot-diameter: 8px;
