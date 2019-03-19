@@ -642,6 +642,9 @@ input {
 .m-b-20 {
   margin-bottom: 20px;
 }
+.m-b-10 {
+  margin-bottom: 10px;
+}
 
 .p-20 {
   padding: 20px;
@@ -653,4 +656,29 @@ input {
 
 .w-100 {
   width: 100%;
+}
+
+.c-pointer{
+  cursor: pointer;
+}
+
+.title-md {
+  color: #ec9b04;
+  margin-bottom: 10px;
+  font-size: 22px;
+  border-bottom: 1.5px solid;
+  display: inline-block;
+  padding-bottom: 5px;
+  padding-right: 180px;
+}
+
+.boder-right-none {
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.boder-left-none {
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+
 }

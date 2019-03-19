@@ -1,5 +1,5 @@
 <template>
-  <section id="info-user">
+  <section id="info-user" class="show-out">
     <el-form :label-position="'top'" ref="form" :model="form" label-width="120px">
       <el-form-item label="Thời gian thử đồ">
         <el-select class="w-100" v-model="value8" placeholder="Chọn thời gian">

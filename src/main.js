@@ -9,7 +9,6 @@ import VueResource from 'vue-resource'
 import GlobalComponents from './GlobalComponent'
 import VueI18n from 'vue-i18n'
 import i18n from './locales/config'
-import ElementUI from 'element-ui'
 import VueProgressiveImage from 'vue-progressive-image'
 import VueLazyload from 'vue-lazyload'
 import 'element-ui/lib/theme-chalk/index.css'
@@ -17,6 +16,7 @@ import './assets/animation/animate.css'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import './assets/styling/style.scss'
+import ElementUI from 'element-ui'
 import {
   faFileContract,
   faList,

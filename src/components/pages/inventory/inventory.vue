@@ -1,32 +1,23 @@
 <template>
-  <div class="viewer">
+  <div class="inventory">
+    <p>inventory</p>
     <nav-bar/>
-    <div class="viewer-content" v-if="this.$route.path !== viewerPage">
+    <div class="inventory-content" v-if="this.$route.path !== viewerPage">
       <router-view/>
     </div>
-    <ViewConfirm/>
   </div>
 </template>
 
 <script>
-import { APIService } from "../../service/apiService.js";
-import Contracts from "./contracts";
-import ViewConfirm from "./view-confirm";
-import ListUser from "./list-user";
-import InfoUser from "./info-user";
+import { APIService } from "../../../service/apiService.js";
 
 const apiService = new APIService();
 
 export default {
-  components: {
-    Contracts,
-    ListUser,
-    InfoUser,
-    ViewConfirm
-  },
+  components: {},
   data() {
     return {
-      viewerPage: "/viewer"
+      viewerPage: "/inventory"
     };
   },
   // mounted() {

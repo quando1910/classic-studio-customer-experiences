@@ -1,5 +1,5 @@
 <template>
-  <section id="list-user">
+  <section id="list-user" class="show-out">
     <h2 class="title-form">Danh sách lớp</h2>
     <el-tabs type="border-card">
       <el-tab-pane label="Nội Dung" class>
@@ -30,8 +30,8 @@
     </el-tabs>
 
     <div class="p-20 border-bottom">
-      <h3>Tổng hợp</h3>
-      <el-row>
+      <h3 class="title-md">Tổng hợp</h3>
+      <el-row class="m-b-10">
         <el-col :span="7">
           <div class="grid-content">Tổng nam</div>
         </el-col>
@@ -42,7 +42,7 @@
           <div class="grid-content field-contract">15</div>
         </el-col>
       </el-row>
-      <el-row>
+      <el-row class="m-b-10">
         <el-col :span="7">
           <div class="grid-content label-contract">Tổng nữ</div>
         </el-col>
@@ -53,7 +53,7 @@
           <div class="grid-content field-contract">30</div>
         </el-col>
       </el-row>
-      <el-row>
+      <el-row class="m-b-10">
         <el-col :span="7">
           <div class="grid-content label-contract">áo dai</div>
         </el-col>

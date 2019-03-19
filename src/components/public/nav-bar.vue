@@ -5,25 +5,25 @@
     </div>
     <nav>
       <ul>
-        <li>
+        <li class="c-pointer">
           <router-link class="nav-item" tag="li" to="/viewer">
             <font-awesome-icon icon="home"/>
             <p class="nav-text">Viewer</p>
           </router-link>
         </li>
-        <li>
+        <li class="c-pointer">
           <router-link class="nav-item" tag="li" to="/viewer/contract">
             <font-awesome-icon icon="file-contract"/>
             <p class="nav-text">Thông Tin Hợp Đồng</p>
           </router-link>
         </li>
-        <li>
+        <li class="c-pointer">
           <router-link class="nav-item" tag="li" to="/viewer/list-use">
             <font-awesome-icon icon="list"/>
             <p class="nav-text">Danh Sách Lớp</p>
           </router-link>
         </li>
-        <li>
+        <li class="c-pointer">
           <router-link class="nav-item" tag="li" to="/viewer/info-user">
             <font-awesome-icon icon="users"/>
             <p class="nav-text">Dịch Vụ Cá Nhân</p>
@@ -93,9 +93,9 @@ export default {
         color: white;
       }
       .nav-text {
-        transition: 0.6s;
+        transition: 0.3s;
         opacity: 1;
-        transform: translateX(105%);
+        width: 175px;
       }
     }
   }
@@ -103,14 +103,17 @@ export default {
     color: white;
     background-color: black;
     position: absolute;
-    left: -100px;
+    z-index: -10;
+    left: 58px;
     top: 0;
-    padding: 10px;
+    padding: 10px 0;
     margin: 0;
-    width: 165px;
+    width: 0;
     opacity: 0;
     border-radius: 5px;
-    cursor: pointer;
+    height: 36px;
+    overflow: hidden;
+    white-space: nowrap;
   }
 }
 @keyframes change-radius {

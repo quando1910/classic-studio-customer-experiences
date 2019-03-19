@@ -1,10 +1,15 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/pages/home'
-import Viewer from '@/components/pages/viewer'
-import Contract from '@/components/pages/contracts'
-import ListUse from '@/components/pages/list-user'
-import InfoUse from '@/components/pages/info-user'
+import Login from '@/components/pages/login/login'
+import Viewer from '@/components/pages/viewer/viewer'
+import Contract from '@/components/pages/viewer/contracts'
+import ListUse from '@/components/pages/viewer/list-user'
+import InfoUse from '@/components/pages/viewer/info-user'
+
+import Inventory from '@/components/pages/inventory/inventory'
+import Status from '@/components/pages/inventory/status'
+
 
 // const Showrooms = () => import(/* webpackChunkName: "group-news" */ '@/components/showrooms.vue')
 // const Preview = () => import(/* webpackChunkName: "group-news" */ '@/components/post/post-preview')
@@ -33,6 +38,24 @@ const router = new Router({
       redirect: '/home'
     },
     {
+      path: '/login',
+      component: Login,
+    },
+    {
+      path: '/home',
+      name: 'Home',
+      component: Home
+    },
+    {
+      path: '/inventory',
+      component: Inventory,
+      children: [
+        {
+          path: 'status', component: Status,
+        },
+      ]
+    },
+    {
       path: '/viewer', component: Viewer,
       children: [
         {
@@ -46,11 +69,6 @@ const router = new Router({
         }
       ]
     },
-    {
-      path: '/home',
-      name: 'Home',
-      component: Home
-    }
   ]
 })
 

@@ -1,5 +1,5 @@
 <template>
-  <section id="contract">
+  <section id="contract" class="show-out">
     <h2 class="title-form">Thông tin hợp đồng</h2>
     <el-tabs type="border-card">
       <el-tab-pane label="Nội Dung" class="p-20">
