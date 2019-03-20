@@ -6,9 +6,9 @@
     <nav>
       <ul>
         <li class="c-pointer">
-          <router-link class="nav-item" tag="li" to="/viewer">
+          <router-link class="nav-item" tag="li" to="/home">
             <font-awesome-icon icon="home"/>
-            <p class="nav-text">Viewer</p>
+            <p class="nav-text">Home</p>
           </router-link>
         </li>
         <li class="c-pointer">

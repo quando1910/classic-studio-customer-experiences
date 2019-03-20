@@ -6,6 +6,7 @@ import Viewer from '@/components/pages/viewer/viewer'
 import Contract from '@/components/pages/viewer/contracts'
 import ListUse from '@/components/pages/viewer/list-user'
 import InfoUse from '@/components/pages/viewer/info-user'
+import { AuthService } from "../service/authService";
 
 import Inventory from '@/components/pages/inventory/inventory'
 import Status from '@/components/pages/inventory/status'
@@ -23,6 +24,7 @@ import Status from '@/components/pages/inventory/status'
 // const AuthSignUp = () => import(/* webpackChunkName: "group-auth" */ '@/components/auth/auth-signup')
 // const Suggestion = () => import(/* webpackChunkName: "group-suggest" */ '@/components/suggestion')
 
+const auth = new AuthService();
 Vue.use(Router)
 
 const router = new Router({
@@ -40,6 +42,8 @@ const router = new Router({
     {
       path: '/login',
       component: Login,
+      beforeEnter: auth.ifNotAuthenticated,
+
     },
     {
       path: '/home',
@@ -49,6 +53,7 @@ const router = new Router({
     {
       path: '/inventory',
       component: Inventory,
+      beforeEnter: auth.ifAuthenticated,
       children: [
         {
           path: 'status', component: Status,
@@ -57,6 +62,7 @@ const router = new Router({
     },
     {
       path: '/viewer', component: Viewer,
+      beforeEnter: auth.ifAuthenticated,
       children: [
         {
           path: 'contract', component: Contract,
