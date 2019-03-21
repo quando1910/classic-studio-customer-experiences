@@ -5,7 +5,6 @@ export class AuthService {
   }
 
   ifNotAuthenticated = (to, from, next) => {
-    console.log('ifNotAuthenticated');
     localStorage.removeItem('toPath')
     if (localStorage.getItem('user-token')) {
       next()

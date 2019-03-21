@@ -1,4 +1,4 @@
-.header {
+.section-about {
   height: 100vh;
   background-image: linear-gradient(to right bottom,
                                     rgba(126, 213, 111, 0.5),
@@ -14,29 +14,6 @@
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-  .heading-primary {
-    color: #fff;
-    vertical-align: middle;
-    @include pxRem('margin-bottom', 50);
-    .heading-primary-main {
-      font-size: 2.5rem;
-      font-weight: 400;
-      @include pxRem('letter-spacing', 10);
-      display: block;
-      animation: moveFromLeft 2s;
-      animation-timing-function: ease-out;
-      @include pxRem('padding', 20);
-    }
-    .heading-primary-sub {
-      font-size: 1rem;
-      font-weight: 400;
-      @include pxRem('letter-spacing', 5);
-      display: block;
-      text-align: center;
-      animation: moveFromRight 2s;
-      animation-timing-function: ease-out;
-    }
-  }
   .btn-hs {
     animation: moveFromLeft 2s;
   }
@@ -44,76 +21,22 @@
     animation: moveFromRight 2s;
   }
 }
-.btn {
-  &:link,
-  &:visited {
-    text-transform: uppercase;
-    text-decoration: none;
-    @include pxRem('padding', 13 40);
-    @include pxRem('border-radius', 100);
-    display: inline-block;
-    transition: all 0.2s ease;
-    transition: box-shadow 0.2s;
-  }
-
-  &-white {
-    background: #fff;
-    color: $grey-dark;
-  }
-
-  &-green {
-    background: $primary;
-    color: $white;
-  }
-
-  &:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-  } 
-
-  &:active {
-    transform: translateY(-1px);
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  }
-}
-
-.btn-text {
-  &:link,
-  &:visited {
-    @include pxRem('padding', 15 25);
-    text-decoration: none;
-    border-bottom: 1px solid $primary;
-    transition: all 0.2s;
-    color: $primary;
-  }
-
-  &:hover {
-    color: $white;
-    background: $primary;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-    transform: translateY(-3px);
-  }
-
-  &:active {
-    color: $white;
-    background: $primary
-  }
-}
-.section-tour {
-  background-color: $grey-light-1;
-  @include pxRem('padding', 100 0);
-  .heading-tour {
+.section-option {
+  @include pxRem('padding', 200 0);
+  .option-heading {
     @include pxRem('margin-bottom', 100);
     text-align: center;
   }
 }
+
 .option-wrapper {
   display: flex;
   justify-content: space-around;
+  .option-container {
+    width: 30%;
+  }
 }
-.option-container {
-  width: 30%;
-}
+
 .option {
   perspective: 100rem;
   position: relative;
@@ -244,5 +167,151 @@
   &__price-value {
     font-size: 3rem;
     font-weight: 100;
+  }
+}
+.section-package {
+  @include pxRem('padding', 100);
+  color: black;
+  height: 100vh;
+  -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-transition: -webkit-transform 0.6s ease-in-out;
+    transition: transform 0.6s ease-in-out;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  .mock-heading {
+    visibility: hidden;
+  }
+  .package-container {
+    display: flex;
+    .image-container {
+      .composition {
+        position: relative;
+      
+        &__photo {
+          box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.4);
+          position: absolute;
+          transition: all 0.2s;
+          height: 80vh;
+          @include pxRem('max-width', 550);
+      
+          &--p1 {
+            @include pxRem('right', -80);
+          }
+      
+          &--p2 {
+            @include pxRem('right', -40);
+            @include pxRem('top', 48);
+          }
+      
+      
+          &:hover {
+            box-shadow: 0 2.5rem 2rem rgba(0, 0, 0, 0.5);
+            z-index: 1;
+            transform: scale(1.05);
+          }
+        }
+      
+        &:hover &__photo:not(:hover) {
+          transform: scale(0.9);
+        }
+      }
+    }
+    .description-container {
+      z-index: 2;
+      position: relative;
+      .heading {
+        font-size: xx-large;
+        text-transform: uppercase;
+        position: absolute;
+        @include pxRem('top', 100);
+        @include pxRem('left', -20);
+      }
+      .paragraph {
+        position: absolute;
+        @include pxRem('top', 170);
+        @include pxRem('padding-left', 150);
+      }
+      .package-button {
+        position: absolute;
+        @include pxRem('top', 240);
+        @include pxRem('left', 200);
+      }
+    }
+  }
+}
+.section-booking {
+  .popup {
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba($black, .8);
+    z-index: 9000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s;
+  
+    &__close {
+      &:link, &:visited {
+        color: $black;
+        text-decoration: none;
+        transition: all 0.2s;
+      }
+      &:hover {
+        transform: translateY(-3px);
+        color: $primary;
+      }
+      position: absolute;
+      top: 0;
+      right: 2rem;
+      font-size: 3rem;
+    }
+  
+    &:target {
+      opacity: 1;
+      visibility: visible;
+    }
+  
+    &__content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 75%;
+      height: 40rem;
+      background-color: $white;
+      box-shadow: 0 2rem 4rem rgba($black, 0.2);
+      border-radius: 3px;
+      display: table;
+      overflow: hidden;
+      transition: all 0.4s 0.2s;
+    }
+  
+    &__left {
+      width: 33.3333333%;
+      display: table-cell;
+    }
+  
+    &__right {
+      width: 66.6666667%;
+      display: table-cell;
+      vertical-align: top;
+      @include pxRem('padding', 40);
+      .btn-green {
+        background: $primary;
+        color: $white;
+      }
+    }
+  
+    &__image {
+      display: block;
+      width: 100%;
+    }
+  
+    &__text {
+      @include pxRem('margin-bottom', 32);
+    }
   }
 }

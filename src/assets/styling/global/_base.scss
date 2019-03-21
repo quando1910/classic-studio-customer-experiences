@@ -453,8 +453,14 @@ textarea {
   clear: both;
   display: table;
 }
+
 body {
   color: grey;
+  margin: 0 auto;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 .d-flex {
   @include s768 {
