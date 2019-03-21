@@ -5,6 +5,12 @@
     </div>
     <nav>
       <ul>
+        <!-- <li v-for="n in navs" v-bind:key="n.key" class="c-pointer">
+          <router-link class="nav-item" tag="li" to="n.link">
+            <font-awesome-icon icon="n.icon"/>
+            <p class="nav-text">{{n.title}}</p>
+          </router-link>
+        </li>-->
         <li class="c-pointer">
           <router-link class="nav-item" tag="li" to="/home">
             <font-awesome-icon icon="home"/>
@@ -45,6 +51,7 @@ export default {
       posList: 0
     };
   },
+  // props: { navs },
   methods: {
     isActive: menuItem => {
       return this.activeItem === menuItem;

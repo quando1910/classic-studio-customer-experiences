@@ -9,6 +9,7 @@ import InfoUse from '@/components/pages/viewer/info-user'
 import { AuthService } from "../service/authService";
 
 import Inventory from '@/components/pages/inventory/inventory'
+import InventoryMain from '@/components/pages/inventory/inventory-main'
 import Status from '@/components/pages/inventory/status'
 
 
@@ -55,6 +56,9 @@ const router = new Router({
       component: Inventory,
       beforeEnter: auth.ifAuthenticated,
       children: [
+        {
+          path: '', component: InventoryMain,
+        },
         {
           path: 'status', component: Status,
         },

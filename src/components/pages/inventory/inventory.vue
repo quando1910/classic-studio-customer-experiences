@@ -1,8 +1,8 @@
 <template>
   <div class="inventory">
-    <p>inventory</p>
+    <h1></h1>
     <nav-bar/>
-    <div class="inventory-content" v-if="this.$route.path !== viewerPage">
+    <div class="inventory-content">
       <router-view/>
     </div>
   </div>
@@ -17,7 +17,15 @@ export default {
   components: {},
   data() {
     return {
-      viewerPage: "/inventory"
+      viewerPage: "/inventory",
+      navs: [
+        {
+          key: 1,
+          title: "home",
+          link: "home",
+          icon: "home"
+        }
+      ]
     };
   },
   // mounted() {
