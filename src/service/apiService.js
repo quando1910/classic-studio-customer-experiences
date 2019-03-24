@@ -18,7 +18,7 @@ export class APIService {
   }
 
   loginUser (user) {
-    const promise = new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       axios({ url: API_URL_DEV + END_POINT.login, data: user, method: 'POST' })
         .then(resp => {
           localStorage.setItem('ACCESS_TOKEN', resp.headers[ 'access-token' ]) // store the token in localstorage
@@ -31,11 +31,10 @@ export class APIService {
           reject(err)
         })
     })
-    return promise;
   }
   get (uri) {
     const url = uri.join('/');
-    const promise = new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       this.instance.get(url)
         .then(resp => {
           resolve(resp.data)
@@ -44,12 +43,11 @@ export class APIService {
           reject(err)
         })
     })
-    return promise;
   }
 
   post (uri, data) {
     const url = uri.join('/');
-    const promise = new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       this.instance.post(url, data)
         .then(resp => {
           resolve(resp.data)
@@ -58,7 +56,6 @@ export class APIService {
           reject(err)
         })
     })
-    return promise;
   }
 
   multipeGets (apiRequests) {
@@ -67,14 +64,13 @@ export class APIService {
       const link = Array.isArray(v) ? v.join('/') : v;
       apis.push(this.instance.get(link))
     })
-    const promise = new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       axios.all(apis)
         .then(resp => {
           resolve(resp.map(v => v.data))
         })
         .catch(err => reject(err))
     })
-    return promise;
   }
 }
 

@@ -4,6 +4,8 @@ import Home from '@/components/pages/home'
 import Login from '@/components/pages/login/login'
 import Viewer from '@/components/pages/viewer/viewer'
 import Contract from '@/components/pages/viewer/contracts'
+import ContractList from '@/components/pages/viewer/contracts-list'
+import ContractView from '@/components/pages/viewer/contracts-view'
 import ListUse from '@/components/pages/viewer/list-user'
 import InfoUse from '@/components/pages/viewer/info-user'
 import { AuthService } from "../service/authService";
@@ -67,9 +69,13 @@ const router = new Router({
     {
       path: '/viewer', component: Viewer,
       beforeEnter: auth.ifAuthenticated,
+      redirect: '/viewer/contract',
       children: [
         {
-          path: 'contract', component: Contract,
+          path: 'contract', component: ContractList,
+        },
+        {
+          path: 'contract/:id', component: ContractView,
         },
         {
           path: 'list-use', component: ListUse,

@@ -1,7 +1,7 @@
 <template>
   <div class="inventory">
     <h1></h1>
-    <nav-bar/>
+    <nav-bar :navs="navs"/>
     <div class="inventory-content">
       <router-view/>
     </div>
@@ -20,10 +20,14 @@ export default {
       viewerPage: "/inventory",
       navs: [
         {
-          key: 1,
-          title: "home",
-          link: "home",
-          icon: "home"
+          title: "Home",
+          icon: "home",
+          link: "/home"
+        },
+        {
+          title: "Tình trạng",
+          icon: "box-open",
+          link: "/inventory/status"
         }
       ]
     };

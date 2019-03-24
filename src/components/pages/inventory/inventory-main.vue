@@ -1,6 +1,6 @@
 <template>
   <section id="list-user" class="show-out">
-    <div class="inventory-title">
+    <div class="title-button">
       <h2>Danh sách sản phẩm</h2>
       <el-button type="warning" @click="dialogVisible = true" icon="el-icon-plus" round></el-button>
     </div>

@@ -1,6 +1,6 @@
 <template>
   <div class="viewer">
-    <nav-bar/>
+    <nav-bar :navs="navs"/>
     <div class="viewer-content" v-if="this.$route.path !== viewerPage">
       <router-view/>
     </div>
@@ -25,6 +25,28 @@ export default {
   },
   data() {
     return {
+      navs: [
+        {
+          title: "Home",
+          icon: "home",
+          link: "/home"
+        },
+        {
+          title: "Thông Tin Hợp Đồng",
+          icon: "file-contract",
+          link: "/viewer/contract"
+        },
+        {
+          title: "Danh Sách Lớp",
+          icon: "list",
+          link: "/viewer/list-use"
+        },
+        {
+          title: "Dịch Vụ Cá Nhân",
+          icon: "users",
+          link: "/viewer/info-user"
+        }
+      ],
       viewerPage: "/viewer"
     };
   },
