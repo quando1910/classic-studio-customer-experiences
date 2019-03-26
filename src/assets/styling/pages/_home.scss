@@ -1,12 +1,67 @@
-.section-about {
+.section {
   height: 100vh;
-  background-image: linear-gradient(to right bottom,
-                                    rgba(126, 213, 111, 0.5),
-                                    rgba(40, 180, 131, 0.5)),
-                    url('../../assets/images/about-1.jpg');
   background-size: cover;
   background-position: top;
   position: relative;
+}
+.section-about {
+  background-image: url('../../assets/images/wall1.jpg');
+}
+.section-night {
+  background-image: linear-gradient(to right bottom,
+                                    rgba(208, 144, 62, 0.5),
+                                    rgba(85, 51, 35, 0.5)),
+                    url('../../assets/images/night.jpg');
+}
+.section-decorate {
+  background-image: linear-gradient(to right bottom,
+                                    rgba(208, 62, 149, 0.5),
+                                    rgba(66, 42, 51, 0.5)),
+                    url('../../assets/images/decorator.jpg');
+  background-position: center;
+}
+.section-vehicle {
+  background-image: linear-gradient(to right bottom,
+                                    rgba(205, 208, 62, 0.5),
+                                    rgba(157, 165, 92, 0.5)),
+                    url('../../assets/images/van.jpg');
+}
+.section-invoice {
+  display: flex;
+  justify-content: center;
+  .invoice-container {
+    width: 70%;
+    th, td {
+      text-align: left;
+      padding: 8px;
+    }
+    tr:nth-child(even){
+      background-color: #f2f2f2
+    }
+    th {
+      background-color: $primary;
+      color: white;
+    }
+    .total {
+      font-weight: bold;
+    }
+  }
+}
+section:not(:last-child) {
+  .arrow-down {
+    @include pxRem('border-left', 20px solid transparent);
+    @include pxRem('border-right', 20px solid transparent);
+    @include pxRem('border-top', 20px solid $primary);
+    position: absolute;
+    top: 95%;
+    left: 50%;
+    &:hover {
+      cursor: pointer;
+      @include pxRem('border-left', 20px solid transparent);
+      @include pxRem('border-right', 20px solid transparent);
+      @include pxRem('border-top', 20px solid $primary-dark);
+    }
+  }
 }
 .text-box {
   position: absolute;
@@ -22,7 +77,12 @@
   }
 }
 .section-option {
-  @include pxRem('padding', 200 0);
+  background-image: linear-gradient(to right, rgb(240, 242, 240), rgb(0, 12, 64));
+  .container {
+
+    height: 100%;
+    @include pxRem('padding', 100 0);
+  }
   .option-heading {
     @include pxRem('margin-bottom', 100);
     text-align: center;
@@ -91,15 +151,15 @@
     -webkit-clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
     &-1 {
       background-image: linear-gradient(to right bottom, $secondary-light, $secondary-dark), 
-                        url('../../assets/images/option1.jpg');
+                        url('../../assets/images/wall1.jpg');
     }
     &-2 {
       background-image: linear-gradient(to right bottom, $primary-light, $primary-dark), 
-                        url('../../assets/images/option2.jpg');
+                        url('../../assets/images/wall2.jpg');
     }
     &-3 {
       background-image: linear-gradient(to right bottom, $tertiary-light, $tertiary-dark), 
-                        url('../../assets/images/option3.jpg');
+                        url('../../assets/images/wall3.png');
     }
   }
 
@@ -170,15 +230,9 @@
   }
 }
 .section-package {
-  @include pxRem('padding', 100);
   color: black;
   height: 100vh;
-  -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-    -webkit-transition: -webkit-transform 0.6s ease-in-out;
-    transition: transform 0.6s ease-in-out;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
+  background-image: linear-gradient(to right bottom,rgb(101, 153, 153), rgb(244, 121, 31));
   .mock-heading {
     visibility: hidden;
   }
@@ -192,16 +246,17 @@
           box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.4);
           position: absolute;
           transition: all 0.2s;
-          height: 80vh;
+          height: 70vh;
           @include pxRem('max-width', 550);
       
           &--p1 {
             @include pxRem('right', -80);
+            @include pxRem('top', 40);
           }
       
           &--p2 {
             @include pxRem('right', -40);
-            @include pxRem('top', 48);
+            @include pxRem('top', 90);
           }
       
       
@@ -220,6 +275,7 @@
     .description-container {
       z-index: 2;
       position: relative;
+      color: $white;
       .heading {
         font-size: xx-large;
         text-transform: uppercase;
@@ -230,12 +286,13 @@
       .paragraph {
         position: absolute;
         @include pxRem('top', 170);
-        @include pxRem('padding-left', 150);
+        @include pxRem('padding', 0 120);
       }
       .package-button {
         position: absolute;
         @include pxRem('top', 240);
         @include pxRem('left', 200);
+        color: $white;
       }
     }
   }
