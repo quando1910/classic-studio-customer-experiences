@@ -6,38 +6,31 @@
         <span class="heading-primary-main">Bạn là</span>
         <span class="heading-primary-sub">Chọn để biết thêm chi tiết</span>
       </h1>
-      <a href="#heading-mock" class="btn-float btn-float-white btn-hs">Học Sinh</a>
-      <a href="#heading-mock" class="btn-float btn-float-white btn-sv">Sinh viên</a>
+      <a @click="selectPrStudent" href="#heading-mock" class="btn-float btn-float-white btn-hs">Học Sinh</a>
+      <a @click="selectStudent" href="#heading-mock" class="btn-float btn-float-white btn-sv">Sinh viên</a>
     </div>
-    <div class="arrow-down">
-      <a></a>
-    </div>
+    <a class="arrow-down" href="#heading-mock"></a>
   </section>
   <section class="section-package section" id="section-package">
     <h1 id="heading-mock" class="mock-heading">mock</h1>
       <div class="package-container">
         <div class="col-6 image-container">
           <div class="composition">
-            <img src="../../assets/images/package2-large.jpg" alt="Photo 2" class="composition__photo composition__photo--p2">
-            <img src="../../assets/images/package1-large.jpg" alt="Photo 1" class="composition__photo composition__photo--p1">
+            <img src="../../assets/images/wall2.jpg" alt="Photo 2" class="composition__photo composition__photo--p2">
+            <img src="../../assets/images/wall1.jpg" alt="Photo 1" class="composition__photo composition__photo--p1">
           </div>
         </div>
         <div class="col-6 description-container">
-          <h3 class="heading">Donec interdum metus et hendrerit</h3>
+          <h3 class="heading">Gói chụp cơ bản</h3>
           <p class="paragraph">Suspendisse eu ligula. Vivamus aliquet elit ac nisl. Donec elit libero, sodales nec, volutpat a, suscipit non,
             turpis!
           </p>
-          <a href="#option-heading" class="btn-text package-button">Learn more &rAarr;</a>
+          <a href="#section-option" class="btn-text package-button">Learn more &rAarr;</a>
         </div>
       </div>
-      <div class="arrow-down">
-        <a></a>
-      </div>
+      <a class="arrow-down" href="#section-option"></a>
     </section>
   <section class="section-option section" id="section-option">
-      <div class="option-heading" id="option-heading">
-        <h2 class="heading-secondary">Chọn option</h2>
-      </div>
       <div class="container">
         <div class="option-wrapper">
           <div class="option-container">
@@ -129,9 +122,7 @@
           </div>
         </div>
       </div>
-      <div class="arrow-down">
-        <a></a>
-      </div>
+      <a class="arrow-down" href="#section-night"></a>
     </section>
     <section class="section-booking">
       <div class="popup" id="popup">
@@ -164,9 +155,7 @@
         <a href="#heading-mock" class="btn-float btn-float-white btn-hs">Có, tôi muốn!</a>
         <a href="#heading-mock" class="btn-float btn-float-white btn-sv">Không, cám ơn!</a>
       </div>
-      <div class="arrow-down">
-        <a></a>
-      </div>
+      <a class="arrow-down" href="#section-decorate"></a>
     </section>
     <section class="section-decorate section" id="section-decorate">
       <div class="text-box">
@@ -177,9 +166,7 @@
         <a href="#heading-mock" class="btn-float btn-float-white btn-hs">Có, tôi muốn!</a>
         <a href="#heading-mock" class="btn-float btn-float-white btn-sv">Không, cám ơn!</a>
       </div>
-      <div class="arrow-down">
-        <a></a>
-      </div>
+        <a class="arrow-down" href="#section-vehicle"></a>
     </section>
     <section class="section-vehicle section" id="section-vehicle">
       <div class="text-box">
@@ -190,9 +177,7 @@
         <a href="#heading-mock" class="btn-float btn-float-white btn-hs">Có, tôi muốn!</a>
         <a href="#heading-mock" class="btn-float btn-float-white btn-sv">Không, cám ơn!</a>
       </div>
-      <div class="arrow-down">
-        <a></a>
-      </div>
+      <a class="arrow-down" href="#section-invoice"></a>
     </section>
     <section class="section-invoice section" id="section-invoice">
       <div class="invoice-container">
@@ -244,7 +229,25 @@
 
 <script>
 export default {
-  mounted () {
+  mounted () {},
+  data () {
+    return {
+      invoice: [],
+      isPrStudent: false,
+      isStudent: false
+    }
+  },
+  methods: {
+    selectPrStudent: function () {
+      this.isPrStudent = true;
+      this.invoice.push({isPrStudent: this.isPrStudent});
+      console.log(this.invoice);
+    },
+    selectStudent: function () {
+      this.isStudent = true;
+      this.invoice.push({isStudent: this.isStudent});
+      console.log(this.invoice);
+    }
   }
 }
 </script>

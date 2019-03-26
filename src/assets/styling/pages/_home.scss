@@ -5,10 +5,7 @@
   position: relative;
 }
 .section-about {
-  background-image: linear-gradient(to right bottom,
-                                    rgba(126, 213, 111, 0.5),
-                                    rgba(40, 180, 131, 0.5)),
-                    url('../../assets/images/about-1.jpg');
+  background-image: url('../../assets/images/wall1.jpg');
 }
 .section-night {
   background-image: linear-gradient(to right bottom,
@@ -51,17 +48,19 @@
   }
 }
 section:not(:last-child) {
-  @include pxRem('margin-bottom', 200);
   .arrow-down {
-    width: 0; 
-    height: 0; 
-    border-left: 20px solid transparent;
-    border-right: 20px solid transparent;
-    border-top: 20px solid $primary;
-    text-align: center;
+    @include pxRem('border-left', 20px solid transparent);
+    @include pxRem('border-right', 20px solid transparent);
+    @include pxRem('border-top', 20px solid $primary);
     position: absolute;
-    top: 120%;
+    top: 95%;
     left: 50%;
+    &:hover {
+      cursor: pointer;
+      @include pxRem('border-left', 20px solid transparent);
+      @include pxRem('border-right', 20px solid transparent);
+      @include pxRem('border-top', 20px solid $primary-dark);
+    }
   }
 }
 .text-box {
@@ -78,6 +77,12 @@ section:not(:last-child) {
   }
 }
 .section-option {
+  background-image: linear-gradient(to right, rgb(240, 242, 240), rgb(0, 12, 64));
+  .container {
+
+    height: 100%;
+    @include pxRem('padding', 100 0);
+  }
   .option-heading {
     @include pxRem('margin-bottom', 100);
     text-align: center;
@@ -146,15 +151,15 @@ section:not(:last-child) {
     -webkit-clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
     &-1 {
       background-image: linear-gradient(to right bottom, $secondary-light, $secondary-dark), 
-                        url('../../assets/images/option1.jpg');
+                        url('../../assets/images/wall1.jpg');
     }
     &-2 {
       background-image: linear-gradient(to right bottom, $primary-light, $primary-dark), 
-                        url('../../assets/images/option2.jpg');
+                        url('../../assets/images/wall2.jpg');
     }
     &-3 {
       background-image: linear-gradient(to right bottom, $tertiary-light, $tertiary-dark), 
-                        url('../../assets/images/option3.jpg');
+                        url('../../assets/images/wall3.png');
     }
   }
 
@@ -227,6 +232,7 @@ section:not(:last-child) {
 .section-package {
   color: black;
   height: 100vh;
+  background-image: linear-gradient(to right bottom,rgb(101, 153, 153), rgb(244, 121, 31));
   .mock-heading {
     visibility: hidden;
   }
@@ -269,6 +275,7 @@ section:not(:last-child) {
     .description-container {
       z-index: 2;
       position: relative;
+      color: $white;
       .heading {
         font-size: xx-large;
         text-transform: uppercase;
@@ -279,12 +286,13 @@ section:not(:last-child) {
       .paragraph {
         position: absolute;
         @include pxRem('top', 170);
-        @include pxRem('padding-left', 150);
+        @include pxRem('padding', 0 120);
       }
       .package-button {
         position: absolute;
         @include pxRem('top', 240);
         @include pxRem('left', 200);
+        color: $white;
       }
     }
   }
