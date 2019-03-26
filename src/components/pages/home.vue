@@ -229,27 +229,9 @@
 
 <script>
 export default {
-  mounted () {},
-  data () {
-    return {
-      invoice: [],
-      isPrStudent: false,
-      isStudent: false
-    }
-  },
-  methods: {
-    selectPrStudent: function () {
-      this.isPrStudent = true;
-      this.invoice.push({isPrStudent: this.isPrStudent});
-      console.log(this.invoice);
-    },
-    selectStudent: function () {
-      this.isStudent = true;
-      this.invoice.push({isStudent: this.isStudent});
-      console.log(this.invoice);
-    }
-  }
-}
+  name: "Home",
+  mounted() {}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
