@@ -5,28 +5,10 @@
     </div>
     <nav>
       <ul>
-        <li class="c-pointer">
-          <router-link class="nav-item" tag="li" to="/home">
-            <font-awesome-icon icon="home"/>
-            <p class="nav-text">Home</p>
-          </router-link>
-        </li>
-        <li class="c-pointer">
-          <router-link class="nav-item" tag="li" to="/viewer/contract">
-            <font-awesome-icon icon="file-contract"/>
-            <p class="nav-text">Thông Tin Hợp Đồng</p>
-          </router-link>
-        </li>
-        <li class="c-pointer">
-          <router-link class="nav-item" tag="li" to="/viewer/list-use">
-            <font-awesome-icon icon="list"/>
-            <p class="nav-text">Danh Sách Lớp</p>
-          </router-link>
-        </li>
-        <li class="c-pointer">
-          <router-link class="nav-item" tag="li" to="/viewer/info-user">
-            <font-awesome-icon icon="users"/>
-            <p class="nav-text">Dịch Vụ Cá Nhân</p>
+        <li v-for="n in navs" v-bind:key="n.key" class="c-pointer">
+          <router-link class="nav-item" tag="li" :to="n.link">
+            <font-awesome-icon :icon="n.icon"/>
+            <p class="nav-text">{{n.title}}</p>
           </router-link>
         </li>
       </ul>
@@ -45,6 +27,7 @@ export default {
       posList: 0
     };
   },
+  props: ["navs"],
   methods: {
     isActive: menuItem => {
       return this.activeItem === menuItem;

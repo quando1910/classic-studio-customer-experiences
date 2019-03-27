@@ -645,6 +645,9 @@ input {
   margin-bottom: 15px;
 }
 
+.justify-center {
+  justify-content: center;
+}
 .m-b-20 {
   margin-bottom: 20px;
 }
@@ -661,9 +664,12 @@ input {
 }
 
 .w-100 {
-  width: 100%;
+  width: 100% !important;
 }
 
+.w-50 {
+  width: 50%;
+}
 .c-pointer{
   cursor: pointer;
 }
@@ -677,6 +683,16 @@ input {
   padding-bottom: 5px;
   padding-right: 180px;
 }
+.title-button {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1.5px dashed;
+  padding-bottom: 10px;
+  align-items: center;
+  h2{
+    font-size: 30px;
+  }
+}
 
 .boder-right-none {
   border-bottom-right-radius: 0;
@@ -686,5 +702,9 @@ input {
 .boder-left-none {
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
+}
 
+.alige-center {
+  display: flex;
+  align-items: center;
 }

@@ -1,70 +1,26 @@
 <template>
   <section id="list-user" class="show-out">
-    <h2 class="title-form">Danh sách lớp</h2>
-    <el-tabs type="border-card">
-      <el-tab-pane label="Nội Dung" class>
-        <el-table
-          :data="tableData"
-          :default-sort="{prop: 'date', order: 'descending'}"
-          style="width: 100%"
-        >
-          <el-table-column prop="name" label="Họ Tên" sortable width="180"></el-table-column>
-          <el-table-column prop="phone" label="Số điện thoại" width="180"></el-table-column>
-          <el-table-column prop="address" label="Địa chỉ" :formatter="formatter"></el-table-column>
-          <el-table-column prop="facebook" label="Facebook" :formatter="formatter"></el-table-column>
-        </el-table>
-      </el-tab-pane>
-      <el-tab-pane label="Nội Dung" class>
-        <el-table
-          :data="tableData"
-          height="250"
-          :default-sort="{prop: 'date', order: 'descending'}"
-          style="width: 100%"
-        >
-          <el-table-column prop="name" label="Họ Tên" sortable width="180"></el-table-column>
-          <el-table-column prop="phone" label="Số điện thoại" width="180"></el-table-column>
-          <el-table-column prop="address" label="Địa chỉ" :formatter="formatter"></el-table-column>
-          <el-table-column prop="facebook" label="Facebook" :formatter="formatter"></el-table-column>
-        </el-table>
-      </el-tab-pane>
-    </el-tabs>
-
-    <div class="p-20 border-bottom">
-      <h3 class="title-md">Tổng hợp</h3>
-      <el-row class="m-b-10">
-        <el-col :span="7">
-          <div class="grid-content">Tổng nam</div>
-        </el-col>
-        <el-col :span="1">
-          <div class="grid-content">:</div>
-        </el-col>
-        <el-col :span="16">
-          <div class="grid-content field-contract">15</div>
-        </el-col>
-      </el-row>
-      <el-row class="m-b-10">
-        <el-col :span="7">
-          <div class="grid-content label-contract">Tổng nữ</div>
-        </el-col>
-        <el-col :span="1">
-          <div class="grid-content">:</div>
-        </el-col>
-        <el-col :span="16">
-          <div class="grid-content field-contract">30</div>
-        </el-col>
-      </el-row>
-      <el-row class="m-b-10">
-        <el-col :span="7">
-          <div class="grid-content label-contract">áo dai</div>
-        </el-col>
-        <el-col :span="1">
-          <div class="grid-content">:</div>
-        </el-col>
-        <el-col :span="16">
-          <div class="grid-content field-contract">12</div>
-        </el-col>
-      </el-row>
+    <div class="title-button">
+      <h2>Danh sách sản phẩm</h2>
+      <el-button type="warning" @click="dialogVisible = true" icon="el-icon-plus" round></el-button>
     </div>
+    <el-dialog title="Thêm sản phẩm mới" :visible.sync="dialogVisible" width="30%" class="w-dialog">
+      <el-input placeholder="Tên sản phẩm *" class="m-b-20"></el-input>
+      <el-input placeholder="Số lượng *" class="m-b-20"></el-input>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">Huỷ</el-button>
+        <el-button type="primary" @click="dialogVisible = false">Thêm</el-button>
+      </span>
+    </el-dialog>
+    <el-table
+      :data="tableData"
+      :default-sort="{prop: 'date', order: 'descending'}"
+      style="width: 100%"
+    >
+      <el-table-column prop="prod" label="Sản phẩm" sortable width="180"></el-table-column>
+      <el-table-column prop="amount" label="Tổng số lượng" width="180"></el-table-column>
+      <el-table-column prop="crunentAmount" label="Số lượng hiện tại" width="180"></el-table-column>
+    </el-table>
   </section>
 </template>
 
@@ -73,42 +29,27 @@ export default {
   mounted() {},
   data: function() {
     return {
+      dialogVisible: false,
       tableData: [
         {
-          name: "Nguyên ABC",
-          phone: "0905 700 194",
-          address: "Đà Nẵng",
-          facebook: "https://www.facebook.com/"
+          prod: "Áo dài",
+          amount: 100,
+          crunentAmount: 40
         },
         {
-          name: "Nguyên ABC",
-          phone: "0905 700 194",
-          address: "Đà Nẵng",
-          facebook: "https://www.facebook.com/"
+          prod: "Áo vest",
+          amount: 100,
+          crunentAmount: 40
         },
         {
-          name: "Nguyên ABC",
-          phone: "0905 700 194",
-          address: "Đà Nẵng",
-          facebook: "https://www.facebook.com/"
+          prod: "Đồ nông dân",
+          amount: 100,
+          crunentAmount: 40
         },
         {
-          name: "Nguyên ABC",
-          phone: "0905 700 194",
-          address: "Đà Nẵng",
-          facebook: "https://www.facebook.com/"
-        },
-        {
-          name: "Nguyên ABC",
-          phone: "0905 700 194",
-          address: "Đà Nẵng",
-          facebook: "https://www.facebook.com/"
-        },
-        {
-          name: "Nguyên ABC",
-          phone: "0905 700 194",
-          address: "Đà Nẵng",
-          facebook: "https://www.facebook.com/"
+          prod: "Đồ lao động",
+          amount: 100,
+          crunentAmount: 40
         }
       ]
     };
@@ -117,6 +58,13 @@ export default {
     formatter(row, column) {
       return row.address;
     }
+    // handleClose(done) {
+    //   this.$confirm("Are you sure to close this dialog?")
+    //     .then(_ => {
+    //       done();
+    //     })
+    //     .catch(_ => {});
+    // }
   }
 };
 </script>

@@ -5,8 +5,7 @@ export class AuthService {
   }
 
   ifNotAuthenticated = (to, from, next) => {
-    localStorage.removeItem('toPath')
-    if (localStorage.getItem('user-token')) {
+    if (!localStorage.getItem('ACCESS_TOKEN')) {
       next()
       return
     }
@@ -15,8 +14,7 @@ export class AuthService {
 
   ifAuthenticated = (to, from, next) => {
     localStorage.setItem('toPath', to.path)
-    this.toPath = to.path;
-    if (localStorage.getItem('user-token')) {
+    if (localStorage.getItem('ACCESS_TOKEN')) {
       next()
       return
     }
