@@ -2,16 +2,11 @@ import axios from 'axios';
 import { END_POINT, API_URL_DEV } from './apiRegister';
 const API_URL = 'https://jsonplaceholder.typicode.com/todos';
 export class APIService {
-  instance = axios.create({
-    baseURL: API_URL_DEV,
-    headers: {
-      'content-type': 'application/x-www-form-urlencoded',
-      'access-Token': localStorage.getItem('ACCESS_TOKEN'),
-      'uid': localStorage.getItem('UID'),
-      'client': localStorage.getItem('CLIENT')
-    }
-  });
+  instance;
+
   constructor () {
+    axios.defaults.baseURL = API_URL_DEV;
+
   }
   getContacts () {
     return axios.get(API_URL).then(response => response.data);
@@ -33,9 +28,11 @@ export class APIService {
     })
   }
   get (uri) {
+    this.setHeader()
+    console.log(localStorage.getItem('ACCESS_TOKEN'));
     const url = uri.join('/');
     return new Promise((resolve, reject) => {
-      this.instance.get(url)
+      axios.get(url)
         .then(resp => {
           resolve(resp.data)
         })
@@ -46,9 +43,10 @@ export class APIService {
   }
 
   post (uri, data) {
+    this.setHeader()
     const url = uri.join('/');
     return new Promise((resolve, reject) => {
-      this.instance.post(url, data)
+      axios.post(url, data)
         .then(resp => {
           resolve(resp.data)
         })
@@ -59,10 +57,11 @@ export class APIService {
   }
 
   multipeGets (apiRequests) {
+    this.setHeader()
     let apis = [];
     apiRequests.map(v => {
       const link = Array.isArray(v) ? v.join('/') : v;
-      apis.push(this.instance.get(link))
+      apis.push(axios.get(link))
     })
     return new Promise((resolve, reject) => {
       axios.all(apis)
@@ -71,6 +70,15 @@ export class APIService {
         })
         .catch(err => reject(err))
     })
+  }
+
+  setHeader () {
+    axios.defaults.headers = {
+      'content-type': 'application/x-www-form-urlencoded',
+      'access-Token': localStorage.getItem('ACCESS_TOKEN'),
+      'uid': localStorage.getItem('UID'),
+      'client': localStorage.getItem('CLIENT')
+    }
   }
 }
 

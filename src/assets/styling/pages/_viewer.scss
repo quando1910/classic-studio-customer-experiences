@@ -27,7 +27,6 @@
     border-radius: 10px;
   }
   .label-contract {
-    font-style: italic;
     font-size: 1.1em;
     color: $light-coral;
   }
@@ -72,6 +71,16 @@
       padding-left: 5px;
     }
   }  
+  .input-contract--time {
+    input {
+      padding-left: 35px;
+    }
+  }
+  .plain-contract {
+    margin-bottom: 10px;
+    border-bottom: 3px double;
+    padding-bottom: 10px;
+  }
   .entry {
     clear: both;
     text-align: left;
@@ -261,4 +270,5 @@
     }
   }
 }
+
 
