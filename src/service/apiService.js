@@ -74,7 +74,7 @@ export class APIService {
 
   setHeader () {
     axios.defaults.headers = {
-      'content-type': 'application/x-www-form-urlencoded',
+      'content-type': 'application/json',
       'access-Token': localStorage.getItem('ACCESS_TOKEN'),
       'uid': localStorage.getItem('UID'),
       'client': localStorage.getItem('CLIENT')

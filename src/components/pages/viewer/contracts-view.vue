@@ -2,7 +2,9 @@
   <section id="contract" class="show-out">
     <div class="title-button m-b-10">
       <h2>Nội dung hợp đồng</h2>
-      <el-button type="warning" icon="el-icon-edit-outline" round></el-button>
+      <router-link :to="this.id+'/edit'">
+        <el-button type="warning" icon="el-icon-edit-outline" round></el-button>
+      </router-link>
     </div>
     <el-tabs type="border-card">
       <el-tab-pane label="Nội Dung" class="p-20">
@@ -271,6 +273,7 @@ const api = new APIService();
 export default {
   data() {
     return {
+      id: [],
       schools: [],
       packages: [],
       properties: [],
@@ -302,14 +305,13 @@ export default {
     };
   },
   mounted() {
-    console.log();
-    const id = this.$router.history.current.params.id;
+    this.id = this.$router.history.current.params.id;
     api
       .multipeGets([
         END_POINT.schools,
         END_POINT.packages,
         END_POINT.properties,
-        [END_POINT.contracts, id]
+        [END_POINT.contracts, this.id]
       ])
       .then(data => {
         this.schools = data[0].schools;

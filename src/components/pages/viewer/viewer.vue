@@ -32,7 +32,7 @@ export default {
           link: "/home"
         },
         {
-          title: "Thông Tin Hợp Đồng",
+          title: "Danh sách Hợp Đồng",
           icon: "file-contract",
           link: "/viewer/contract"
         },

@@ -1,6 +1,11 @@
 <template>
   <section id="contract" class="show-out">
-    <h2 class="title-form">Thông tin hợp đồng</h2>
+    <div class="title-button m-b-10">
+      <h2>Danh sách hợp đồng</h2>
+      <router-link :to="'contract/add'">
+        <el-button type="warning" icon="el-icon-plus" round></el-button>
+      </router-link>
+    </div>
     <el-table
       :data="tableData"
       :default-sort="{prop: 'id', order: 'ascending'}"

@@ -75,7 +75,13 @@ const router = new Router({
           path: 'contract', component: ContractList,
         },
         {
-          path: 'contract/:id', component: Contract,
+          path: 'contract/add', component: Contract,
+        },
+        {
+          path: 'contract/:id', component: ContractView,
+        },
+        {
+          path: 'contract/:id/edit', component: Contract,
         },
         {
           path: 'list-use', component: ListUse,
