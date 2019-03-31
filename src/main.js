@@ -21,14 +21,20 @@ import {
   faFileContract,
   faList,
   faUsers,
-  faHome
+  faHome,
+  faBoxOpen,
+  faTrashAlt,
+  faSearch
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
   faFileContract,
   faList,
   faUsers,
-  faHome
+  faHome,
+  faBoxOpen,
+  faTrashAlt,
+  faSearch
 )
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.use(ElementUI)
@@ -56,10 +62,10 @@ Vue.http.headers.common[ 'Access-Control-Allow-Headers' ] = 'Access-Control-Allo
 Vue.http.headers.common[ 'X-My-Custom-Header' ] = 'Header-Value'
 Vue.http.headers.common[ 'Content-Type' ] = 'application/json'
 Vue.http.headers.common[ 'Accept' ] = 'application/json'
-Vue.http.headers.common[ 'Access-Token' ] = localStorage.getItem('ACCESS_TOKEN')
-Vue.http.headers.common[ 'Uid' ] = localStorage.getItem('UID')
-Vue.http.headers.common[ 'Provider' ] = localStorage.getItem('PROVIDER')
-
+Vue.http.headers.common[ 'access-Token' ] = localStorage.getItem('ACCESS_TOKEN')
+Vue.http.headers.common[ 'uid' ] = localStorage.getItem('UID')
+Vue.http.headers.common[ 'provider' ] = localStorage.getItem('PROVIDER')
+console.log('123');
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

@@ -1,75 +1,21 @@
 <template>
   <section id="contract" class="show-out">
-    <h2 class="title-form">Thông tin hợp đồng</h2>
+    <h2 class="title-form">Tạo hợp đồng</h2>
     <el-tabs type="border-card">
-      <el-tab-pane label="Nội Dung" class="p-20">
-        <el-row v-bind:key="field.key" v-for="field in constract" class="m-b-20 border-bottom">
-          <el-col :span="7">
-            <div class="grid-content label-contract">{{field.label}}</div>
-          </el-col>
-          <el-col :span="1">
-            <div class="grid-content">:</div>
-          </el-col>
-          <el-col :span="16">
-            <div class="grid-content field-contract">{{field.field}}</div>
-          </el-col>
-        </el-row>
-      </el-tab-pane>
-      <el-tab-pane label="Lịch trình">
+      <el-tab-pane label="Thông tin">
         <div>
-          <div class="timeline">
-            <div class="entry">
-              <div class="title">
-                <h3>8h sáng - 2018</h3>
-                <p>Công viên 29/3</p>
-              </div>
-              <div class="body">
-                <p>Trang phục</p>
-                <ul>
-                  <li>Đồ học sinh</li>
-                </ul>
-              </div>
-            </div>
-            <div class="entry">
-              <div class="title">
-                <h3>13h sáng - 2018</h3>
-                <p>Bến xe</p>
-              </div>
-              <div class="body">
-                <p>Trang phục</p>
-                <ul>
-                  <li>Đồ lao động</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </el-tab-pane>
-      <el-tab-pane label="Thơ chụp">
-        <div class="m-b-20 border-bottom">
-          <el-row>
+          <el-row class="alige-center">
             <el-col :span="7">
-              <div class="grid-content label-contract">Người chụp</div>
+              <div class="grid-content label-contract">Tên hợp đồng</div>
             </el-col>
             <el-col :span="1">
               <div class="grid-content">:</div>
             </el-col>
             <el-col :span="16">
-              <div class="grid-content field-contract">Phan Văn Việt</div>
+              <el-input class="input-contract" v-model="contract.name"></el-input>
             </el-col>
           </el-row>
-          <el-row>
-            <el-col :span="7">
-              <div class="grid-content label-contract">Vai trò</div>
-            </el-col>
-            <el-col :span="1">
-              <div class="grid-content">:</div>
-            </el-col>
-            <el-col :span="16">
-              <div class="grid-content field-contract">Lead</div>
-            </el-col>
-          </el-row>
-          <el-row>
+          <el-row class="alige-center">
             <el-col :span="7">
               <div class="grid-content label-contract">Số điện thoại</div>
             </el-col>
@@ -77,290 +23,402 @@
               <div class="grid-content">:</div>
             </el-col>
             <el-col :span="16">
-              <div class="grid-content field-contract">09231231232</div>
+              <el-input class="input-contract" v-model="contract.phone"></el-input>
             </el-col>
           </el-row>
-        </div>
-        <div class="m-b-20 border-bottom">
-          <el-row>
+          <el-row class="alige-center">
             <el-col :span="7">
-              <div class="grid-content label-contract">Người chụp</div>
+              <div class="grid-content label-contract">Trường</div>
             </el-col>
             <el-col :span="1">
               <div class="grid-content">:</div>
             </el-col>
             <el-col :span="16">
-              <div class="grid-content field-contract">Phan Văn Huy</div>
+              <el-select v-model="contract.school_id" placeholder class="input-contract w-100">
+                <el-option
+                  v-for="school in schools"
+                  :key="school.id"
+                  :label="school.name"
+                  :value="school.id"
+                ></el-option>
+              </el-select>
             </el-col>
           </el-row>
-          <el-row>
+          <el-row class="alige-center">
             <el-col :span="7">
-              <div class="grid-content label-contract">Vai trò</div>
+              <div class="grid-content label-contract">Năm học</div>
             </el-col>
             <el-col :span="1">
               <div class="grid-content">:</div>
             </el-col>
             <el-col :span="16">
-              <div class="grid-content field-contract">Support</div>
+              <el-input class="input-contract" v-model="contract.label"></el-input>
             </el-col>
           </el-row>
-          <el-row>
+          <el-row class="alige-center">
             <el-col :span="7">
-              <div class="grid-content label-contract">Số điện thoại</div>
+              <div class="grid-content label-contract">Địa chỉ</div>
             </el-col>
             <el-col :span="1">
               <div class="grid-content">:</div>
             </el-col>
             <el-col :span="16">
-              <div class="grid-content field-contract">09231231232</div>
+              <el-input class="input-contract" v-model="contract.address"></el-input>
+            </el-col>
+          </el-row>
+          <el-row class="alige-center">
+            <el-col :span="7">
+              <div class="grid-content label-contract">Nhóm/Lớp</div>
+            </el-col>
+            <el-col :span="1">
+              <div class="grid-content">:</div>
+            </el-col>
+            <el-col :span="16">
+              <el-input class="input-contract" v-model="contract.group"></el-input>
+            </el-col>
+          </el-row>
+          <el-row class="alige-center">
+            <el-col :span="7">
+              <div class="grid-content label-contract">Loại hợp đồng</div>
+            </el-col>
+            <el-col :span="1">
+              <div class="grid-content">:</div>
+            </el-col>
+            <el-col :span="16">
+              <el-input class="input-contract" v-model="contract.type"></el-input>
+            </el-col>
+          </el-row>
+          <el-row class="alige-center" v-for="(d,i) in dates" v-bind:key="i">
+            <el-col :span="7">
+              <div class="grid-content label-contract">Take date {{i+1}}</div>
+            </el-col>
+            <el-col :span="1">
+              <div class="grid-content">:</div>
+            </el-col>
+            <el-col :span="13">
+              <el-date-picker
+                class="w-100 input-contract input-contract--time"
+                v-model="d.date_taken"
+                type="date"
+                placeholder="Pick a day"
+              ></el-date-picker>
+            </el-col>
+            <el-col :span="2">
+              <el-button
+                v-if="i === dates.length - 1"
+                @click="addDate()"
+                class="borer-0"
+                icon="el-icon-plus"
+              ></el-button>
+            </el-col>
+          </el-row>
+          <el-row class="alige-center">
+            <el-col :span="7">
+              <div class="grid-content label-contract">Tổng thành viên</div>
+            </el-col>
+            <el-col :span="1">
+              <div class="grid-content">:</div>
+            </el-col>
+            <el-col :span="16">
+              <el-input class="input-contract" v-model="contract.total_member"></el-input>
+            </el-col>
+          </el-row>
+          <el-row class="alige-center">
+            <el-col :span="7">
+              <div class="grid-content label-contract">Tổng nam</div>
+            </el-col>
+            <el-col :span="1">
+              <div class="grid-content">:</div>
+            </el-col>
+            <el-col :span="16">
+              <el-input class="input-contract" v-model="contract.male_number"></el-input>
+            </el-col>
+          </el-row>
+          <el-row class="alige-center">
+            <el-col :span="7">
+              <div class="grid-content label-contract">Tổng nữ</div>
+            </el-col>
+            <el-col :span="1">
+              <div class="grid-content">:</div>
+            </el-col>
+            <el-col :span="16">
+              <el-input class="input-contract" v-model="contract.female_number"></el-input>
+            </el-col>
+          </el-row>
+          <el-row class="alige-center">
+            <el-col :span="7">
+              <div class="grid-content label-contract">Package</div>
+            </el-col>
+            <el-col :span="1">
+              <div class="grid-content">:</div>
+            </el-col>
+            <el-col :span="16">
+              <el-select v-model="package_id" placeholder class="input-contract w-100">
+                <el-option v-for="p in packages" :key="p.id" :label="p.name" :value="p.id"></el-option>
+              </el-select>
+            </el-col>
+          </el-row>
+          <el-row class="alige-center">
+            <el-col :span="7">
+              <div class="grid-content label-contract">Properties</div>
+            </el-col>
+            <el-col :span="1">
+              <div class="grid-content">:</div>
+            </el-col>
+            <el-col :span="16">
+              <el-select v-model="property_id" multiple placeholder class="input-contract w-100">
+                <el-option v-for="p in properties" :key="p.id" :label="p.name" :value="p.id"></el-option>
+              </el-select>
+            </el-col>
+          </el-row>
+          <el-row class="alige-center">
+            <el-col :span="7">
+              <div class="grid-content label-contract">Tiền cọc</div>
+            </el-col>
+            <el-col :span="1">
+              <div class="grid-content">:</div>
+            </el-col>
+            <el-col :span="16">
+              <el-input class="input-contract" v-model="contract.deposit"></el-input>
             </el-col>
           </el-row>
         </div>
       </el-tab-pane>
-      <el-tab-pane label="Xem ảnh">
-        <div class="m-b-20 border-bottom">
-          <el-row>
-            <el-col :span="7">
-              <div class="grid-content label-contract">Email</div>
-            </el-col>
-            <el-col :span="1">
-              <div class="grid-content">:</div>
-            </el-col>
-            <el-col :span="16">
-              <div class="grid-content field-contract">tranquycap</div>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="7">
-              <div class="grid-content label-contract">pwp</div>
-            </el-col>
-            <el-col :span="1">
-              <div class="grid-content">:</div>
-            </el-col>
-            <el-col :span="16">
-              <div class="grid-content field-contract">ahgsfdhgasfd</div>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="7">
-              <div class="grid-content label-contract">Driver link</div>
-            </el-col>
-            <el-col :span="1">
-              <div class="grid-content">:</div>
-            </el-col>
-            <el-col :span="16">
-              <div class="grid-content field-contract">
-                <a href="#">http://0.0.0.0:8080/viewer/contract</a>
+      <el-tab-pane label="Plan">
+        <el-tabs @tab-click="click">
+          <el-tab-pane
+            v-for="(date, index) in dates"
+            v-bind:key="index"
+            :label="'Ngày '+ (index+1)"
+          >
+            <div v-for="plan in plans" :key="plan.place">
+              <div class="plain-contract" v-if="plan.date">
+                <el-row class="alige-center">
+                  <el-col :span="7">
+                    <div class="grid-content label-contract">Nội dung</div>
+                  </el-col>
+                  <el-col :span="1">
+                    <div class="grid-content">:</div>
+                  </el-col>
+                  <el-col :span="16">
+                    <el-input class="input-contract" v-model="plan.content"></el-input>
+                  </el-col>
+                </el-row>
+                <el-row class="alige-center">
+                  <el-col :span="7">
+                    <div class="grid-content label-contract">Địa điểm</div>
+                  </el-col>
+                  <el-col :span="1">
+                    <div class="grid-content">:</div>
+                  </el-col>
+                  <el-col :span="16">
+                    <el-input class="input-contract" v-model="plan.place"></el-input>
+                  </el-col>
+                </el-row>
+                <el-row class="alige-center">
+                  <el-col :span="7">
+                    <div class="grid-content label-contract">Loại đồ</div>
+                  </el-col>
+                  <el-col :span="1">
+                    <div class="grid-content">:</div>
+                  </el-col>
+                  <el-col :span="16">
+                    <el-input class="input-contract" v-model="plan.costume"></el-input>
+                  </el-col>
+                </el-row>
+                <el-row class="alige-center">
+                  <el-col :span="7">
+                    <div class="grid-content label-contract">Thời gian</div>
+                  </el-col>
+                  <el-col :span="1">
+                    <div class="grid-content">:</div>
+                  </el-col>
+                  <el-col :span="16">
+                    <el-time-select
+                      class="w-100 input-contract input-contract--time"
+                      v-model="plan.plan_time"
+                      :picker-options="{
+                        start: '00:30',
+                        step: '00:15',
+                        end: '22:30'
+                      }"
+                      placeholder="Select time"
+                    ></el-time-select>
+                  </el-col>
+                </el-row>
+                <el-row class="alige-center">
+                  <el-col :span="7">
+                    <div class="grid-content label-contract">Thợ chụp</div>
+                  </el-col>
+                  <el-col :span="1">
+                    <div class="grid-content">:</div>
+                  </el-col>
+                  <el-col :span="16">
+                    <el-input class="input-contract" v-model="plan.photographerName"></el-input>
+                  </el-col>
+                </el-row>
+                <el-row class="alige-center">
+                  <el-col :span="7">
+                    <div class="grid-content label-contract">Vai trò</div>
+                  </el-col>
+                  <el-col :span="1">
+                    <div class="grid-content">:</div>
+                  </el-col>
+                  <el-col :span="16">
+                    <el-input class="input-contract" v-model="plan.photographerRole"></el-input>
+                  </el-col>
+                </el-row>
               </div>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="7">
-              <div class="grid-content label-contract">Loại</div>
-            </el-col>
-            <el-col :span="1">
-              <div class="grid-content">:</div>
-            </el-col>
-            <el-col :span="16">
-              <div class="grid-content field-contract">1</div>
-            </el-col>
-          </el-row>
-        </div>
+            </div>
+            <el-row class="p-20 alige-center justify-center">
+              <el-button
+                :disabled="checkDate(date.date_taken)"
+                type="warning"
+                icon="el-icon-plus"
+                @click="addPlan(date.date_taken)"
+                round
+              ></el-button>
+            </el-row>
+          </el-tab-pane>
+        </el-tabs>
       </el-tab-pane>
     </el-tabs>
+    <el-row class="p-20 alige-center">
+      <el-button class="w-100" type="primary" @click="handelCreate" plain>Tạo hợp đồng</el-button>
+    </el-row>
   </section>
 </template>
 
 <script>
+import { APIService } from "../../../service/apiService.js";
+import { API_URL_DEV, END_POINT } from "../../../service/apiRegister.js";
+import { format } from "date-fns";
+const api = new APIService();
+
 export default {
   data() {
     return {
-      activities2: [
+      schools: [],
+      packages: [],
+      package_id: "",
+      properties: [],
+      property_id: [],
+      dates: [
         {
-          content: "Custom icon",
-          timestamp: "2018-04-12 20:46",
-          size: "large",
-          type: "primary",
-          icon: "el-icon-more"
-        },
-        {
-          content: "Custom color",
-          timestamp: "2018-04-03 20:46",
-          color: "#0bbd87"
-        },
-        {
-          content: "Custom size",
-          timestamp: "2018-04-03 20:46",
-          size: "large"
-        },
-        {
-          content: "Default node",
-          timestamp: "2018-04-03 20:46"
+          date_taken: ""
         }
       ],
-      constract: [
+      plans: [
         {
-          key: 1,
-          label: "Họ tên",
-          field: "Nguyen Le Hoang"
-        },
-        {
-          key: 2,
-          label: "Số điên thoại",
-          field: "0905.700.194"
-        },
-        {
-          key: 3,
-          label: "Trường",
-          field: "Thái Phiên"
-        },
-        {
-          key: 4,
-          label: "Niên khoá",
-          field: "2009-2012"
-        },
-        {
-          key: 1,
-          label: "Họ tên",
-          field: "Nguyen Le Hoang"
-        },
-        {
-          key: 2,
-          label: "Số điên thoại",
-          field: "0905.700.194"
-        },
-        {
-          key: 3,
-          label: "Trường",
-          field: "Thái Phiên"
-        },
-        {
-          key: 4,
-          label: "Niên khoá",
-          field: "2009-2012"
-        },
-        {
-          key: 3,
-          label: "Trường",
-          field: "Thái Phiên"
-        },
-        {
-          key: 4,
-          label: "Niên khoá",
-          field: "2009-2012"
-        },
-        {
-          key: 3,
-          label: "Trường",
-          field: "Thái Phiên"
-        },
-        {
-          key: 4,
-          label: "Niên khoá",
-          field: "2009-2012"
+          date: "",
+          plan_time: "",
+          content: "",
+          place: "",
+          costume: "",
+          photographer_id: "",
+          photographer_role: ""
         }
-      ]
+      ],
+      contract: {
+        name: "",
+        group: "",
+        school_id: "",
+        phone: "",
+        address: "",
+        type: "",
+        label: "",
+        total_member: "",
+        male_number: "",
+        female_number: "",
+        deposit: "",
+        budgets_attributes: [],
+        plans_attributes: [],
+        histories_attributes: [
+          {
+            date_history: "",
+            content: "",
+            note: ""
+          }
+        ],
+        items_attributes: [{ name: "", price: "" }],
+        date_takens_attributes: []
+      }
     };
   },
-  mounted() {},
-  methods: {}
+  mounted() {
+    api
+      .multipeGets([
+        END_POINT.schools,
+        END_POINT.packages,
+        END_POINT.properties
+      ])
+      .then(data => {
+        this.schools = data[0].schools;
+        this.packages = data[1].packages;
+        this.properties = data[2].properties;
+      });
+  },
+  filters: {
+    dateFormat: function(value) {
+      if (!value) return "";
+      return format(new Date(value), "DD/MM").toString();
+    },
+    timeFormat: function(value) {
+      if (!value) return "";
+      return format(new Date(value), "hh:mm");
+    }
+  },
+  methods: {
+    handelCreate() {
+      this.contract.plans_attributes = this.plans;
+      this.contract.date_takens_attributes = this.dates;
+      this.packages.forEach(v => {
+        if (v.id === this.package_id) {
+          this.contract.budgets_attributes.push({
+            budgetable_type: "Package",
+            budgetable_id: v.id,
+            price: v.price
+          });
+        }
+      });
+      this.properties.forEach(v => {
+        if (this.property_id.includes(v.id)) {
+          this.contract.budgets_attributes.push({
+            budgetable_type: "Property",
+            budgetable_id: v.id,
+            price: v.price
+          });
+        }
+      });
+
+      api.post([END_POINT.contracts], this.contract).then(data => {});
+    },
+    click() {},
+    addPlan(date) {
+      if (this.plans.length <= 6) {
+        this.plans.push({
+          date: date,
+          plan_time: "",
+          content: "",
+          place: "",
+          costume: "",
+          photographerName: "",
+          photographerRole: ""
+        });
+      }
+    },
+    addDate() {
+      this.dates.push({
+        date_taken: ""
+      });
+    },
+    checkDate(date) {
+      return date ? false : true;
+    }
+  }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
-.label-contract {
-  font-style: italic;
-  font-size: 1.1em;
-  color: #cf8a05;
-}
-.field-contract {
-  font-size: 1em;
-  line-height: 1.4em;
-  margin-bottom: 20px;
-  color: #444;
-}
-.border-bottom {
-  border-bottom: 1px solid #dedede;
-}
-$container-shadow: 0.5rem 0.5rem 2rem 0 rgba(black, 0.2);
-$gutter: 30px;
-$border-width: 4px;
-$dot-diameter: 8px;
-
-.timeline {
-  width: 100%;
-  padding: 50px;
-  position: relative;
-  &:before {
-    content: "";
-    position: absolute;
-    top: 0px;
-    left: calc(33% + 15px); //$gutter/2
-    bottom: 0px;
-    width: $border-width;
-    background: #ddd;
-  }
-  &:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
-}
-
-.entry {
-  clear: both;
-  text-align: left;
-  position: relative;
-  .title {
-    margin-bottom: 0.5em;
-    float: left;
-    width: 33%;
-    padding-right: $gutter;
-    text-align: right;
-    position: relative;
-    &:before {
-      content: "";
-      position: absolute;
-      width: $dot-diameter;
-      height: $dot-diameter;
-      border: $border-width solid salmon;
-      background-color: #fff;
-      border-radius: 100%;
-      top: 15%;
-      right: -$dot-diameter;
-      z-index: 99;
-    }
-    h3 {
-      margin: 0;
-      font-size: 120%;
-    }
-    p {
-      margin: 0;
-      font-size: 100%;
-    }
-  }
-  .body {
-    margin: 0 0 3em;
-    float: right;
-    width: 66%;
-    padding-left: $gutter;
-    p {
-      line-height: 1.4em;
-      &:first-child {
-        margin-top: 0;
-        font-weight: 400;
-      }
-    }
-    ul {
-      color: #aaa;
-      padding-left: 0;
-      list-style-type: none;
-      li:before {
-        content: "–";
-        margin-right: 0.5em;
-      }
-    }
-  }
-}
 </style>
