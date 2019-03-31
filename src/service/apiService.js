@@ -37,5 +37,9 @@ export class APIService {
     })
     return promise;
   }
+
+  getPackages() {
+    return axios.get(API_URL_DEV + END_POINT.packages);
+  }
 }
 
