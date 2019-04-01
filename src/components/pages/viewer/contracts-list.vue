@@ -43,7 +43,6 @@ export default {
   },
   mounted() {
     api.get([END_POINT.contracts]).then(data => {
-      console.log(data);
       this.tableData = data.contracts;
     });
   },

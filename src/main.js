@@ -67,7 +67,6 @@ Vue.http.headers.common[ 'Accept' ] = 'application/json'
 Vue.http.headers.common[ 'access-Token' ] = localStorage.getItem('ACCESS_TOKEN')
 Vue.http.headers.common[ 'uid' ] = localStorage.getItem('UID')
 Vue.http.headers.common[ 'provider' ] = localStorage.getItem('PROVIDER')
-console.log('123');
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

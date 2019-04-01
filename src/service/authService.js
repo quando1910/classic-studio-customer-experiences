@@ -35,6 +35,7 @@ export class AuthService {
           localStorage.setItem('ACCESS_TOKEN', resp.headers[ 'access-token' ]) // store the token in localstorage
           localStorage.setItem('UID', resp.headers[ 'uid' ]) // store the uid in localstorage
           localStorage.setItem('CLIENT', resp.headers[ 'client' ]) // store the client in localstorage
+          localStorage.setItem('USER', JSON.stringify(resp.data.data)) // store the client in localstorage
           resolve(resp)
         })
         .catch(err => {
@@ -51,6 +52,8 @@ export class AuthService {
           localStorage.setItem('ACCESS_TOKEN', resp.headers[ 'access-token' ]) // store the token in localstorage
           localStorage.setItem('UID', resp.headers[ 'uid' ]) // store the uid in localstorage
           localStorage.setItem('CLIENT', resp.headers[ 'client' ]) // store the client in localstorage
+          localStorage.setItem('MEMBER', JSON.stringify(resp.data.member)) // store the client in localstorage
+          console.log(resp, resp.data.member)
           resolve(resp)
         })
         .catch(err => {

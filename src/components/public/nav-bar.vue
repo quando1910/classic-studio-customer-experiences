@@ -49,12 +49,6 @@ export default {
       this.$router.push("/login");
     }
   }
-  // created() {
-  //   window.addEventListener("scroll", this.handleScroll);
-  // },
-  // destroyed() {
-  //   window.removeEventListener("scroll", this.handleScroll);
-  // }
 };
 </script>
 

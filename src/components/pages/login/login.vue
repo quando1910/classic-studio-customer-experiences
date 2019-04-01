@@ -163,7 +163,6 @@ export default {
           gender
         })
         .then(v => {
-          console.log(v);
           if (v.status === 200) {
             this.currentTab = "0";
           }

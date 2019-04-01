@@ -69,7 +69,6 @@ const router = new Router({
     {
       path: '/viewer', component: Viewer,
       beforeEnter: auth.ifAuthenticated,
-      redirect: '/viewer/contract',
       children: [
         {
           path: 'contract', component: ContractList,

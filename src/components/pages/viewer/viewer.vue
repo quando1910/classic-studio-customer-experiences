@@ -35,6 +35,24 @@ export default {
           title: "Danh sách Hợp Đồng",
           icon: "file-contract",
           link: "/viewer/contract"
+        }
+      ],
+      viewerPage: "/viewer"
+    };
+  },
+  mounted() {
+    const memeber = JSON.parse(localStorage.getItem("MEMBER"));
+    if (memeber && memeber.provider === "member") {
+      this.navs = [
+        {
+          title: "Home",
+          icon: "home",
+          link: "/home"
+        },
+        {
+          title: "Thông Tin Hợp Đồng",
+          icon: "file-contract",
+          link: `/viewer/contract/${memeber.id}`
         },
         {
           title: "Danh Sách Lớp",
@@ -46,13 +64,11 @@ export default {
           icon: "users",
           link: "/viewer/info-user"
         }
-      ],
-      viewerPage: "/viewer"
-    };
+      ];
+      this.$router.push(`/viewer/contract/${memeber.id}`);
+    }
+    this.$router.push("/viewer/contract");
   },
-  // mounted() {
-  //   console.log(this.$route.path);
-  // },
   // updated() {
   //   // if (viewerPage =) {
 
@@ -62,19 +78,9 @@ export default {
   methods: {
     onSubmit() {
       console.log("submit!");
-      apiService.getContacts().then(data => {
-        console.log(data);
-      });
     }
   },
-  create: {
-    getContacts() {
-      console.log("111111");
-      apiService.getContacts().then(data => {
-        console.log(data);
-      });
-    }
-  }
+  created() {}
 };
 </script>
 

@@ -3,15 +3,15 @@ import { END_POINT, API_URL_DEV } from './apiRegister';
 export class APIService {
 
   constructor () {
-
+    axios.defaults.baseURL = API_URL_DEV;
   }
+
   getContacts () {
     return axios.get(API_URL).then(response => response.data);
   }
 
   get (uri) {
     this.setHeader()
-    console.log(localStorage.getItem('ACCESS_TOKEN'));
     const url = uri.join('/');
     return new Promise((resolve, reject) => {
       axios.get(url)

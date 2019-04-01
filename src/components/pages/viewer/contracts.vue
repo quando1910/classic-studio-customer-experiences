@@ -77,17 +77,6 @@
               <el-input class="input-contract" v-model="contract.group"></el-input>
             </el-col>
           </el-row>
-          <el-row class="alige-center">
-            <el-col :span="7">
-              <div class="grid-content label-contract">Loại hợp đồng</div>
-            </el-col>
-            <el-col :span="1">
-              <div class="grid-content">:</div>
-            </el-col>
-            <el-col :span="16">
-              <el-input class="input-contract" v-model="contract.type"></el-input>
-            </el-col>
-          </el-row>
           <el-row class="alige-center" v-for="(d,i) in dates" v-bind:key="i">
             <el-col :span="7">
               <div class="grid-content label-contract">Take date {{i+1}}</div>
@@ -95,15 +84,13 @@
             <el-col :span="1">
               <div class="grid-content">:</div>
             </el-col>
-            <el-col :span="13">
+            <el-col :span="16" class="d-flex">
               <el-date-picker
                 class="w-100 input-contract input-contract--time"
                 v-model="d.date_taken"
                 type="date"
                 placeholder="Pick a day"
               ></el-date-picker>
-            </el-col>
-            <el-col :span="2">
               <el-button
                 v-if="i === dates.length - 1"
                 @click="addDate()"
@@ -185,14 +172,17 @@
         </div>
       </el-tab-pane>
       <el-tab-pane label="Plan">
-        <el-tabs @tab-click="click">
+        <el-tabs>
           <el-tab-pane
             v-for="(date, index) in dates"
             v-bind:key="index"
             :label="'Ngày '+ (index+1)"
           >
             <div v-for="plan in plans" :key="plan.place">
-              <div class="plain-contract" v-if="plan.date">
+              <div
+                class="plain-contract"
+                v-if="plan.date && compareDate(plan.date, date.date_taken)"
+              >
                 <el-row class="alige-center">
                   <el-col :span="7">
                     <div class="grid-content label-contract">Nội dung</div>
@@ -309,15 +299,15 @@ export default {
         }
       ],
       plans: [
-        {
-          date: "",
-          plan_time: "",
-          content: "",
-          place: "",
-          costume: "",
-          photographer_id: "",
-          photographer_role: ""
-        }
+        // {
+        //   date: "",
+        //   plan_time: "",
+        //   content: "",
+        //   place: "",
+        //   costume: "",
+        //   photographer_id: "",
+        //   photographer_role: ""
+        // }
       ],
       contract: {
         name: "",
@@ -359,6 +349,10 @@ export default {
       });
   },
   filters: {
+    getDate: function(value) {
+      if (!value) return "";
+      return format(new Date(value), "YYYY-MM-DD").toString();
+    },
     dateFormat: function(value) {
       if (!value) return "";
       return format(new Date(value), "DD/MM").toString();
@@ -403,7 +397,6 @@ export default {
 
       api.post([END_POINT.contracts], this.contract).then(data => {});
     },
-    click() {},
     addPlan(date) {
       if (this.plans.length <= 6) {
         this.plans.push({
@@ -424,6 +417,10 @@ export default {
     },
     checkDate(date) {
       return date ? false : true;
+    },
+
+    compareDate(d1, d2) {
+      return d1 === format(new Date(d2), "YYYY-MM-DD").toString();
     }
   }
 };
