@@ -5,13 +5,17 @@
         <div class="content-dialog">
           <el-form ref="formMember" :model="formMember" label-width="120px">
             <el-input placeholder="Mã hợp đồng *" v-model="formMember.codeContarct" class="m-b-20"></el-input>
-            <el-input placeholder="Số Điện Thoại *" v-model="formMember.password" class="m-b-20"></el-input>
+            <el-input placeholder="Số Điện Thoại *" v-model="formMember.phone" class="m-b-20"></el-input>
             <el-row>
               <el-col :span="12">
-                <el-button class="w-100 boder-right-none" type="primary" @click="onSubmit">Đăng Nhập</el-button>
+                <el-button class="w-100 boder-right-none" @click="comeBack">Trở về</el-button>
               </el-col>
               <el-col :span="12">
-                <el-button class="w-100 boder-left-none" @click="comeBack">Trở về</el-button>
+                <el-button
+                  class="w-100 boder-left-none"
+                  type="primary"
+                  @click="loginMember"
+                >Đăng Nhập</el-button>
               </el-col>
             </el-row>
           </el-form>
@@ -29,14 +33,10 @@
             ></el-input>
             <el-row>
               <el-col :span="12">
-                <el-button
-                  class="w-100 boder-right-none"
-                  type="primary"
-                  @click="loginUser"
-                >Đăng Nhập</el-button>
+                <el-button class="w-100 boder-right-none" @click="comeBack">Trở về</el-button>
               </el-col>
               <el-col :span="12">
-                <el-button class="w-100 boder-left-none" @click="comeBack">Trở về</el-button>
+                <el-button class="w-100 boder-left-none" type="primary" @click="loginUser">Đăng Nhập</el-button>
               </el-col>
             </el-row>
           </el-form>
@@ -106,7 +106,7 @@ export default {
       ],
       formMember: {
         codeContarct: "",
-        password: ""
+        phone: ""
       },
       formUser: {
         email: "",
@@ -127,10 +127,17 @@ export default {
       console.log("submit");
     },
     loginMember() {
-      const { mcodeContarcthd, password } = this.formMember;
-      this.$store.dispatch(AUTH_REQUEST, { username, password }).then(() => {
-        this.$router.push("/");
-      });
+      const { codeContarct, phone } = this.formMember;
+      authService
+        .loginMember({ code: codeContarct, phone_number: phone })
+        .then(() => {
+          const path = authService.getToPath();
+          if (path) {
+            this.$router.push(`${path}`);
+          } else {
+            this.$router.push("/home");
+          }
+        });
     },
 
     loginUser() {

@@ -38,11 +38,28 @@ export class AuthService {
           resolve(resp)
         })
         .catch(err => {
-          localStorage.removeItem('ACCESS_TOKEN') // if the request fails, remove any possible user token if possible
+          this.logout(); // if the request fails, remove any possible user token if possible
           reject(err)
         })
     })
   }
+
+  loginMember (user) {
+    return new Promise((resolve, reject) => {
+      axios({ url: API_URL_DEV + END_POINT.loginMember, data: user, method: 'POST' })
+        .then(resp => {
+          localStorage.setItem('ACCESS_TOKEN', resp.headers[ 'access-token' ]) // store the token in localstorage
+          localStorage.setItem('UID', resp.headers[ 'uid' ]) // store the uid in localstorage
+          localStorage.setItem('CLIENT', resp.headers[ 'client' ]) // store the client in localstorage
+          resolve(resp)
+        })
+        .catch(err => {
+          this.logout(); // if the request fails, remove any possible user token if possible
+          reject(err)
+        })
+    })
+  }
+
   registerMember (member) {
     return new Promise((resolve, reject) => {
       axios({ url: API_URL_DEV + END_POINT.registerMember, data: member, method: 'POST' })

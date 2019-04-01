@@ -1,6 +1,7 @@
 export const API_URL_DEV = 'http://178.128.22.245/api/v1/';
 export const END_POINT = {
   login: 'auth/sign_in',
+  loginMember: 'member_sessions',
   contracts: 'contracts',
   packages: 'packages',
   properties: 'properties',
