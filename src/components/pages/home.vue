@@ -1,17 +1,18 @@
 <template>
 <div id="main">
+  <full-page :options="options" id="fullpage" ref="fullpage">
   <section class="section-about section" id="section-about">
     <div class="text-box">
       <h1 class="heading-primary">
         <span class="heading-primary-main">Bạn là</span>
         <span class="heading-primary-sub">Chọn để biết thêm chi tiết</span>
       </h1>
-      <a @click="choosePrStudent" href="#heading-mock" class="btn-float btn-float-white btn-hs">Học Sinh</a>
+      <a href="#heading-mock" class="btn-float btn-float-white btn-hs">Học Sinh</a>
       <a href="#heading-mock" class="btn-float btn-float-white btn-sv">Sinh viên</a>
     </div>
     <a class="arrow-down" href="#heading-mock"></a>
   </section>
-  <section v-if="isSectionPackage" class="section-package section" id="section-package">
+  <section class="section-package section" id="section-package">
     <h1 id="heading-mock" class="mock-heading">mock</h1>
       <div class="package-container">
         <div class="col-6 image-container">
@@ -30,7 +31,7 @@
       </div>
       <a class="arrow-down" href="#section-option"></a>
     </section>
-  <section v-if="isSectionOption" class="section-option section" id="section-option">
+  <section class="section-option section" id="section-option">
       <div class="container">
         <div class="option-wrapper">
           <div class="option-container">
@@ -146,7 +147,7 @@
         </div>
       </div>
     </section>
-    <section v-if="isSectionNight" class="section-night section" id="section-night">
+    <section class="section-night section" id="section-night">
       <div class="text-box">
         <h1 class="heading-primary">
           <span class="heading-primary-main">Bạn có muốn chụp đêm không?</span>
@@ -157,7 +158,7 @@
       </div>
       <a class="arrow-down" href="#section-decorate"></a>
     </section>
-    <section v-if="isSectionDecorate" class="section-decorate section" id="section-decorate">
+    <section class="section-decorate section" id="section-decorate">
       <div class="text-box">
         <h1 class="heading-primary">
           <span class="heading-primary-main">Bạn có muốn trang trí không?</span>
@@ -168,7 +169,7 @@
       </div>
         <a class="arrow-down" href="#section-vehicle"></a>
     </section>
-    <section v-if="isSectionVehicle" class="section-vehicle section" id="section-vehicle">
+    <section class="section-vehicle section" id="section-vehicle">
       <div class="text-box">
         <h1 class="heading-primary">
           <span class="heading-primary-main">Bạn có muốn thuê xe không?</span>
@@ -179,7 +180,7 @@
       </div>
       <a class="arrow-down" href="#section-invoice"></a>
     </section>
-    <section v-if="isSectionInvoice" class="section-invoice section" id="section-invoice">
+    <section class="section-invoice section" id="section-invoice">
       <div class="invoice-container">
         <table>
           <tr>
@@ -224,16 +225,46 @@
         </table>
       </div>
     </section>
+    </full-page>
+    
+    <a class="view-github" href="https://github.com/alvarotrigo/vue-fullpage.js" target="_blank">View on Github</a>
+    
+    <ul class="actions">
+        <li @click="$refs.fullpage.api.moveSectionDown()" class="actions-button">Down</li>
+        <li @click="$refs.fullpage.api.moveSectionUp()" class="actions-button">Up</li>
+        <li @click="$refs.fullpage.api.moveTo(2,2)" class="actions-button">MoveTo</li>
+        <li @click="$refs.fullpage.api.silentMoveTo(2,2)" class="actions-button">Silent Move</li>
+        <li @click="$refs.fullpage.api.moveSlideRight()" class="actions-button">Move right</li>
+        <li @click="$refs.fullpage.api.moveSlideLeft()" class="actions-button">Move lef</li>
+        <li @click="$refs.fullpage.api.setAutoScrolling(false)" class="actions-button">Set autoScroll</li>
+        <li @click="$refs.fullpage.api.setFitToSection(false)" class="actions-button">Set fitTo</li>
+        <li @click="$refs.fullpage.api.setAllowScrolling(false)" class="actions-button">Set allowScroll</li>
+        <li @click="$refs.fullpage.api.setKeyboardScrolling(false)" class="actions-button">Set keyboardScroll</li>
+        <li @click="$refs.fullpage.api.setScrollingSpeed(4000)" class="actions-button">setScrollingSpeed</li>
+        <li @click="$refs.fullpage.api.destroy('all')" class="actions-button">Destroy</li>
+        <li @click="addSection()" class="actions-button">Add section</li>
+        <li @click="removeSection()" class="actions-button">Remove section</li>
+    </ul>
   </div>
 </template>
 
 <script>
+import Vue from 'vue'
+import VueFullPage from 'vue-fullpage.js';
+Vue.use(VueFullPage);
 import { APIService } from "../../service/apiService.js";
 const apiService = new APIService();
 
 export default {
   data() {
     return {
+      viewerPage: "/home",
+      options: {
+          afterLoad: this.afterLoad,
+          navigation: true,
+          anchors: ['page1', 'page2', 'page3', 'page4', 'page5', 'page6', 'page7'],
+          sectionsColor: ['#41b883', '#ff5f45', '#0798ec', '#fec401', '#1bcee6', '#ee1a59', '#2c3e4f', '#ba5be9', '#b4b8ab']
+      },
       packages: [],
       priority0: [],
       priority1: [],
@@ -294,7 +325,52 @@ export default {
       } else {
         this.isSectionInvoice = true;
       }
-    }
+    },
+     afterLoad: function(origin, destination, direction){
+            console.log("After load....");
+            console.log(destination);
+        },
+        addSection: function(e) {
+            var newSectionNumber = document.querySelectorAll('.fp-section').length + 1
+
+            // creating the section div
+            var section = document.createElement('div')
+            section.className = 'section'
+            section.innerHTML = `<h3>Section ${newSectionNumber}</h3>`
+
+            // adding section
+            document.querySelector('#fullpage').appendChild(section)
+
+            // creating the section menu element
+            var sectionMenuItem = document.createElement('li')
+            sectionMenuItem.setAttribute('data-menuanchor', 'page' + newSectionNumber)
+            sectionMenuItem.innerHTML = `<a href="#page${newSectionNumber}">Section${newSectionNumber}</a>`
+
+            // adding anchor for the section
+            this.options.anchors.push(`page${newSectionNumber}`)
+
+            // we have to call `update` manually as DOM changes won't fire updates
+            // requires the use of the attribute ref="fullpage" on the
+            // component element, in this case, <full-page>
+            // ideally, use an ID element for that element too
+            this.$refs.fullpage.build()
+        },
+
+        removeSection: function(){
+            var sections = document.querySelector('#fullpage').querySelectorAll('.fp-section')
+            var lastSection = sections[sections.length - 1]
+
+            // removing the last section
+            lastSection.parentNode.removeChild(lastSection)
+
+            // removing the last anchor
+            this.options.anchors.pop()
+
+            // removing the last item on the sections menu
+            var sectionsMenuItems = document.querySelectorAll('#menu li')
+            var lastItem = sectionsMenuItems[sectionsMenuItems.length - 1]
+            lastItem.parentNode.removeChild(lastItem)
+        },
   },
 };
 </script>

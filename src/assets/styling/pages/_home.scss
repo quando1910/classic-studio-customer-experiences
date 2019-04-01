@@ -236,6 +236,9 @@ section:not(:last-child) {
   .mock-heading {
     visibility: hidden;
   }
+  .fp-tableCell {
+    display: block;
+  }
   .package-container {
     display: flex;
     .image-container {
