@@ -1,11 +1,11 @@
 <template >
   <section class="login" v-if="this.$route.path === viewerPage">
-    <el-tabs type="border-card">
+    <el-tabs type="border-card" :value="currentTab">
       <el-tab-pane label="Đăng Nhập Khách Hàng">
         <div class="content-dialog">
-          <el-form ref="form" :model="form" label-width="120px">
-            <el-input placeholder="Mã hợp đồng *" v-model="form.mhd" class="m-b-20"></el-input>
-            <el-input placeholder="Số Điện Thoại *" v-model="form.sdt" class="m-b-20"></el-input>
+          <el-form ref="formMember" :model="formMember" label-width="120px">
+            <el-input placeholder="Mã hợp đồng *" v-model="formMember.codeContarct" class="m-b-20"></el-input>
+            <el-input placeholder="Số Điện Thoại *" v-model="formMember.password" class="m-b-20"></el-input>
             <el-row>
               <el-col :span="12">
                 <el-button class="w-100 boder-right-none" type="primary" @click="onSubmit">Đăng Nhập</el-button>
@@ -19,9 +19,14 @@
       </el-tab-pane>
       <el-tab-pane label="Đăng Nhập Nhân Viên">
         <div class="content-dialog">
-          <el-form ref="form" :model="form" label-width="120px">
-            <el-input placeholder="Nhập đia chỉ email *" v-model="form.email" class="m-b-20"></el-input>
-            <el-input placeholder="nhập mật khẩu *" v-model="form.password" class="m-b-20"></el-input>
+          <el-form ref="formUser" :model="formUser" label-width="120px">
+            <el-input placeholder="Nhập đia chỉ email *" v-model="formUser.email" class="m-b-20"></el-input>
+            <el-input
+              placeholder="nhập mật khẩu *"
+              v-model="formUser.password"
+              class="m-b-20"
+              type="password"
+            ></el-input>
             <el-row>
               <el-col :span="12">
                 <el-button
@@ -39,17 +44,31 @@
       </el-tab-pane>
       <el-tab-pane label="Đăng Ký">
         <div class="content-dialog">
-          <el-form ref="form" :model="form" label-width="120px">
-            <el-input placeholder="Họ và Tên *" v-model="form.mhd" class="m-b-20"></el-input>
-            <el-input placeholder="Số Điện Thoại *" v-model="form.mhd" class="m-b-20"></el-input>
-            <el-input placeholder="Địa Chỉ *" v-model="form.mhd" class="m-b-20"></el-input>
-            <el-input placeholder="Link Facebook *" v-model="form.mhd" class="m-b-20"></el-input>
+          <el-form ref="formRegister" :model="formRegister" label-width="120px">
+            <el-input placeholder="Mã hợp đồng *" v-model="formRegister.mhd" class="m-b-20"></el-input>
+            <el-input placeholder="Họ và Tên *" v-model="formRegister.name" class="m-b-20"></el-input>
+            <el-input placeholder="Số Điện Thoại *" v-model="formRegister.phone" class="m-b-20"></el-input>
+            <el-input placeholder="Địa Chỉ *" v-model="formRegister.address" class="m-b-20"></el-input>
+            <el-input placeholder="Link Facebook *" v-model="formRegister.fb" class="m-b-20"></el-input>
+            <template>
+              <el-select
+                v-model="formRegister.gender"
+                placeholder="Chọn giới tính *"
+                class="m-b-20 w-100"
+              >
+                <el-option v-for="g in genders" :key="g.value" :label="g.label" :value="g.value"></el-option>
+              </el-select>
+            </template>
             <el-row>
               <el-col :span="12">
-                <el-button class="w-100 boder-right-none" type="primary" @click="onSubmit">Tạo mới</el-button>
+                <el-button class="w-100 boder-left-none" @click="comeBack">Trở về</el-button>
               </el-col>
               <el-col :span="12">
-                <el-button class="w-100 boder-left-none" @click="comeBack">Trở về</el-button>
+                <el-button
+                  class="w-100 boder-right-none"
+                  type="primary"
+                  @click="registerMember"
+                >Tạo mới</el-button>
               </el-col>
             </el-row>
           </el-form>
@@ -74,17 +93,32 @@ export default {
   data() {
     return {
       viewerPage: "/login",
-      form: {
-        mhd: "", // ma hop dong
-        sdt: "", // so dien thoai
-        email: "hoang@mail.com",
-        password: "12345678",
-        date1: "",
-        date2: "",
-        delivery: false,
-        type: [],
-        resource: "",
-        desc: ""
+      currentTab: null,
+      genders: [
+        {
+          value: 0,
+          label: "Nữ"
+        },
+        {
+          value: 1,
+          label: "Nam"
+        }
+      ],
+      formMember: {
+        codeContarct: "",
+        password: ""
+      },
+      formUser: {
+        email: "",
+        password: ""
+      },
+      formRegister: {
+        mhd: null,
+        name: null,
+        phone: null,
+        address: "",
+        fb: "",
+        gender: null
       }
     };
   },
@@ -93,14 +127,15 @@ export default {
       console.log("submit");
     },
     loginMember() {
-      const { mhd, sdt } = this;
+      const { mcodeContarcthd, password } = this.formMember;
       this.$store.dispatch(AUTH_REQUEST, { username, password }).then(() => {
         this.$router.push("/");
       });
     },
+
     loginUser() {
-      const { email, password } = this.form;
-      apiService.loginUser({ email, password }).then(() => {
+      const { email, password } = this.formUser;
+      authService.loginUser({ email, password }).then(() => {
         const path = authService.getToPath();
         if (path) {
           this.$router.push(`${path}`);
@@ -108,6 +143,24 @@ export default {
           this.$router.push("/home");
         }
       });
+    },
+    registerMember() {
+      const { mhd, name, phone, address, fb, gender } = this.formRegister;
+      authService
+        .registerMember({
+          code: mhd,
+          name,
+          phone_number: phone,
+          address,
+          link_facebook: fb,
+          gender
+        })
+        .then(v => {
+          console.log(v);
+          if (v.status === 200) {
+            this.currentTab = "0";
+          }
+        });
     },
     comeBack() {
       this.$router.push("/home");

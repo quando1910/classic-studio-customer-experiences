@@ -24,7 +24,8 @@ import {
   faHome,
   faBoxOpen,
   faTrashAlt,
-  faSearch
+  faSearch,
+  faSignOutAlt
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -34,7 +35,8 @@ library.add(
   faHome,
   faBoxOpen,
   faTrashAlt,
-  faSearch
+  faSearch,
+  faSignOutAlt
 )
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.use(ElementUI)

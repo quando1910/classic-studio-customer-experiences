@@ -4,5 +4,6 @@ export const END_POINT = {
   contracts: 'contracts',
   packages: 'packages',
   properties: 'properties',
-  schools: 'schools'
+  schools: 'schools',
+  registerMember: 'member_registrations'
 };

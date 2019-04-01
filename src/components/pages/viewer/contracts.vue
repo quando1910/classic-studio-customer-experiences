@@ -370,7 +370,17 @@ export default {
   },
   methods: {
     handelCreate() {
-      this.contract.plans_attributes = this.plans;
+      this.plans.forEach(v => {
+        console.log(`${v.date} ${v.plan_time}`);
+        this.contract.plans_attributes.push({
+          plan_time: new Date(`${v.date} ${v.plan_time}`),
+          content: v.content,
+          place: v.place,
+          costume: v.costume,
+          photographer_id: v.photographerName,
+          photographer_role: v.photographerRole
+        });
+      });
       this.contract.date_takens_attributes = this.dates;
       this.packages.forEach(v => {
         if (v.id === this.package_id) {
@@ -397,7 +407,7 @@ export default {
     addPlan(date) {
       if (this.plans.length <= 6) {
         this.plans.push({
-          date: date,
+          date: format(new Date(date), "YYYY-MM-DD"),
           plan_time: "",
           content: "",
           place: "",

@@ -1,9 +1,9 @@
 <template>
   <div class="navigate">
-    <div class="logo">
-      <img src alt>
-    </div>
     <nav>
+      <div class="logo">
+        <img src alt>
+      </div>
       <ul>
         <li v-for="n in navs" v-bind:key="n.key" class="c-pointer">
           <router-link class="nav-item" tag="li" :to="n.link">
@@ -13,10 +13,19 @@
         </li>
       </ul>
     </nav>
+    <div class="logout">
+      <button @click="logout">
+        <font-awesome-icon :icon="'sign-out-alt'"/>
+        <p class="nav-text">Đăng xuất</p>
+      </button>
+    </div>
   </div>
 </template>
 
 <script>
+import { AuthService } from "../../service/authService.js";
+const authService = new AuthService();
+
 export default {
   data() {
     return {
@@ -34,6 +43,10 @@ export default {
     },
     setActive: function(menuItem) {
       this.activeItem = menuItem; // no need for Vue.set()
+    },
+    logout() {
+      authService.logout();
+      this.$router.push("/login");
     }
   }
   // created() {
@@ -48,6 +61,9 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
 .navigate {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   background-color: black;
   color: aliceblue;
   position: fixed;
@@ -60,6 +76,7 @@ export default {
     margin: 0;
     padding: 0;
   }
+  button,
   li.nav-item {
     margin: 20px;
     border: 1px solid darkgray;
@@ -98,7 +115,21 @@ export default {
     overflow: hidden;
     white-space: nowrap;
   }
+  .logout {
+    text-align: center;
+    button {
+      margin: 20px;
+      width: 40px;
+      height: 40px;
+      color: white;
+      &:hover {
+        color: orange;
+        border: 1px solid orange;
+      }
+    }
+  }
 }
+
 @keyframes change-radius {
   0% {
     border-radius: 0;
