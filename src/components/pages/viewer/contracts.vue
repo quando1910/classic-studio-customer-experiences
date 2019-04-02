@@ -124,13 +124,14 @@
           </el-row>
           <el-row class="alige-center" v-for="(d,i) in dates" v-bind:key="i">
             <el-col :span="7">
-              <div class="grid-content label-contract">Take date {{i+1}}</div>
+              <div class="grid-content label-contract">Ngày chụp {{i+1}}</div>
             </el-col>
             <el-col :span="1">
               <div class="grid-content">:</div>
             </el-col>
             <el-col :span="16" class="d-flex">
               <el-date-picker
+                @change="updateDateTaken($event, i)"
                 class="w-100 input-contract input-contract--time"
                 v-model="d.date_taken"
                 type="date"
@@ -367,7 +368,7 @@
       <el-button
         class="w-100"
         type="primary"
-        @click="handelCreate"
+        @click="handleSubmit"
         plain
         :disabled="loading"
       >{{this.id ? 'Sửa' : 'Tạo'}} hợp đồng</el-button>
@@ -395,6 +396,7 @@ export default {
       addProperty: [],
       subProperty: [],
       dateProperty: [],
+      budgets: [],
       dates: [
         {
           date_taken: ""
@@ -482,7 +484,7 @@ export default {
     }
   },
   methods: {
-    handelCreate() {
+    handleSubmit() {
       this.loading = true;
       this.plans.forEach(v => {
         this.contract.plans_attributes.push({
@@ -502,7 +504,7 @@ export default {
       this.packages.forEach(v => {
         if (v.id === this.package_id) {
           this.contract.budgets_attributes.push({
-            id: v.id,
+            id: this.setBudgetsID(v.id, "Package"),
             budgetable_type: "Package",
             budgetable_id: v.id,
             price: v.price
@@ -512,7 +514,7 @@ export default {
       this.properties.forEach(v => {
         if (this.propertyMore.includes(v.id)) {
           this.contract.budgets_attributes.push({
-            id: v.id,
+            id: this.setBudgetsID(v.id, "Property"),
             budgetable_type: "Property",
             budgetable_id: v.id,
             price: v.price
@@ -534,7 +536,7 @@ export default {
         api.put([END_POINT.contracts, this.id], this.contract).then(
           data => {
             this.loading = false;
-            this.$router.push("/viewer/contract");
+            this.$router.push(`/viewer/contract/${this.id}`);
           },
           err => {
             this.loading = false;
@@ -587,6 +589,16 @@ export default {
         this.dateProperty = [...this.addProperty, ...this.subProperty];
       }
     },
+    setBudgetsID(id, type) {
+      console.log(this.budgets, id, type);
+      if (this.id) {
+        const budgetable = this.budgets.find(
+          v => v.budgetable_id === id && v.budgetable_type === type
+        );
+        return budgetable.id;
+      }
+      return null;
+    },
     convertData(data) {
       this.contract.name = data.name;
       this.contract.group = data.group;
@@ -598,6 +610,7 @@ export default {
       this.contract.female_number = data.female_number;
       this.contract.deposit = data.deposit;
       this.contract.school_id = data.school_id;
+      this.budgets = data.budgets;
       if (data.packages.length > 0) {
         this.package_id = data.packages[0].id;
       }
@@ -613,7 +626,7 @@ export default {
         this.contract.members_attributes.push(data.member);
       }
       this.dates = data.date_takens;
-      this.plans = data.plans;
+      // this.plans = data.plans;
       data.plans.forEach(v => {
         this.plans.push({
           id: v.id,
@@ -626,6 +639,13 @@ export default {
           photographerRole: v.photographer.role
         });
       });
+    },
+    updateDateTaken(e, index) {
+      this.dates[index].date_taken = new Date(e);
+      this.plans[index].date = format(new Date(e), "YYYY-MM-DD");
+    },
+    change() {
+      console.log(111111212121212121212);
     }
   }
 };
