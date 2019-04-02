@@ -1,16 +1,16 @@
 <template>
   <section id="contract" class="show-out">
     <div class="title-button m-b-10">
-      <h2>Danh sách hợp đồng</h2>
-      <router-link :to="'contract/add'">
+      <h2>Danh sách Thợ chụp</h2>
+      <router-link :to="'photographers/add'">
         <el-button type="warning" icon="el-icon-plus" round></el-button>
       </router-link>
     </div>
     <el-table v-loading="loading" :data="tableData" style="width: 100%" @row-click="handleDetail">
       <el-table-column prop="id" label="ID" width="80"></el-table-column>
-      <el-table-column prop="name" label="Hợp đồng" width></el-table-column>
-      <el-table-column prop="group" label="Nhóm/Lớp" width="180"></el-table-column>
-      <el-table-column prop="code" label="Mã hợp đồng" width="180"></el-table-column>
+      <el-table-column prop="name" label="Tên" width></el-table-column>
+      <el-table-column prop="phone" label="Số điện thoại" width></el-table-column>
+      <el-table-column prop="address" label="Địa chỉ" width="180"></el-table-column>
     </el-table>
   </section>
 </template>
@@ -29,9 +29,10 @@ export default {
     };
   },
   mounted() {
-    api.get([END_POINT.contracts]).then(
+    api.get([END_POINT.photographers]).then(
       data => {
-        this.tableData = data.contracts;
+        console.log(data);
+        this.tableData = data.photographers;
         this.loading = false;
       },
       err => {
@@ -42,7 +43,7 @@ export default {
   },
   methods: {
     handleDetail(row) {
-      this.$router.push(`/viewer/contract/${row.id}`);
+      // this.$router.push(`photographers/${row.id}/edit`);
     },
     handleDelete(index, row) {
       console.log(index, row);

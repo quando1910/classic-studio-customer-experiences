@@ -69,8 +69,20 @@
 </template>
 
 <script>
+import { APIService } from "../../../service/apiService.js";
+import { END_POINT } from "../../../service/apiRegister.js";
+import { format } from "date-fns";
+const api = new APIService();
+
 export default {
-  mounted() {},
+  mounted() {
+    const memeber = JSON.parse(localStorage.getItem("MEMBER"));
+    api
+      .get([END_POINT.contracts, memeber.contract_id, END_POINT.members])
+      .then(data => {
+        console.log(data);
+      });
+  },
   data: function() {
     return {
       tableData: [
