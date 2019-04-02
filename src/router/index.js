@@ -8,6 +8,8 @@ import ContractList from '@/components/pages/viewer/contracts-list'
 import ContractView from '@/components/pages/viewer/contracts-view'
 import ListUse from '@/components/pages/viewer/list-user'
 import InfoUse from '@/components/pages/viewer/info-user'
+import Photographers from '@/components/pages/viewer/photographers'
+import Photographer from '@/components/pages/viewer/photographer'
 import { AuthService } from "../service/authService";
 
 import Inventory from '@/components/pages/inventory/inventory'
@@ -87,7 +89,16 @@ const router = new Router({
         },
         {
           path: 'info-user', component: InfoUse,
-        }
+        },
+        {
+          path: 'photographers', component: Photographers,
+        },
+        {
+          path: 'photographers/add', component: Photographer,
+        },
+        // {
+        //   path: 'photographers/:id/edit', component: Photographer,
+        // }
       ]
     },
   ]

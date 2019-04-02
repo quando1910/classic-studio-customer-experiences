@@ -35,6 +35,11 @@ export default {
           title: "Danh sách Hợp Đồng",
           icon: "file-contract",
           link: "/viewer/contract"
+        },
+        {
+          title: "Danh sách Thợ chụp",
+          icon: "camera",
+          link: "/viewer/photographers"
         }
       ],
       viewerPage: "/viewer"
@@ -43,6 +48,7 @@ export default {
   mounted() {
     const memeber = JSON.parse(localStorage.getItem("MEMBER"));
     if (memeber && memeber.provider === "member") {
+      console.log(memeber);
       this.navs = [
         {
           title: "Home",
@@ -52,7 +58,7 @@ export default {
         {
           title: "Thông Tin Hợp Đồng",
           icon: "file-contract",
-          link: `/viewer/contract/${memeber.id}`
+          link: `/viewer/contract/${memeber.contract_id}`
         },
         {
           title: "Danh Sách Lớp",
@@ -65,9 +71,10 @@ export default {
           link: "/viewer/info-user"
         }
       ];
-      this.$router.push(`/viewer/contract/${memeber.id}`);
+      this.$router.push(`/viewer/contract/${memeber.contract_id}`);
+    } else {
+      this.$router.push("/viewer/contract");
     }
-    this.$router.push("/viewer/contract");
   },
   // updated() {
   //   // if (viewerPage =) {

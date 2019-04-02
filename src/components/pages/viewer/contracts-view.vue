@@ -2,7 +2,7 @@
   <section id="contract" class="show-out">
     <div class="title-button m-b-10">
       <h2>Nội dung hợp đồng</h2>
-      <router-link :to="this.id+'/edit'">
+      <router-link v-if="checkRole()" :to="this.id+'/edit'">
         <el-button type="warning" icon="el-icon-edit-outline" round></el-button>
       </router-link>
     </div>
@@ -21,13 +21,24 @@
         </el-row>
         <el-row class="m-b-20 border-bottom">
           <el-col :span="7">
+            <div class="grid-content label-contract">Tên hợp đồng</div>
+          </el-col>
+          <el-col :span="1">
+            <div class="grid-content">:</div>
+          </el-col>
+          <el-col :span="16">
+            <div class="grid-content field-contract">{{contract.name}}</div>
+          </el-col>
+        </el-row>
+        <el-row class="m-b-20 border-bottom">
+          <el-col :span="7">
             <div class="grid-content label-contract">Chủ hợp đồng</div>
           </el-col>
           <el-col :span="1">
             <div class="grid-content">:</div>
           </el-col>
           <el-col :span="16">
-            <div class="grid-content field-contract">{{contract.owner || '####' }}</div>
+            <div class="grid-content field-contract">{{contract.member.name || '####' }}</div>
           </el-col>
         </el-row>
         <el-row class="m-b-20 border-bottom">
@@ -38,40 +49,7 @@
             <div class="grid-content">:</div>
           </el-col>
           <el-col :span="16">
-            <div class="grid-content field-contract">{{contract.phone || '####' }}</div>
-          </el-col>
-        </el-row>
-        <el-row class="m-b-20 border-bottom">
-          <el-col :span="7">
-            <div class="grid-content label-contract">Số điện thoại</div>
-          </el-col>
-          <el-col :span="1">
-            <div class="grid-content">:</div>
-          </el-col>
-          <el-col :span="16">
-            <div class="grid-content field-contract">{{contract.phone || '####' }}</div>
-          </el-col>
-        </el-row>
-        <el-row class="m-b-20 border-bottom">
-          <el-col :span="7">
-            <div class="grid-content label-contract">Trường</div>
-          </el-col>
-          <el-col :span="1">
-            <div class="grid-content">:</div>
-          </el-col>
-          <el-col :span="16">
-            <div class="grid-content field-contract">{{schoolName}} {{getSchool(contract.id)}}</div>
-          </el-col>
-        </el-row>
-        <el-row class="m-b-20 border-bottom">
-          <el-col :span="7">
-            <div class="grid-content label-contract">Năm học</div>
-          </el-col>
-          <el-col :span="1">
-            <div class="grid-content">:</div>
-          </el-col>
-          <el-col :span="16">
-            <div class="grid-content field-contract">{{contract.school_year || '####' }}</div>
+            <div class="grid-content field-contract">{{contract.member.phone_number || '####' }}</div>
           </el-col>
         </el-row>
         <el-row class="m-b-20 border-bottom">
@@ -82,7 +60,29 @@
             <div class="grid-content">:</div>
           </el-col>
           <el-col :span="16">
-            <div class="grid-content field-contract">{{contract.address || '####' }}</div>
+            <div class="grid-content field-contract">{{contract.member.address || '####' }}</div>
+          </el-col>
+        </el-row>
+        <el-row class="m-b-20 border-bottom">
+          <el-col :span="7">
+            <div class="grid-content label-contract">Trường</div>
+          </el-col>
+          <el-col :span="1">
+            <div class="grid-content">:</div>
+          </el-col>
+          <el-col :span="16">
+            <div class="grid-content field-contract">{{contract.school.name}}</div>
+          </el-col>
+        </el-row>
+        <el-row class="m-b-20 border-bottom">
+          <el-col :span="7">
+            <div class="grid-content label-contract">Nhóm/lớp</div>
+          </el-col>
+          <el-col :span="1">
+            <div class="grid-content">:</div>
+          </el-col>
+          <el-col :span="16">
+            <div class="grid-content field-contract">{{contract.group}}</div>
           </el-col>
         </el-row>
         <el-row class="m-b-20 border-bottom">
@@ -93,18 +93,66 @@
             <div class="grid-content">:</div>
           </el-col>
           <el-col :span="16">
-            <div class="grid-content field-contract">{{contract.school_year || '####' }}</div>
+            <div class="grid-content field-contract">{{contract.label || '####' }}</div>
           </el-col>
         </el-row>
         <el-row class="m-b-20 border-bottom">
           <el-col :span="7">
-            <div class="grid-content label-contract">Loại hợp đồng</div>
+            <div class="grid-content label-contract">Sỉ số</div>
           </el-col>
           <el-col :span="1">
             <div class="grid-content">:</div>
           </el-col>
           <el-col :span="16">
-            <div class="grid-content field-contract">{{contract.type_contract || '####' }}</div>
+            <div class="grid-content field-contract">{{contract.total_member || '####' }}</div>
+          </el-col>
+        </el-row>
+        <el-row class="m-b-20 border-bottom">
+          <el-col :span="7">
+            <div class="grid-content label-contract">Tổng nam</div>
+          </el-col>
+          <el-col :span="1">
+            <div class="grid-content">:</div>
+          </el-col>
+          <el-col :span="16">
+            <div class="grid-content field-contract">{{contract.male_number || '####' }}</div>
+          </el-col>
+        </el-row>
+        <el-row class="m-b-20 border-bottom">
+          <el-col :span="7">
+            <div class="grid-content label-contract">Tổng nữ</div>
+          </el-col>
+          <el-col :span="1">
+            <div class="grid-content">:</div>
+          </el-col>
+          <el-col :span="16">
+            <div class="grid-content field-contract">{{contract.female_number || '####' }}</div>
+          </el-col>
+        </el-row>
+        <el-row class="m-b-20 border-bottom" v-for="(p, i) in contract.packages" v-bind:key="p.id">
+          <el-col :span="7">
+            <div class="grid-content label-contract">Gói chụp {{i+1}}</div>
+          </el-col>
+          <el-col :span="1">
+            <div class="grid-content">:</div>
+          </el-col>
+          <el-col :span="16">
+            <div class="grid-content field-contract">{{p.name || '####' }}</div>
+          </el-col>
+        </el-row>
+        <el-row
+          class="m-b-20 border-bottom"
+          v-for="(p, i) in contract.properties"
+          v-bind:key="p.id"
+        >
+          <el-col :span="7">
+            <div class="grid-content label-contract">Phụ kiện thêm {{i+1}}:</div>
+          </el-col>
+          <el-col :span="1">
+            <div class="grid-content">:</div>
+          </el-col>
+          <el-col :span="16">
+            <div class="grid-content field-contract">{{p.name || '####' }}</div>
           </el-col>
         </el-row>
         <el-row class="m-b-20 border-bottom">
@@ -128,89 +176,45 @@
                 <p>{{p.place}}</p>
               </div>
               <div class="body">
-                <p>{{p.content}}</p>
-                <p>Trang phục</p>
-                <ul>
-                  <li>{{p.costume}}</li>
-                </ul>
+                <el-row class="m-b-10">
+                  <el-col :span="7">
+                    <div>Nội dung</div>
+                  </el-col>
+                  <el-col :span="1">
+                    <div>:</div>
+                  </el-col>
+                  <el-col :span="16">
+                    <div>{{p.content || '####' }}</div>
+                  </el-col>
+                </el-row>
+                <el-row class="m-b-10">
+                  <el-col :span="7">
+                    <div>Trang phục</div>
+                  </el-col>
+                  <el-col :span="1">
+                    <div>:</div>
+                  </el-col>
+                  <el-col :span="16">
+                    <div>{{p.costume || '####' }}</div>
+                  </el-col>
+                </el-row>
+                <el-row class="m-b-10">
+                  <el-col :span="7">
+                    <div>Người chụp</div>
+                  </el-col>
+                  <el-col :span="1">
+                    <div>:</div>
+                  </el-col>
+                  <el-col :span="16">
+                    <div>{{p.photographer.name || '####' }} - {{p.photographer.role || '####' }}</div>
+                  </el-col>
+                </el-row>
               </div>
             </div>
           </div>
         </div>
       </el-tab-pane>
-      <el-tab-pane label="Thơ chụp">
-        <div class="m-b-20 border-bottom">
-          <el-row>
-            <el-col :span="7">
-              <div class="grid-content label-contract">Người chụp</div>
-            </el-col>
-            <el-col :span="1">
-              <div class="grid-content">:</div>
-            </el-col>
-            <el-col :span="16">
-              <div class="grid-content field-contract">Phan Văn Việt</div>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="7">
-              <div class="grid-content label-contract">Vai trò</div>
-            </el-col>
-            <el-col :span="1">
-              <div class="grid-content">:</div>
-            </el-col>
-            <el-col :span="16">
-              <div class="grid-content field-contract">Lead</div>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="7">
-              <div class="grid-content label-contract">Số điện thoại</div>
-            </el-col>
-            <el-col :span="1">
-              <div class="grid-content">:</div>
-            </el-col>
-            <el-col :span="16">
-              <div class="grid-content field-contract">09231231232</div>
-            </el-col>
-          </el-row>
-        </div>
-        <div class="m-b-20 border-bottom">
-          <el-row>
-            <el-col :span="7">
-              <div class="grid-content label-contract">Người chụp</div>
-            </el-col>
-            <el-col :span="1">
-              <div class="grid-content">:</div>
-            </el-col>
-            <el-col :span="16">
-              <div class="grid-content field-contract">Phan Văn Huy</div>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="7">
-              <div class="grid-content label-contract">Vai trò</div>
-            </el-col>
-            <el-col :span="1">
-              <div class="grid-content">:</div>
-            </el-col>
-            <el-col :span="16">
-              <div class="grid-content field-contract">Support</div>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="7">
-              <div class="grid-content label-contract">Số điện thoại</div>
-            </el-col>
-            <el-col :span="1">
-              <div class="grid-content">:</div>
-            </el-col>
-            <el-col :span="16">
-              <div class="grid-content field-contract">09231231232</div>
-            </el-col>
-          </el-row>
-        </div>
-      </el-tab-pane>
-      <el-tab-pane label="Xem ảnh">
+      <!-- <el-tab-pane label="Xem ảnh">
         <div class="m-b-20 border-bottom">
           <el-row>
             <el-col :span="7">
@@ -259,7 +263,7 @@
             </el-col>
           </el-row>
         </div>
-      </el-tab-pane>
+      </el-tab-pane>-->
     </el-tabs>
   </section>
 </template>
@@ -277,7 +281,18 @@ export default {
       schools: [],
       packages: [],
       properties: [],
-      contract: {},
+      contract: {
+        member: {
+          name: null,
+          phone_number: null,
+          link_facebook: null,
+          gender: null,
+          address: null
+        },
+        school: {
+          name: null
+        }
+      },
       schoolName: "",
       activities2: [
         {
@@ -317,7 +332,9 @@ export default {
         this.schools = data[0].schools;
         this.packages = data[1].packages;
         this.properties = data[2].properties;
-        this.contract = data[3].contract;
+        this.contract = data[3].contract.member
+          ? data[3].contract
+          : this.contract;
       });
   },
   filters: {
@@ -341,6 +358,10 @@ export default {
           // return v.name;
         }
       });
+    },
+    checkRole() {
+      const memeber = JSON.parse(localStorage.getItem("MEMBER"));
+      return !memeber;
     }
   }
 };

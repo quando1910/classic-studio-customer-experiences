@@ -6,5 +6,7 @@ export const END_POINT = {
   packages: 'packages',
   properties: 'properties',
   schools: 'schools',
-  registerMember: 'member_registrations'
+  registerMember: 'member_registrations',
+  photographers: 'photographers',
+  members: 'members'
 };

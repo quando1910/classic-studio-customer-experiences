@@ -38,6 +38,20 @@ export class APIService {
     })
   }
 
+  put (uri, data) {
+    this.setHeader()
+    const url = uri.join('/');
+    return new Promise((resolve, reject) => {
+      axios.put(url, data)
+        .then(resp => {
+          resolve(resp.data)
+        })
+        .catch(err => {
+          reject(err)
+        })
+    })
+  }
+
   multipeGets (apiRequests) {
     this.setHeader()
     let apis = [];
