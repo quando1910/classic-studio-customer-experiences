@@ -27,6 +27,7 @@ export class APIService {
         })
     })
   }
+  
   get (uri) {
     this.setHeader()
     console.log(localStorage.getItem('ACCESS_TOKEN'));
