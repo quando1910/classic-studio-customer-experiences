@@ -175,7 +175,7 @@
       </el-tab-pane>
       <el-tab-pane label="Lịch trình">
         <div>
-          <div class="timeline" v-if="contract.plans && contract.plans.lengh > 0">
+          <div class="timeline" v-if="contract.plans && contract.plans.length > 0">
             <div v-for="p in contract.plans" :key="p.id" class="entry">
               <div class="title">
                 <h4>{{p.plan_time | timeFormat}} - {{p.plan_time | dateFormat}}</h4>
@@ -204,18 +204,27 @@
                     <div>{{p.costume || '####' }}</div>
                   </el-col>
                 </el-row>
-                <el-row class="m-b-10">
-                  <el-col :span="7">
-                    <div>Người chụp</div>
-                  </el-col>
-                  <el-col :span="1">
-                    <div>:</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>{{p.photographer.name || '####' }} - {{p.photographer.role || '####' }}</div>
-                  </el-col>
-                </el-row>
               </div>
+            </div>
+          </div>
+        </div>
+      </el-tab-pane>
+      <el-tab-pane label="Thợ chụp">
+        <div>
+          <div v-if="contract.date_takens && contract.date_takens.length > 0">
+            <div class="m-b-10" v-for="d in contract.date_takens" :key="d.id">
+              <p class="m-b-10">Ngày chụp {{d.date_taken | dateFormat}}</p>
+              <el-row class="m-b-10" v-for="p in d.photographer_date_takens" :key="p.id">
+                <el-col :span="7">
+                  <div>Thợ</div>
+                </el-col>
+                <el-col :span="1">
+                  <div>:</div>
+                </el-col>
+                <el-col :span="16">
+                  <div>{{ p.photographer.name|| '####' }} - {{p.photographer_role}}</div>
+                </el-col>
+              </el-row>
             </div>
           </div>
         </div>
@@ -339,6 +348,7 @@ export default {
         this.packages = data[1].packages;
         this.properties = data[2].properties;
         this.contract = data[3].contract;
+        console.log(this.contract.plans, 123);
       });
   },
   filters: {

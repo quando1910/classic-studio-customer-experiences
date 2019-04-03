@@ -131,7 +131,7 @@
             </el-col>
             <el-col :span="16" class="d-flex">
               <el-date-picker
-                @change="updateDateTaken($event, i)"
+                @change="updateDateTaken($event, i, d.date_taken)"
                 class="w-100 input-contract input-contract--time"
                 v-model="d.date_taken"
                 type="date"
@@ -246,7 +246,7 @@
             v-bind:key="index"
             :label="'Ngày '+ getDate(date.date_taken)"
           >
-            <div v-for="plan in plans" :key="plan.place">
+            <div v-for="plan in plans" :key="plan.id">
               <div
                 class="plain-contract"
                 v-if="plan.date && compareDate(plan.date, date.date_taken)"
@@ -365,7 +365,13 @@
                     <div class="grid-content">:</div>
                   </el-col>
                   <el-col :span="16">
-                    <el-input class="input-contract" v-model="d.photographer_role"></el-input>
+                    <el-select
+                      v-model="d.photographer_role"
+                      placeholder
+                      class="input-contract w-100"
+                    >
+                      <el-option v-for="r in roles" :key="r" :label="r" :value="r"></el-option>
+                    </el-select>
                   </el-col>
                 </el-row>
               </div>
@@ -418,7 +424,19 @@ export default {
       dateProperty: [],
       budgets: [],
       photographersMore: [],
-      dates: [],
+      roles: [
+        "Photo Leader",
+        "Photo Portrait",
+        "Camera Man",
+        "Fresher",
+        "Decorator"
+      ],
+      dates: [
+        {
+          date_taken: "",
+          photographer_date_takens_attributes: []
+        }
+      ],
       plans: [],
       genders: [
         {
@@ -560,7 +578,7 @@ export default {
         this.plans.push({
           id: null,
           date: format(new Date(date), "YYYY-MM-DD"),
-          plan_time: null,
+          plan_time: "08:00",
           content: null,
           places: null,
           costume: []
@@ -568,10 +586,15 @@ export default {
       }
     },
     addDate() {
+      console.log(111111);
+      console.log(9090, this.plans);
+
       this.dates.push({
         date_taken: "",
         photographer_date_takens_attributes: []
       });
+      console.log(this.dates);
+      console.log(9090, this.plans);
     },
     addPhotographers(date) {
       this.dates.forEach(v => {
@@ -646,13 +669,16 @@ export default {
         this.contract.members_attributes = [];
         this.contract.members_attributes.push(data.member);
       }
-      data.date_takens.forEach(v => {
-        this.dates.push({
-          id: v.id,
-          date_taken: v.date_taken,
-          photographer_date_takens_attributes: v.photographer_date_takens
+      if (data.date_takens) {
+        this.dates = [];
+        data.date_takens.forEach(v => {
+          this.dates.push({
+            id: v.id,
+            date_taken: v.date_taken,
+            photographer_date_takens_attributes: v.photographer_date_takens
+          });
         });
-      });
+      }
       // this.plans = data.plans;
       data.plans.forEach(v => {
         this.plans.push({
@@ -665,13 +691,14 @@ export default {
         });
       });
     },
-    updateDateTaken(e, index) {
+    updateDateTaken(e, index, d) {
       if (this.dates[index]) {
         this.dates[index].date_taken = new Date(e);
       }
-      if (this.plans[index]) {
-        this.plans[index].date = format(new Date(e), "YYYY-MM-DD");
-      }
+      console.log(e, d);
+      // if (this.plans[index]) {
+      //   this.plans[index].date = format(new Date(e), "YYYY-MM-DD");
+      // }
     },
     change() {},
     getDate(value) {
