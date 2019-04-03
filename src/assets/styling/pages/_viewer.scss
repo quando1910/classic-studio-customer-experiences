@@ -27,14 +27,29 @@
     border-radius: 10px;
   }
   .label-contract {
-    font-size: 1.1em;
-    color: $light-coral;
+    @extend %label;
   }
   .field-contract {
     font-size: 1em;
     line-height: 1.4em;
     margin-bottom: 20px;
     color: #444;
+  }
+  .sub-propety {
+    border: 0;
+    border-bottom: 1px dashed;
+    border-radius: 0;
+    padding: 10px 5px;
+    color: #606266;
+    span {
+      margin-right: 5px;
+      &::after {
+        content: ','
+      }
+      &:last-child::after {
+        content: '.';
+      }
+    }
   }
   .border-bottom {
     border-bottom: 1px solid #dedede;
@@ -64,12 +79,7 @@
     }
   }
   .input-contract { 
-    input {
-      border: 0;
-      border-bottom: 1px dashed;
-      border-radius: 0;
-      padding-left: 5px;
-    }
+    @extend %input;
   }  
   .input-contract--time {
     input {
@@ -143,6 +153,14 @@
     padding: 20px;
     border-radius: 5px;
    } 
+}
+#photographers {
+  .laber-photographers {
+    @extend %label;
+  }
+  .input-photographers { 
+    @extend %input;
+  } 
 }
 
 .form-style {
