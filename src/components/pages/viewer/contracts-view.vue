@@ -1,5 +1,5 @@
 <template>
-  <section id="contract" class="show-out">
+  <section v-if="contract" id="contract" class="show-out">
     <div class="title-button m-b-10">
       <h2>Nội dung hợp đồng</h2>
       <router-link v-if="checkRole()" :to="this.id+'/edit'">
@@ -38,7 +38,9 @@
             <div class="grid-content">:</div>
           </el-col>
           <el-col :span="16">
-            <div class="grid-content field-contract">{{contract.member.name || '####' }}</div>
+            <div
+              class="grid-content field-contract"
+            >{{contract.member ? contract.member.name : '' || '####' }}</div>
           </el-col>
         </el-row>
         <el-row class="m-b-20 border-bottom">
@@ -49,7 +51,9 @@
             <div class="grid-content">:</div>
           </el-col>
           <el-col :span="16">
-            <div class="grid-content field-contract">{{contract.member.phone_number || '####' }}</div>
+            <div
+              class="grid-content field-contract"
+            >{{contract.member ? contract.member.phone_number: '' || '####' }}</div>
           </el-col>
         </el-row>
         <el-row class="m-b-20 border-bottom">
@@ -60,7 +64,9 @@
             <div class="grid-content">:</div>
           </el-col>
           <el-col :span="16">
-            <div class="grid-content field-contract">{{contract.member.address || '####' }}</div>
+            <div
+              class="grid-content field-contract"
+            >{{contract.member ? contract.member.address:'' || '####' }}</div>
           </el-col>
         </el-row>
         <el-row class="m-b-20 border-bottom">
@@ -169,7 +175,7 @@
       </el-tab-pane>
       <el-tab-pane label="Lịch trình">
         <div>
-          <div class="timeline">
+          <div class="timeline" v-if="contract.plans && contract.plans.lengh > 0">
             <div v-for="p in contract.plans" :key="p.id" class="entry">
               <div class="title">
                 <h4>{{p.plan_time | timeFormat}} - {{p.plan_time | dateFormat}}</h4>
@@ -332,20 +338,16 @@ export default {
         this.schools = data[0].schools;
         this.packages = data[1].packages;
         this.properties = data[2].properties;
-        this.contract = data[3].contract.member
-          ? data[3].contract
-          : this.contract;
+        this.contract = data[3].contract;
       });
   },
   filters: {
     dateFormat: function(value) {
       if (!value) return "";
-      console.log(typeof value);
       return format(new Date(value), "DD/MM");
     },
     timeFormat: function(value) {
       if (!value) return "";
-      console.log(typeof value);
       return format(new Date(value), "hh:mm");
     }
   },
@@ -353,7 +355,6 @@ export default {
     getSchool(id) {
       this.schools.map(v => {
         if (v.id === id) {
-          console.log("hehe", v.name);
           this.schoolName = v.name;
           // return v.name;
         }

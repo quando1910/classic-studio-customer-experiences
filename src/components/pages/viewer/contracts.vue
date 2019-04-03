@@ -244,7 +244,7 @@
           <el-tab-pane
             v-for="(date, index) in dates"
             v-bind:key="index"
-            :label="'Ngày '+ (index+1)"
+            :label="'Ngày '+ getDate(date.date_taken)"
           >
             <div v-for="plan in plans" :key="plan.place">
               <div
@@ -316,6 +316,29 @@
                     ></el-time-select>
                   </el-col>
                 </el-row>
+              </div>
+            </div>
+            <el-row class="p-20 alige-center justify-center">
+              <el-button
+                :disabled="checkDate(date.date_taken)"
+                type="warning"
+                icon="el-icon-plus"
+                @click="addPlan(date.date_taken)"
+                round
+              ></el-button>
+            </el-row>
+          </el-tab-pane>
+        </el-tabs>
+      </el-tab-pane>
+      <el-tab-pane label="Photographer">
+        <el-tabs>
+          <el-tab-pane
+            v-for="(date, index) in dates"
+            v-bind:key="index"
+            :label="'Ngày '+ getDate(date.date_taken)"
+          >
+            <div v-for="(d,i) in date.photographer_date_takens_attributes" :key="i">
+              <div class="plain-contract">
                 <el-row class="alige-center">
                   <el-col :span="7">
                     <div class="grid-content label-contract">Thợ chụp</div>
@@ -324,11 +347,7 @@
                     <div class="grid-content">:</div>
                   </el-col>
                   <el-col :span="16">
-                    <el-select
-                      v-model="plan.photographerId"
-                      placeholder
-                      class="input-contract w-100"
-                    >
+                    <el-select v-model="d.photographer_id" placeholder class="input-contract w-100">
                       <el-option
                         v-for="p in photographers"
                         :key="p.id"
@@ -346,17 +365,18 @@
                     <div class="grid-content">:</div>
                   </el-col>
                   <el-col :span="16">
-                    <el-input class="input-contract" v-model="plan.photographerRole"></el-input>
+                    <el-input class="input-contract" v-model="d.photographer_role"></el-input>
                   </el-col>
                 </el-row>
               </div>
             </div>
+
             <el-row class="p-20 alige-center justify-center">
               <el-button
                 :disabled="checkDate(date.date_taken)"
                 type="warning"
                 icon="el-icon-plus"
-                @click="addPlan(date.date_taken)"
+                @click="addPhotographers(date.date_taken)"
                 round
               ></el-button>
             </el-row>
@@ -379,7 +399,7 @@
 <script>
 import { APIService } from "../../../service/apiService.js";
 import { API_URL_DEV, END_POINT } from "../../../service/apiRegister.js";
-import { format } from "date-fns";
+import { format, isSameDay } from "date-fns";
 const api = new APIService();
 
 export default {
@@ -397,11 +417,8 @@ export default {
       subProperty: [],
       dateProperty: [],
       budgets: [],
-      dates: [
-        {
-          date_taken: ""
-        }
-      ],
+      photographersMore: [],
+      dates: [],
       plans: [],
       genders: [
         {
@@ -470,13 +487,9 @@ export default {
     }
   },
   filters: {
-    getDate: function(value) {
-      if (!value) return "";
-      return format(new Date(value), "YYYY-MM-DD").toString();
-    },
     dateFormat: function(value) {
       if (!value) return "";
-      return format(new Date(value), "DD/MM").toString();
+      return format(new Date(value), "DD/MM");
     },
     timeFormat: function(value) {
       if (!value) return "";
@@ -495,9 +508,7 @@ export default {
           costume:
             v.costume && Array.isArray(v.costume)
               ? v.costume.join(", ")
-              : v.costume,
-          photographer_id: v.photographerId,
-          photographer_role: v.photographerRole
+              : v.costume
         });
       });
       this.contract.date_takens_attributes = this.dates;
@@ -552,15 +563,26 @@ export default {
           plan_time: null,
           content: null,
           places: null,
-          costume: [],
-          photographerId: null,
-          photographerRole: null
+          costume: []
         });
       }
     },
     addDate() {
       this.dates.push({
-        date_taken: ""
+        date_taken: "",
+        photographer_date_takens_attributes: []
+      });
+    },
+    addPhotographers(date) {
+      this.dates.forEach(v => {
+        if (isSameDay(new Date(v.date_taken), new Date(date))) {
+          v.photographer_date_takens_attributes.push({
+            id: null,
+            photographer_id: null,
+            photographer_role: null,
+            _destroy: null
+          });
+        }
       });
     },
     checkDate(date) {
@@ -568,7 +590,7 @@ export default {
     },
 
     compareDate(d1, d2) {
-      return d1 === format(new Date(d2), "YYYY-MM-DD").toString();
+      return isSameDay(new Date(d1), new Date(d2));
     },
     setPropety(e) {
       const subPackage = this.packages.find(v => v.id === e);
@@ -590,7 +612,6 @@ export default {
       }
     },
     setBudgetsID(id, type) {
-      console.log(this.budgets, id, type);
       if (this.id) {
         const budgetable = this.budgets.find(
           v => v.budgetable_id === id && v.budgetable_type === type
@@ -625,7 +646,13 @@ export default {
         this.contract.members_attributes = [];
         this.contract.members_attributes.push(data.member);
       }
-      this.dates = data.date_takens;
+      data.date_takens.forEach(v => {
+        this.dates.push({
+          id: v.id,
+          date_taken: v.date_taken,
+          photographer_date_takens_attributes: v.photographer_date_takens
+        });
+      });
       // this.plans = data.plans;
       data.plans.forEach(v => {
         this.plans.push({
@@ -634,18 +661,22 @@ export default {
           plan_time: format(new Date(v.plan_time), "HH:mm"),
           content: v.content,
           places: v.place,
-          costume: v.costume.split(","),
-          photographerId: v.photographer.id,
-          photographerRole: v.photographer.role
+          costume: v.costume.split(",")
         });
       });
     },
     updateDateTaken(e, index) {
-      this.dates[index].date_taken = new Date(e);
-      this.plans[index].date = format(new Date(e), "YYYY-MM-DD");
+      if (this.dates[index]) {
+        this.dates[index].date_taken = new Date(e);
+      }
+      if (this.plans[index]) {
+        this.plans[index].date = format(new Date(e), "YYYY-MM-DD");
+      }
     },
-    change() {
-      console.log(111111212121212121212);
+    change() {},
+    getDate(value) {
+      if (!value) return "";
+      return format(new Date(value), "DD/MM");
     }
   }
 };
