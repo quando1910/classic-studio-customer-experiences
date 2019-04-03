@@ -457,6 +457,7 @@ textarea {
 body {
   color: grey;
   margin: 0 auto;
+  font-family: sans-serif;
 }
 
 html {
@@ -472,7 +473,7 @@ html {
 }
 
 h1,h2,h3,h4,h5,h6 {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  // font-family: sans-serif;
 }
 p {
   margin: 1px 0;

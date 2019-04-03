@@ -15,6 +15,7 @@ import { AuthService } from "../service/authService";
 import Inventory from '@/components/pages/inventory/inventory'
 import InventoryMain from '@/components/pages/inventory/inventory-main'
 import Status from '@/components/pages/inventory/status'
+import Contracts from '@/components/pages/contracts/contracts'
 
 
 // const Showrooms = () => import(/* webpackChunkName: "group-news" */ '@/components/showrooms.vue')
@@ -67,6 +68,10 @@ const router = new Router({
           path: 'status', component: Status,
         },
       ]
+    },
+    {
+      path: '/contracts/:token/:id',
+      component: Contracts
     },
     {
       path: '/viewer', component: Viewer,
