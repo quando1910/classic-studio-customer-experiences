@@ -17,7 +17,6 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import './assets/styling/style.scss'
 import ElementUI from 'element-ui'
-import 'timeline-vuejs/dist/timeline-vuejs.css'
 
 import {
   faFileContract,

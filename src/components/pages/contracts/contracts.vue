@@ -64,15 +64,11 @@
 
 <script>
 import { APIService } from "../../../service/apiService.js"
-import Timeline from 'timeline-vuejs'
 
 const apiService = new APIService()
 
 export default {
   name: 'Contract',
-  components: {
-    Timeline
-  },
   data() {
     return {
       activeNames: 1,
