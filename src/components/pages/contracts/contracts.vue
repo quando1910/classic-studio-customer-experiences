@@ -22,35 +22,45 @@
               <label>Họ và Tên: </label><b>Đỗ Hồng Quân</b><br>
               <label>Đơn vị: </label><b>The Classic Studio</b><br>
               <label>Địa chỉ: </label><b>43 Tống Phước Phổ, Đà Nẵng</b><br>
-              <label>SĐT: </label><b>01223420210</b><br>
+              <label>SĐT: </label><b><a :href="`tel: ${`0773420210`}`">{{`0773420210`}}</a></b><br>
             </el-col>
             <el-col :span="12">
                 <h4>Bên B</h4>
               <label>Họ và Tên: </label><b>{{contract.name}}</b><br>
               <label>Đại diện của: </label><b>{{contract.group}} - {{contract.school.name}}</b><br>
               <label>SĐT: </label>
+              <b><a :href="`tel: ${contract.member.phone_number}`">{{contract.member.phone_number}}</a></b><br>
               <!-- <b><a :href="`tel: ${contract.phone1}`">{{contract.phone1}}</a></b> -
               <b><a :href="`tel: ${contract.phone2}`">{{contract.phone2}}</a></b><br> -->
               <!-- <label>Số lượng thành viên: </label><b> {{ contract.numerator }}</b><br> -->
             </el-col>
           </el-row>
           <hr>
-          <div class="timeline">
-            <div v-for="p in contract.plans" :key="p.id" class="entry">
-              <div class="title">
-                <h4>{{p.plan_time | timeFormat}} - {{p.plan_time | dateFormat}}</h4>
-                <p>{{p.place}}</p>
-              </div>
-              <div class="body">
-                <p>{{p.content}}</p>
-                <p>Trang phục</p>
-                <ul>
-                  <li>{{p.costume}}</li>
-                </ul>
+          <div id="contract">
+            <h3 class="center-head">Lịch trình</h3>
+            <div class="timeline">
+              <div v-for="p in contract.plans" :key="p.id" class="entry">
+                <div class="title">
+                  <h4>{{p.plan_time | timeFormat}} - {{p.plan_time | dateFormat}}</h4>
+                  <p>{{p.place}}</p>
+                </div>
+                <div class="body">
+                  <p>{{p.content}}</p>
+                  <p>Trang phục</p>
+                  <ul>
+                    <li>{{p.costume}}</li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
+          <hr>
+          <div id="contract">
+            <h3 class="center-head">Thợ chụp / quay</h3>
+          </div>
+          <hr>
           <el-collapse>
+            <h3 class="center-head">Các điều khoản</h3>
             <el-collapse-item title="Các điều khoản của hợp đồng" name="4">
               <div>Điều khoản về thanh toán</div>
               <div>Điều khoản về việc thuê trang phục</div>
@@ -63,7 +73,8 @@
 </template>
 
 <script>
-import { APIService } from "../../../service/apiService.js"
+import { APIService } from "../../../service/apiService.js";
+import { format } from "date-fns";
 
 const apiService = new APIService()
 
@@ -102,8 +113,20 @@ export default {
       ]
     }
   },
+  filters: {
+    dateFormat: function(value) {
+      if (!value) return "";
+      console.log(typeof value);
+      return format(new Date(value), "DD/MM");
+    },
+    timeFormat: function(value) {
+      if (!value) return "";
+      console.log(typeof value);
+      return format(new Date(value), "hh:mm");
+    }
+  },
   created () {
-    apiService.get(['contracts','16']).then(data => {
+    apiService.get(['contracts','1']).then(data => {
       this.contract = data.contract;
       console.log(this.contract);
     })
