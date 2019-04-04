@@ -52,6 +52,20 @@ export class APIService {
     })
   }
 
+  delete (uri) {
+    this.setHeader()
+    const url = uri.join('/');
+    return new Promise((resolve, reject) => {
+      axios.delete(url)
+        .then(resp => {
+          resolve(resp.data)
+        })
+        .catch(err => {
+          reject(err)
+        })
+    })
+  }
+
   multipeGets (apiRequests) {
     this.setHeader()
     let apis = [];

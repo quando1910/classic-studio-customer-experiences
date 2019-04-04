@@ -122,7 +122,11 @@
               <el-input class="input-contract" v-model="contract.group"></el-input>
             </el-col>
           </el-row>
-          <el-row class="alige-center" v-for="(d,i) in dates" v-bind:key="i">
+          <el-row
+            class="alige-center"
+            v-for="(d,i) in contract.date_takens_attributes"
+            v-bind:key="i"
+          >
             <el-col :span="7">
               <div class="grid-content label-contract">Ngày chụp {{i+1}}</div>
             </el-col>
@@ -131,18 +135,16 @@
             </el-col>
             <el-col :span="16" class="d-flex">
               <el-date-picker
-                @change="updateDateTaken($event, i, d.date_taken)"
+                @change="updateDateTaken($event, i, d.id)"
                 class="w-100 input-contract input-contract--time"
                 v-model="d.date_taken"
                 type="date"
                 placeholder="Pick a day"
               ></el-date-picker>
-              <el-button
-                v-if="i === dates.length - 1"
-                @click="addDate()"
-                class="borer-0"
-                icon="el-icon-plus"
-              ></el-button>
+              <div class="d-flex">
+                <el-button @click="deleteDate(i, d)" class="borer-0" icon="el-icon-minus"></el-button>
+                <el-button @click="addDate()" class="borer-0" icon="el-icon-plus"></el-button>
+              </div>
             </el-col>
           </el-row>
           <el-row class="alige-center">
@@ -242,80 +244,82 @@
       <el-tab-pane label="Plan">
         <el-tabs>
           <el-tab-pane
-            v-for="(date, index) in dates"
+            v-for="(date, index) in this.contract.date_takens_attributes"
             v-bind:key="index"
             :label="'Ngày '+ getDate(date.date_taken)"
           >
-            <div v-for="plan in plans" :key="plan.id">
-              <div
-                class="plain-contract"
-                v-if="plan.date && compareDate(plan.date, date.date_taken)"
-              >
-                <el-row class="alige-center">
-                  <el-col :span="7">
-                    <div class="grid-content label-contract">Nội dung</div>
-                  </el-col>
-                  <el-col :span="1">
-                    <div class="grid-content">:</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <el-input class="input-contract" v-model="plan.content"></el-input>
-                  </el-col>
-                </el-row>
-                <el-row class="alige-center">
-                  <el-col :span="7">
-                    <div class="grid-content label-contract">Địa điểm</div>
-                  </el-col>
-                  <el-col :span="1">
-                    <div class="grid-content">:</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <el-input class="input-contract" v-model="plan.places"></el-input>
-                  </el-col>
-                </el-row>
-                <el-row class="alige-center">
-                  <el-col :span="7">
-                    <div class="grid-content label-contract">Loại đồ</div>
-                  </el-col>
-                  <el-col :span="1">
-                    <div class="grid-content">:</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <el-select
-                      multiple
-                      placeholder
-                      v-model="plan.costume"
-                      class="input-contract w-100"
-                    >
-                      <el-option
-                        v-for="dp in dateProperty"
-                        :key="dp.name"
-                        :label="dp.name"
-                        :value="dp.name"
-                      ></el-option>
-                    </el-select>
-                  </el-col>
-                </el-row>
-                <el-row class="alige-center">
-                  <el-col :span="7">
-                    <div class="grid-content label-contract">Thời gian</div>
-                  </el-col>
-                  <el-col :span="1">
-                    <div class="grid-content">:</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <el-time-select
-                      class="w-100 input-contract input-contract--time"
-                      v-model="plan.plan_time"
-                      :picker-options="{
+            <div v-for="(plan, ip) in date.plans_attributes" :key="ip">
+              <div class="alige-center" v-if="plan._destroy !== 1">
+                <div class="w-100">
+                  <el-row class="alige-center">
+                    <el-col :span="7">
+                      <div class="grid-content label-contract">Nội dung</div>
+                    </el-col>
+                    <el-col :span="1">
+                      <div class="grid-content">:</div>
+                    </el-col>
+                    <el-col :span="16">
+                      <el-input class="input-contract" v-model="plan.content"></el-input>
+                    </el-col>
+                  </el-row>
+                  <el-row class="alige-center">
+                    <el-col :span="7">
+                      <div class="grid-content label-contract">Địa điểm</div>
+                    </el-col>
+                    <el-col :span="1">
+                      <div class="grid-content">:</div>
+                    </el-col>
+                    <el-col :span="16">
+                      <el-input class="input-contract" v-model="plan.place"></el-input>
+                    </el-col>
+                  </el-row>
+                  <el-row class="alige-center">
+                    <el-col :span="7">
+                      <div class="grid-content label-contract">Loại đồ</div>
+                    </el-col>
+                    <el-col :span="1">
+                      <div class="grid-content">:</div>
+                    </el-col>
+                    <el-col :span="16">
+                      <el-select
+                        multiple
+                        placeholder
+                        v-model="plan.costume"
+                        class="input-contract w-100"
+                      >
+                        <el-option
+                          v-for="dp in dateProperty"
+                          :key="dp.name"
+                          :label="dp.name"
+                          :value="dp.name"
+                        ></el-option>
+                      </el-select>
+                    </el-col>
+                  </el-row>
+                  <el-row class="alige-center">
+                    <el-col :span="7">
+                      <div class="grid-content label-contract">Thời gian</div>
+                    </el-col>
+                    <el-col :span="1">
+                      <div class="grid-content">:</div>
+                    </el-col>
+                    <el-col :span="16">
+                      <el-time-select
+                        class="w-100 input-contract input-contract--time"
+                        v-model="plan.plan_time"
+                        :picker-options="{
                         start: '00:00',
                         step: '00:30',
                         end: '23:00'
                       }"
-                      placeholder="Select time"
-                    ></el-time-select>
-                  </el-col>
-                </el-row>
+                        placeholder="Select time"
+                      ></el-time-select>
+                    </el-col>
+                  </el-row>
+                </div>
+                <div>
+                  <el-button @click="deletePlan(index, ip)" class="borer-0" icon="el-icon-close"></el-button>
+                </div>
               </div>
             </div>
             <el-row class="p-20 alige-center justify-center">
@@ -333,47 +337,60 @@
       <el-tab-pane label="Photographer">
         <el-tabs>
           <el-tab-pane
-            v-for="(date, index) in dates"
+            v-for="(date, index) in contract.date_takens_attributes"
             v-bind:key="index"
             :label="'Ngày '+ getDate(date.date_taken)"
           >
-            <div v-for="(d,i) in date.photographer_date_takens_attributes" :key="i">
-              <div class="plain-contract">
-                <el-row class="alige-center">
-                  <el-col :span="7">
-                    <div class="grid-content label-contract">Thợ chụp</div>
-                  </el-col>
-                  <el-col :span="1">
-                    <div class="grid-content">:</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <el-select v-model="d.photographer_id" placeholder class="input-contract w-100">
-                      <el-option
-                        v-for="p in photographers"
-                        :key="p.id"
-                        :label="p.name"
-                        :value="p.id"
-                      ></el-option>
-                    </el-select>
-                  </el-col>
-                </el-row>
-                <el-row class="alige-center">
-                  <el-col :span="7">
-                    <div class="grid-content label-contract">Vai trò</div>
-                  </el-col>
-                  <el-col :span="1">
-                    <div class="grid-content">:</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <el-select
-                      v-model="d.photographer_role"
-                      placeholder
-                      class="input-contract w-100"
-                    >
-                      <el-option v-for="r in roles" :key="r" :label="r" :value="r"></el-option>
-                    </el-select>
-                  </el-col>
-                </el-row>
+            <div v-for="(d,ip) in date.photographer_date_takens_attributes" :key="ip">
+              <div class="plain-contract alige-center" v-if="d._destroy !== 1">
+                <div class="w-100">
+                  <el-row class="alige-center">
+                    <el-col :span="7">
+                      <div class="grid-content label-contract">Thợ chụp</div>
+                    </el-col>
+                    <el-col :span="1">
+                      <div class="grid-content">:</div>
+                    </el-col>
+                    <el-col :span="16">
+                      <el-select
+                        v-model="d.photographer_id"
+                        placeholder
+                        class="input-contract w-100"
+                      >
+                        <el-option
+                          v-for="p in photographers"
+                          :key="p.id"
+                          :label="p.name"
+                          :value="p.id"
+                        ></el-option>
+                      </el-select>
+                    </el-col>
+                  </el-row>
+                  <el-row class="alige-center">
+                    <el-col :span="7">
+                      <div class="grid-content label-contract">Vai trò</div>
+                    </el-col>
+                    <el-col :span="1">
+                      <div class="grid-content">:</div>
+                    </el-col>
+                    <el-col :span="16">
+                      <el-select
+                        v-model="d.photographer_role"
+                        placeholder
+                        class="input-contract w-100"
+                      >
+                        <el-option v-for="r in roles" :key="r" :label="r" :value="r"></el-option>
+                      </el-select>
+                    </el-col>
+                  </el-row>
+                </div>
+                <div>
+                  <el-button
+                    @click="deletePhotographers(index, ip)"
+                    class="borer-0"
+                    icon="el-icon-close"
+                  ></el-button>
+                </div>
               </div>
             </div>
 
@@ -431,12 +448,6 @@ export default {
         "Fresher",
         "Decorator"
       ],
-      dates: [
-        {
-          date_taken: "",
-          photographer_date_takens_attributes: []
-        }
-      ],
       plans: [],
       genders: [
         {
@@ -461,7 +472,6 @@ export default {
         female_number: "",
         deposit: "",
         budgets_attributes: [],
-        plans_attributes: [],
         histories_attributes: [
           {
             date_history: "",
@@ -470,7 +480,13 @@ export default {
           }
         ],
         items_attributes: [{ name: "", price: "" }],
-        date_takens_attributes: [],
+        date_takens_attributes: [
+          {
+            date_taken: "",
+            plans_attributes: [],
+            photographer_date_takens_attributes: []
+          }
+        ],
         members_attributes: [
           {
             name: null,
@@ -517,19 +533,11 @@ export default {
   methods: {
     handleSubmit() {
       this.loading = true;
-      this.plans.forEach(v => {
-        this.contract.plans_attributes.push({
-          id: v.id,
-          plan_time: new Date(`${v.date} ${v.plan_time}`),
-          content: v.content,
-          place: v.places,
-          costume:
-            v.costume && Array.isArray(v.costume)
-              ? v.costume.join(", ")
-              : v.costume
+      this.contract.date_takens_attributes.forEach(v => {
+        v.plans_attributes.forEach(p => {
+          p.costume = p.costume.join(", ");
         });
       });
-      this.contract.date_takens_attributes = this.dates;
       this.packages.forEach(v => {
         if (v.id === this.package_id) {
           this.contract.budgets_attributes.push({
@@ -550,7 +558,6 @@ export default {
           });
         }
       });
-
       if (!this.id) {
         api.post([END_POINT.contracts], this.contract).then(
           data => {
@@ -574,39 +581,77 @@ export default {
       }
     },
     addPlan(date) {
-      if (this.plans.length <= 6) {
-        this.plans.push({
-          id: null,
-          date: format(new Date(date), "YYYY-MM-DD"),
-          plan_time: "08:00",
-          content: null,
-          places: null,
-          costume: []
-        });
-      }
+      this.contract.date_takens_attributes.forEach(v => {
+        if (this.compareDate(date, v.date_taken)) {
+          v.plans_attributes.push({
+            id: null,
+            plan_time: "08:00",
+            content: null,
+            places: null,
+            costume: [],
+            _destroy: 0
+          });
+        }
+      });
     },
-    addDate() {
-      console.log(111111);
-      console.log(9090, this.plans);
+    deletePlan(dateIndex, planIdex) {
+      this.contract.date_takens_attributes[dateIndex].plans_attributes[
+        planIdex
+      ]._destroy = 1;
+      this.$forceUpdate();
+    },
 
-      this.dates.push({
+    addDate() {
+      this.contract.date_takens_attributes.push({
         date_taken: "",
+        plans_attributes: [],
         photographer_date_takens_attributes: []
       });
-      console.log(this.dates);
-      console.log(9090, this.plans);
+    },
+    deleteDate(index, date) {
+      this.loading = true;
+      this.contract.date_takens_attributes.splice(index, 1);
+      if ((this.id, date.id)) {
+        api
+          .delete([
+            END_POINT.contracts,
+            this.id,
+            END_POINT.date_takens,
+            date.id
+          ])
+          .then(result => {
+            this.convertData(result.contract);
+            this.loading = false;
+          });
+      }
+      if (this.contract.date_takens_attributes.length === 0) {
+        this.contract.date_takens_attributes = [
+          {
+            date_taken: "",
+            plans_attributes: [],
+            photographer_date_takens_attributes: []
+          }
+        ];
+      }
+      this.loading = false;
     },
     addPhotographers(date) {
-      this.dates.forEach(v => {
-        if (isSameDay(new Date(v.date_taken), new Date(date))) {
+      this.contract.date_takens_attributes.forEach(v => {
+        if (this.compareDate(v.date_taken, date)) {
           v.photographer_date_takens_attributes.push({
             id: null,
             photographer_id: null,
             photographer_role: null,
-            _destroy: null
+            _destroy: 0
           });
         }
       });
+    },
+    deletePhotographers(dateIndex, planIdex) {
+      this.contract.date_takens_attributes[
+        dateIndex
+      ].photographer_date_takens_attributes[planIdex]._destroy = 1;
+      this.$forceUpdate();
     },
     checkDate(date) {
       return date ? false : true;
@@ -616,6 +661,7 @@ export default {
       return isSameDay(new Date(d1), new Date(d2));
     },
     setPropety(e) {
+      this.subProperty = [];
       const subPackage = this.packages.find(v => v.id === e);
       this.subProperty = subPackage ? subPackage.properties : this.subProperty;
       this.setDateProperty();
@@ -665,42 +711,44 @@ export default {
         });
         this.setMorePropety();
       }
+
       if (data.member) {
         this.contract.members_attributes = [];
         this.contract.members_attributes.push(data.member);
       }
       if (data.date_takens) {
-        this.dates = [];
+        this.contract.date_takens_attributes = [];
         data.date_takens.forEach(v => {
-          this.dates.push({
+          this.contract.date_takens_attributes.push({
             id: v.id,
             date_taken: v.date_taken,
+            plans_attributes: v.plans,
             photographer_date_takens_attributes: v.photographer_date_takens
           });
         });
-      }
-      // this.plans = data.plans;
-      data.plans.forEach(v => {
-        this.plans.push({
-          id: v.id,
-          date: format(new Date(v.plan_time), "YYYY-MM-DD"),
-          plan_time: format(new Date(v.plan_time), "HH:mm"),
-          content: v.content,
-          places: v.place,
-          costume: v.costume.split(",")
+        this.contract.date_takens_attributes.forEach(v => {
+          v.plans_attributes.forEach(p => {
+            p.costume = p.costume ? p.costume.split(", ") : [];
+          });
         });
-      });
-    },
-    updateDateTaken(e, index, d) {
-      if (this.dates[index]) {
-        this.dates[index].date_taken = new Date(e);
       }
-      console.log(e, d);
-      // if (this.plans[index]) {
-      //   this.plans[index].date = format(new Date(e), "YYYY-MM-DD");
-      // }
+      if (this.contract.date_takens_attributes.length === 0) {
+        this.contract.date_takens_attributes = [
+          {
+            date_taken: "",
+            plans_attributes: [],
+            photographer_date_takens_attributes: []
+          }
+        ];
+      }
+      this.$forceUpdate();
     },
-    change() {},
+    updateDateTaken(e, index, id) {
+      this.contract.date_takens_attributes[index];
+      this.contract.date_takens_attributes[index].date_taken = new Date(e);
+    },
+
+    test() {},
     getDate(value) {
       if (!value) return "";
       return format(new Date(value), "DD/MM");

@@ -175,35 +175,37 @@
       </el-tab-pane>
       <el-tab-pane label="Lịch trình">
         <div>
-          <div class="timeline" v-if="contract.plans && contract.plans.length > 0">
-            <div v-for="p in contract.plans" :key="p.id" class="entry">
-              <div class="title">
-                <h4>{{p.plan_time | timeFormat}} - {{p.plan_time | dateFormat}}</h4>
-                <p>{{p.place}}</p>
-              </div>
-              <div class="body">
-                <el-row class="m-b-10">
-                  <el-col :span="7">
-                    <div>Nội dung</div>
-                  </el-col>
-                  <el-col :span="1">
-                    <div>:</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>{{p.content || '####' }}</div>
-                  </el-col>
-                </el-row>
-                <el-row class="m-b-10">
-                  <el-col :span="7">
-                    <div>Trang phục</div>
-                  </el-col>
-                  <el-col :span="1">
-                    <div>:</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>{{p.costume || '####' }}</div>
-                  </el-col>
-                </el-row>
+          <div class="timeline" v-if="contract.date_takens && contract.date_takens.length > 0">
+            <div v-for="date in contract.date_takens" :key="date.id" class="entry">
+              <div v-for="p in date.plans" :key="p.id">
+                <div class="title">
+                  <h4>{{p.plan_time | timeFormat}} - {{p.plan_time | dateFormat}}</h4>
+                  <p>{{p.place}}</p>
+                </div>
+                <div class="body">
+                  <el-row class="m-b-10">
+                    <el-col :span="7">
+                      <div>Nội dung</div>
+                    </el-col>
+                    <el-col :span="1">
+                      <div>:</div>
+                    </el-col>
+                    <el-col :span="16">
+                      <div>{{p.content || '####' }}</div>
+                    </el-col>
+                  </el-row>
+                  <el-row class="m-b-10">
+                    <el-col :span="7">
+                      <div>Trang phục</div>
+                    </el-col>
+                    <el-col :span="1">
+                      <div>:</div>
+                    </el-col>
+                    <el-col :span="16">
+                      <div>{{p.costume || '####' }}</div>
+                    </el-col>
+                  </el-row>
+                </div>
               </div>
             </div>
           </div>
@@ -212,7 +214,7 @@
       <el-tab-pane label="Thợ chụp">
         <div>
           <div v-if="contract.date_takens && contract.date_takens.length > 0">
-            <div class="m-b-10" v-for="d in contract.date_takens" :key="d.id">
+            <div class="border-b-dack m-b-10" v-for="d in contract.date_takens" :key="d.id">
               <p class="m-b-10">Ngày chụp {{d.date_taken | dateFormat}}</p>
               <el-row class="m-b-10" v-for="p in d.photographer_date_takens" :key="p.id">
                 <el-col :span="7">
