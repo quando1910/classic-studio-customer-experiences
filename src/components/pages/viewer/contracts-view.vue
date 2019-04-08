@@ -176,8 +176,8 @@
       <el-tab-pane label="Lịch trình">
         <div>
           <div class="timeline" v-if="contract.date_takens && contract.date_takens.length > 0">
-            <div v-for="date in contract.date_takens" :key="date.id" class="entry">
-              <div v-for="p in date.plans" :key="p.id">
+            <div v-for="date in contract.date_takens" :key="date.id">
+              <div v-for="p in date.plans" :key="p.id" class="entry">
                 <div class="title">
                   <h4>{{p.plan_time | timeFormat}} - {{p.plan_time | dateFormat}}</h4>
                   <p>{{p.place}}</p>
@@ -359,7 +359,7 @@ export default {
     },
     timeFormat: function(value) {
       if (!value) return "";
-      return format(new Date(value), "hh:mm");
+      return format(new Date(value), "HH:mm");
     }
   },
   methods: {
