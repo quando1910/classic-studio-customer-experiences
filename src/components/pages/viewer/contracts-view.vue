@@ -350,7 +350,6 @@ export default {
         this.packages = data[1].packages;
         this.properties = data[2].properties;
         this.contract = data[3].contract;
-        console.log(this.contract.plans, 123);
       });
   },
   filters: {
