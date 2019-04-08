@@ -1,5 +1,5 @@
 <template>
-  <section id="contract" class="show-out">
+  <section v-if="contract" id="contract" class="show-out">
     <div class="title-button m-b-10">
       <h2>Nội dung hợp đồng</h2>
       <router-link v-if="checkRole()" :to="this.id+'/edit'">
@@ -38,7 +38,9 @@
             <div class="grid-content">:</div>
           </el-col>
           <el-col :span="16">
-            <div class="grid-content field-contract">{{contract.member.name || '####' }}</div>
+            <div
+              class="grid-content field-contract"
+            >{{contract.member ? contract.member.name : '' || '####' }}</div>
           </el-col>
         </el-row>
         <el-row class="m-b-20 border-bottom">
@@ -49,7 +51,9 @@
             <div class="grid-content">:</div>
           </el-col>
           <el-col :span="16">
-            <div class="grid-content field-contract">{{contract.member.phone_number || '####' }}</div>
+            <div
+              class="grid-content field-contract"
+            >{{contract.member ? contract.member.phone_number: '' || '####' }}</div>
           </el-col>
         </el-row>
         <el-row class="m-b-20 border-bottom">
@@ -60,7 +64,9 @@
             <div class="grid-content">:</div>
           </el-col>
           <el-col :span="16">
-            <div class="grid-content field-contract">{{contract.member.address || '####' }}</div>
+            <div
+              class="grid-content field-contract"
+            >{{contract.member ? contract.member.address:'' || '####' }}</div>
           </el-col>
         </el-row>
         <el-row class="m-b-20 border-bottom">
@@ -169,47 +175,58 @@
       </el-tab-pane>
       <el-tab-pane label="Lịch trình">
         <div>
-          <div class="timeline">
-            <div v-for="p in contract.plans" :key="p.id" class="entry">
-              <div class="title">
-                <h4>{{p.plan_time | timeFormat}} - {{p.plan_time | dateFormat}}</h4>
-                <p>{{p.place}}</p>
+          <div class="timeline" v-if="contract.date_takens && contract.date_takens.length > 0">
+            <div v-for="date in contract.date_takens" :key="date.id" class="entry">
+              <div v-for="p in date.plans" :key="p.id">
+                <div class="title">
+                  <h4>{{p.plan_time | timeFormat}} - {{p.plan_time | dateFormat}}</h4>
+                  <p>{{p.place}}</p>
+                </div>
+                <div class="body">
+                  <el-row class="m-b-10">
+                    <el-col :span="7">
+                      <div>Nội dung</div>
+                    </el-col>
+                    <el-col :span="1">
+                      <div>:</div>
+                    </el-col>
+                    <el-col :span="16">
+                      <div>{{p.content || '####' }}</div>
+                    </el-col>
+                  </el-row>
+                  <el-row class="m-b-10">
+                    <el-col :span="7">
+                      <div>Trang phục</div>
+                    </el-col>
+                    <el-col :span="1">
+                      <div>:</div>
+                    </el-col>
+                    <el-col :span="16">
+                      <div>{{p.costume || '####' }}</div>
+                    </el-col>
+                  </el-row>
+                </div>
               </div>
-              <div class="body">
-                <el-row class="m-b-10">
-                  <el-col :span="7">
-                    <div>Nội dung</div>
-                  </el-col>
-                  <el-col :span="1">
-                    <div>:</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>{{p.content || '####' }}</div>
-                  </el-col>
-                </el-row>
-                <el-row class="m-b-10">
-                  <el-col :span="7">
-                    <div>Trang phục</div>
-                  </el-col>
-                  <el-col :span="1">
-                    <div>:</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>{{p.costume || '####' }}</div>
-                  </el-col>
-                </el-row>
-                <el-row class="m-b-10">
-                  <el-col :span="7">
-                    <div>Người chụp</div>
-                  </el-col>
-                  <el-col :span="1">
-                    <div>:</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div>{{p.photographer.name || '####' }} - {{p.photographer.role || '####' }}</div>
-                  </el-col>
-                </el-row>
-              </div>
+            </div>
+          </div>
+        </div>
+      </el-tab-pane>
+      <el-tab-pane label="Thợ chụp">
+        <div>
+          <div v-if="contract.date_takens && contract.date_takens.length > 0">
+            <div class="border-b-dack m-b-10" v-for="d in contract.date_takens" :key="d.id">
+              <p class="m-b-10">Ngày chụp {{d.date_taken | dateFormat}}</p>
+              <el-row class="m-b-10" v-for="p in d.photographer_date_takens" :key="p.id">
+                <el-col :span="7">
+                  <div>Thợ</div>
+                </el-col>
+                <el-col :span="1">
+                  <div>:</div>
+                </el-col>
+                <el-col :span="16">
+                  <div>{{ p.photographer.name|| '####' }} - {{p.photographer_role}}</div>
+                </el-col>
+              </el-row>
             </div>
           </div>
         </div>
@@ -332,20 +349,17 @@ export default {
         this.schools = data[0].schools;
         this.packages = data[1].packages;
         this.properties = data[2].properties;
-        this.contract = data[3].contract.member
-          ? data[3].contract
-          : this.contract;
+        this.contract = data[3].contract;
+        console.log(this.contract.plans, 123);
       });
   },
   filters: {
     dateFormat: function(value) {
       if (!value) return "";
-      console.log(typeof value);
       return format(new Date(value), "DD/MM");
     },
     timeFormat: function(value) {
       if (!value) return "";
-      console.log(typeof value);
       return format(new Date(value), "hh:mm");
     }
   },
@@ -353,7 +367,6 @@ export default {
     getSchool(id) {
       this.schools.map(v => {
         if (v.id === id) {
-          console.log("hehe", v.name);
           this.schoolName = v.name;
           // return v.name;
         }

@@ -8,5 +8,6 @@ export const END_POINT = {
   schools: 'schools',
   registerMember: 'member_registrations',
   photographers: 'photographers',
-  members: 'members'
+  members: 'members',
+  date_takens: 'date_takens'
 };
