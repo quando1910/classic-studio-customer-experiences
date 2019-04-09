@@ -440,6 +440,11 @@ export default {
       subProperty: [],
       dateProperty: [],
       budgets: [],
+      staticProperty: [
+        { name: "Đồng phục đi học" },
+        { name: "Trang phục tự do" },
+        { name: "Trang phục áo lớp" }
+      ],
       photographersMore: [],
       roles: [
         "Photo Leader",
@@ -677,7 +682,8 @@ export default {
     },
     setDateProperty() {
       if (this.addProperty.length > 0 || this.subProperty.length > 0) {
-        this.dateProperty = [...this.addProperty, ...this.subProperty];
+        console.log(this.addProperty);
+        this.dateProperty = [...this.addProperty, ...this.subProperty, ...this.staticProperty];
       }
     },
     setBudgetsID(id, type) {

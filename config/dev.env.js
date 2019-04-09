@@ -4,7 +4,7 @@ const prodEnv = require('./prod.env')
 
 module.exports = merge(prodEnv, {
   NODE_ENV: '"development"',
-  SERVER_IP: '"http://localhost:3000"',
+  SERVER_IP: '"http://178.128.22.245"',
   SERVER_IP2: '"http://localhost:9999"',
   APP_ID: '"884618848377974"',
   VERSION: '"v2.11"',
