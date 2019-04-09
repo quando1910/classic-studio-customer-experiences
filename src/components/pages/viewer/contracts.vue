@@ -1,6 +1,9 @@
 <template>
   <section id="contract" class="show-out">
-    <h2 class="title-form">{{this.id ? 'Sửa' : 'Tạo mới'}} hợp đồng</h2>
+    <div class="title-button m-b-10">
+      <h2>{{this.id ? 'Sửa' : 'Tạo mới'}} hợp đồng</h2>
+      <el-button v-if="this.id" type="warning" icon="el-icon-delete" round @click="handleDelete"></el-button>
+    </div>
     <el-tabs v-loading="loading" type="border-card">
       <el-tab-pane label="Thông tin">
         <div>
@@ -321,6 +324,7 @@
                   <el-button @click="deletePlan(index, ip)" class="borer-0" icon="el-icon-close"></el-button>
                 </div>
               </div>
+              <hr>
             </div>
             <el-row class="p-20 alige-center justify-center">
               <el-button
@@ -541,6 +545,9 @@ export default {
       this.contract.date_takens_attributes.forEach(v => {
         v.plans_attributes.forEach(p => {
           p.costume = p.costume.join(", ");
+          p.plan_time = new Date(
+            format(new Date(v.date_taken), "YYYY/MM/DD") + " " + p.plan_time
+          );
         });
       });
       this.packages.forEach(v => {
@@ -584,6 +591,17 @@ export default {
           }
         );
       }
+    },
+    handleDelete() {
+      api.delete([END_POINT.contracts, this.id]).then(
+        data => {
+          this.loading = false;
+          this.$router.push(`/viewer/contract`);
+        },
+        err => {
+          this.loading = false;
+        }
+      );
     },
     addPlan(date) {
       this.contract.date_takens_attributes.forEach(v => {
@@ -682,7 +700,6 @@ export default {
     },
     setDateProperty() {
       if (this.addProperty.length > 0 || this.subProperty.length > 0) {
-        console.log(this.addProperty);
         this.dateProperty = [...this.addProperty, ...this.subProperty, ...this.staticProperty];
       }
     },
@@ -735,6 +752,7 @@ export default {
         this.contract.date_takens_attributes.forEach(v => {
           v.plans_attributes.forEach(p => {
             p.costume = p.costume ? p.costume.split(", ") : [];
+            p.plan_time = format(new Date(p.plan_time), "HH:mm");
           });
         });
       }
