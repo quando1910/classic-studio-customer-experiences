@@ -242,6 +242,47 @@
               <el-input class="input-contract" v-model="contract.deposit"></el-input>
             </el-col>
           </el-row>
+          <el-row class="alige-center">
+            <el-col :span="7">
+              <div class="grid-content label-contract">Trạng thái ảnh</div>
+            </el-col>
+            <el-col :span="1">
+              <div class="grid-content">:</div>
+            </el-col>
+            <el-col :span="16">
+              <el-select
+                @change="setPropety"
+                v-model="package_id"
+                placeholder
+                class="input-contract w-100"
+              >
+                <el-option v-for="p in packages" :key="p.id" :label="p.name" :value="p.id"></el-option>
+              </el-select>
+            </el-col>
+          </el-row>
+          <el-row class="alige-center">
+            <el-col :span="7">
+              <div class="grid-content label-contract">Trạng thái video</div>
+            </el-col>
+            <el-col :span="1">
+              <div class="grid-content">:</div>
+            </el-col>
+            <el-col :span="16">
+              <el-select
+                @change="setPropety"
+                v-model="package_id"
+                placeholder
+                class="input-contract w-100"
+              >
+                <el-option v-for="p in packages" :key="p.id" :label="p.name" :value="p.id"></el-option>
+              </el-select>
+            </el-col>
+          </el-row>
+          <el-row class="alige-center">
+            <el-col :span="7">
+               <el-checkbox v-model="checked">Trạng thái thanh toán</el-checkbox>
+            </el-col>
+          </el-row>
         </div>
       </el-tab-pane>
       <el-tab-pane label="Plan">
@@ -520,6 +561,7 @@ export default {
       .then(data => {
         this.schools = data[0].schools;
         this.packages = data[1].packages;
+        console.log(this.packages);
         this.properties = data[2].properties;
         this.photographers = data[3].photographers;
       });
@@ -753,7 +795,8 @@ export default {
           v.plans_attributes.forEach(p => {
             p.costume = p.costume ? p.costume.split(", ") : [];
             p.plan_time = format(new Date(p.plan_time), "HH:mm");
-          });
+
+});
         });
       }
       if (this.contract.date_takens_attributes.length === 0) {

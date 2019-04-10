@@ -16,7 +16,7 @@ import Inventory from '@/components/pages/inventory/inventory'
 import InventoryMain from '@/components/pages/inventory/inventory-main'
 import Status from '@/components/pages/inventory/status'
 import Contracts from '@/components/pages/contracts/contracts'
-
+import Payment from '@/components/pages/contracts/payment'
 
 // const Showrooms = () => import(/* webpackChunkName: "group-news" */ '@/components/showrooms.vue')
 // const Preview = () => import(/* webpackChunkName: "group-news" */ '@/components/post/post-preview')
@@ -88,6 +88,9 @@ const router = new Router({
         },
         {
           path: 'contract/:id/edit', component: Contract,
+        },
+        {
+          path: 'contract/:id/payment', component: Payment,
         },
         {
           path: 'list-use', component: ListUse,
