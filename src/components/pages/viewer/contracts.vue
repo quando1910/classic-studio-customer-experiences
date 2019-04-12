@@ -192,12 +192,13 @@
             </el-col>
             <el-col :span="16">
               <el-select
+                multiple
                 @change="setPropety"
                 v-model="package_id"
                 placeholder
                 class="input-contract w-100"
               >
-                <el-option v-for="p in packages" :key="p.id" :label="p.name" :value="p.id"></el-option>
+                <el-option v-for="p in packages" :key="p.id" :label="p.name" :value="p.id" :disabled="priorities.includes(p.priority)"></el-option>
               </el-select>
             </el-col>
           </el-row>
@@ -209,7 +210,7 @@
               <div class="grid-content">:</div>
             </el-col>
             <el-col :span="16" class="sub-propety">
-              <span v-for="sp in this.subProperty" v-bind:key="sp.id">{{sp.name}}</span>
+              <span v-for="sp in subProperty" v-bind:key="sp.id">{{sp.name}}</span>
             </el-col>
           </el-row>
           <el-row class="alige-center">
@@ -242,7 +243,7 @@
               <el-input class="input-contract" v-model="contract.deposit"></el-input>
             </el-col>
           </el-row>
-          <el-row class="alige-center">
+          <!-- <el-row class="alige-center">
             <el-col :span="7">
               <div class="grid-content label-contract">Trạng thái ảnh</div>
             </el-col>
@@ -259,8 +260,8 @@
                 <el-option v-for="p in packages" :key="p.id" :label="p.name" :value="p.id"></el-option>
               </el-select>
             </el-col>
-          </el-row>
-          <el-row class="alige-center">
+          </el-row> -->
+          <!-- <el-row class="alige-center">
             <el-col :span="7">
               <div class="grid-content label-contract">Trạng thái video</div>
             </el-col>
@@ -277,12 +278,7 @@
                 <el-option v-for="p in packages" :key="p.id" :label="p.name" :value="p.id"></el-option>
               </el-select>
             </el-col>
-          </el-row>
-          <el-row class="alige-center">
-            <el-col :span="7">
-               <el-checkbox v-model="checked">Trạng thái thanh toán</el-checkbox>
-            </el-col>
-          </el-row>
+          </el-row> -->
         </div>
       </el-tab-pane>
       <el-tab-pane label="Plan">
@@ -474,11 +470,12 @@ export default {
   data() {
     return {
       id: null,
+      priorities: [],
       loading: false,
       photographers: [],
       schools: [],
       packages: [],
-      package_id: "",
+      package_id: [],
       properties: [],
       propertyMore: [],
       addProperty: [],
@@ -593,7 +590,7 @@ export default {
         });
       });
       this.packages.forEach(v => {
-        if (v.id === this.package_id) {
+        if (this.package_id.includes(v.id)) {
           this.contract.budgets_attributes.push({
             id: this.setBudgetsID(v.id, "Package"),
             budgetable_type: "Package",
@@ -613,6 +610,7 @@ export default {
         }
       });
       if (!this.id) {
+        console.log(this.contract);
         api.post([END_POINT.contracts], this.contract).then(
           data => {
             this.loading = false;
@@ -727,8 +725,13 @@ export default {
     },
     setPropety(e) {
       this.subProperty = [];
-      const subPackage = this.packages.find(v => v.id === e);
-      this.subProperty = subPackage ? subPackage.properties : this.subProperty;
+      const subPackage = this.packages.filter(v => e.includes(v.id));
+      this.priorities = subPackage.map(x => x.priority);
+      if(subPackage.length > 0) {
+        subPackage.forEach(x => {
+          this.subProperty = [...this.subProperty, ...x.properties];
+        })
+      }
       this.setDateProperty();
     },
     setMorePropety(e) {
@@ -767,7 +770,7 @@ export default {
       this.contract.school_id = data.school_id;
       this.budgets = data.budgets;
       if (data.packages.length > 0) {
-        this.package_id = data.packages[0].id;
+        this.package_id = data.packages.map(x => x.id);
       }
       this.setPropety(this.package_id);
       if (data.properties && data.properties.length > 0) {

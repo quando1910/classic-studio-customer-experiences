@@ -45,6 +45,7 @@
       <div class="grid-content label-contract">Tổng cộng: <b>{{budgets.reduce((x,y) => { return x.price * x.quantity + y.price * y.quantity}) | dateMoney}}</b></div>
       <div class="grid-content label-contract">Đặt cọc: <b>{{deposit | dateMoney}}</b></div>
       <div class="grid-content label-contract">Số tiền còn lại phải trả: <b>{{(budgets.reduce((x,y) => { return x.price * x.quantity + y.price * y.quantity}) - deposit) | dateMoney}}</b></div>
+      <el-tag type="success" v-if="payment == 2">Đã hoàn tất thanh toán</el-tag>
     </div>
     <el-row class="alige-center">
       <el-col :span="7">
@@ -58,14 +59,37 @@
       </el-col>
       <el-col :span="1">
       </el-col>
-      <el-col :span="16">
+      <el-col :span="16"   v-if="payment == 0">
         <el-button
           class="w-100"
           type="primary"
-          @click="paymentContract"
+          @click="verifyContract"
           plain
           :disabled="loading"
-        > Thanh toán hợp đồng</el-button>
+        > Xác thực thông tin thanh toán
+        </el-button>
+      </el-col>
+      <el-col :span="7"  v-if="payment == 1">
+        <el-button
+          v-if="payment == 1"
+          class="w-100"
+          type="primary"
+          @click="lockContract"
+          plain
+          :disabled="loading"> 
+          Khóa thanh toán
+        </el-button>
+      </el-col>
+      <el-col :span="1" v-if="payment == 1">
+      </el-col>
+      <el-col :span="8"  v-if="payment == 1">
+        <el-button
+          @click="open7"  
+          class="w-100"
+          type="success"
+          plain>
+          Thanh toán hợp đồng
+        </el-button>
       </el-col>
     </el-row>
   </div>
@@ -83,7 +107,8 @@ export default {
   data() {
     return {
       budgets:  [],
-      deposit: null
+      deposit: null,
+      payment: null
     }
   }, 
   filters: {
@@ -94,6 +119,7 @@ export default {
   created() {
     api.get([END_POINT.contracts, this.$route.params.id]).then(data => {
       this.deposit = data.contract.deposit;
+      this.payment = data.contract.payment_status;
       data.contract.budgets.forEach(x => {
         let obj = {};
         if (x.budgetable_type === 'Package') {
@@ -104,7 +130,9 @@ export default {
           obj.type = 1;
         }
         obj.quantity = x.quantity;
+        obj.id = x.id;
         obj.price = x.price;
+        obj.note = x.note;
         obj.total = obj.quantity * obj.price;
         this.budgets.push(obj);
       })
@@ -119,12 +147,69 @@ export default {
       }
       return '';
     },
-    paymentContract() {
-      this.$message({
-        message: 'Thanh toán hợp đồng thành công!',
-        type: 'success'
+    lockContract() {
+      let payment = {};
+      payment.payment_status = 0;
+      api.put([END_POINT.contracts, this.$route.params.id], payment).then(
+        data => {
+          this.payment = 0;
+          this.$message({
+            message: 'Đã khóa thanh toán!',
+            type: 'message'
+          });
+        },
+        err => {
+        }
+      );
+    },
+    open7() {
+      this.$confirm('Bạn có chắc muốn thanh toán hợp đồng này không?', 'Success', {
+        confirmButtonText: 'OK',
+        cancelButtonText: 'Cancel',
+        type: 'success',
+        center: true
+      }).then(() => {
+        this.paymentContract();
+      }).catch(() => {
       });
-      this.$router.push(`/viewer/contract/${this.$route.params.id}`);
+    },
+    paymentContract() {
+      let payment = {};
+      payment.budgets_attributes = this.budgets;
+      payment.paid_at = new Date();
+      payment.payment_status = 2;
+      api.put([END_POINT.contracts, this.$route.params.id], payment).then(
+        data => {
+          this.$message({
+            message: 'Thanh toán hợp đồng thành công!',
+            type: 'success'
+          });
+          this.$router.push(`/viewer/contract/${this.$route.params.id}`);
+        },
+        err => {
+          this.$router.push(`/viewer/contract/${this.$route.params.id}`);
+        }
+      );
+    },
+    verifyContract() {
+      let payment = {};
+      payment.budgets_attributes = this.budgets;
+      payment.payment_status = 1;
+      api.put([END_POINT.contracts, this.$route.params.id], payment).then(
+        data => {
+          this.payment = 1;
+          this.$message({
+            message: 'Đã xác nhận thông tin thanh toán!',
+            type: 'message'
+          });
+        },
+        err => {
+          this.$message({
+            message: 'Lỗi xác nhận!',
+            type: 'error'
+          });
+        }
+      );
     },
     goBack() {
       this.$router.push(`/viewer/contract/${this.$route.params.id}`);

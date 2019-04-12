@@ -18,28 +18,10 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import './assets/styling/style.scss'
 import ElementUI from 'element-ui'
 
-import {
-  faFileContract,
-  faList,
-  faUsers,
-  faHome,
-  faBoxOpen,
-  faTrashAlt,
-  faSearch,
-  faSignOutAlt,
-  faCamera
-} from '@fortawesome/free-solid-svg-icons'
+import { fas } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
-  faFileContract,
-  faList,
-  faUsers,
-  faHome,
-  faBoxOpen,
-  faTrashAlt,
-  faSearch,
-  faSignOutAlt,
-  faCamera
+  fas
 )
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.use(ElementUI)
