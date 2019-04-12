@@ -2,9 +2,14 @@
   <section v-if="contract" id="contract" class="show-out">
     <div class="title-button m-b-10">
       <h2>Nội dung hợp đồng</h2>
-      <router-link v-if="checkRole()" :to="this.id+'/edit'">
-        <el-button type="warning" icon="el-icon-edit-outline" round></el-button>
-      </router-link>
+      <div>
+        <router-link v-if="checkRole()" :to="this.id+'/edit'">
+          <el-button type="warning" icon="el-icon-edit-outline" round>Chỉnh sửa</el-button>
+        </router-link>
+        <router-link v-if="checkRole()" :to="this.id+'/payment'">
+          <el-button type="success" icon="el-icon-tickets" round>Thanh toán</el-button>
+        </router-link>
+      </div>
     </div>
     <el-tabs type="border-card">
       <el-tab-pane label="Nội Dung" class="p-20">

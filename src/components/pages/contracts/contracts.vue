@@ -38,18 +38,37 @@
           <hr>
           <div id="contract">
             <h3 class="center-head">Lịch trình</h3>
-            <div class="timeline">
-              <div v-for="p in contract.plans" :key="p.id" class="entry">
-                <div class="title">
-                  <h4>{{p.plan_time | timeFormat}} - {{p.plan_time | dateFormat}}</h4>
-                  <p>{{p.place}}</p>
-                </div>
-                <div class="body">
-                  <p>{{p.content}}</p>
-                  <p>Trang phục</p>
-                  <ul>
-                    <li>{{p.costume}}</li>
-                  </ul>
+            <div class="timeline" v-if="contract.date_takens && contract.date_takens.length > 0">
+              <div v-for="date in contract.date_takens" :key="date.id">
+                <div v-for="p in date.plans" :key="p.id" class="entry">
+                  <div class="title">
+                    <h4>{{p.plan_time | timeFormat}} - {{p.plan_time | dateFormat}}</h4>
+                    <p>{{p.place}}</p>
+                  </div>
+                  <div class="body">
+                    <el-row class="m-b-10">
+                      <el-col :span="4">
+                        <div>Nội dung</div>
+                      </el-col>
+                      <el-col :span="1">
+                        <div>:</div>
+                      </el-col>
+                      <el-col :span="16">
+                        <div>{{p.content || '####' }}</div>
+                      </el-col>
+                    </el-row>
+                    <el-row class="m-b-10">
+                      <el-col :span="4">
+                        <div>Trang phục</div>
+                      </el-col>
+                      <el-col :span="1">
+                        <div>:</div>
+                      </el-col>
+                      <el-col :span="16">
+                        <div>{{p.costume || '####' }}</div>
+                      </el-col>
+                    </el-row>
+                  </div>
                 </div>
               </div>
             </div>
@@ -126,7 +145,7 @@ export default {
     }
   },
   created () {
-    apiService.get(['contracts','1']).then(data => {
+    apiService.get(['contracts', this.$route.params.id]).then(data => {
       this.contract = data.contract;
       console.log(this.contract);
     })

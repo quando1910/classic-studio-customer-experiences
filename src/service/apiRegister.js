@@ -3,6 +3,7 @@ export const END_POINT = {
   login: 'auth/sign_in',
   loginMember: 'member_sessions',
   contracts: 'contracts',
+  dateTakens: 'date_takens',
   packages: 'packages',
   properties: 'properties',
   schools: 'schools',
