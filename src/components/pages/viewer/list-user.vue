@@ -90,15 +90,15 @@
           <div class="grid-content field-contract">{{contract.female_number}}</div>
         </el-col>
       </el-row>
-      <el-row class="m-b-10" c>
+      <el-row class="m-b-10" v-for="p in contract.properties" v-bind:key="p.id">
         <el-col :span="7">
-          <div class="grid-content label-contract">áo dai</div>
+          <div class="grid-content label-contract">{{p.name}}</div>
         </el-col>
         <el-col :span="1">
           <div class="grid-content">:</div>
         </el-col>
         <el-col :span="16">
-          <div class="grid-content field-contract">12</div>
+          <div class="grid-content field-contract">{{p.total}}</div>
         </el-col>
       </el-row>
     </div>
@@ -138,11 +138,6 @@ export default {
   methods: {
     formatter(row, column) {
       return row.address;
-    },
-    checkMember(id) {
-      // this.member = JSON.parse(JSON.stringify(localStorage.getItem("MEMBER")));
-      // console.log(1, id, this.member);
-      // return member.id === id;
     },
     handleEdit(index, row) {
       console.log(index, row.member_properties);

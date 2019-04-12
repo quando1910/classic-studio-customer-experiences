@@ -198,7 +198,13 @@
                 placeholder
                 class="input-contract w-100"
               >
-                <el-option v-for="p in packages" :key="p.id" :label="p.name" :value="p.id" :disabled="priorities.includes(p.priority)"></el-option>
+                <el-option
+                  v-for="p in packages"
+                  :key="p.id"
+                  :label="p.name"
+                  :value="p.id"
+                  :disabled="priorities.includes(p.priority)"
+                ></el-option>
               </el-select>
             </el-col>
           </el-row>
@@ -260,7 +266,7 @@
                 <el-option v-for="p in packages" :key="p.id" :label="p.name" :value="p.id"></el-option>
               </el-select>
             </el-col>
-          </el-row> -->
+          </el-row>-->
           <!-- <el-row class="alige-center">
             <el-col :span="7">
               <div class="grid-content label-contract">Trạng thái video</div>
@@ -278,7 +284,7 @@
                 <el-option v-for="p in packages" :key="p.id" :label="p.name" :value="p.id"></el-option>
               </el-select>
             </el-col>
-          </el-row> -->
+          </el-row>-->
         </div>
       </el-tab-pane>
       <el-tab-pane label="Plan">
@@ -590,7 +596,9 @@ export default {
         });
       });
       this.packages.forEach(v => {
+        console.log(this.package_id);
         if (this.package_id.includes(v.id)) {
+          console.log(v.id);
           this.contract.budgets_attributes.push({
             id: this.setBudgetsID(v.id, "Package"),
             budgetable_type: "Package",
@@ -727,10 +735,10 @@ export default {
       this.subProperty = [];
       const subPackage = this.packages.filter(v => e.includes(v.id));
       this.priorities = subPackage.map(x => x.priority);
-      if(subPackage.length > 0) {
+      if (subPackage.length > 0) {
         subPackage.forEach(x => {
           this.subProperty = [...this.subProperty, ...x.properties];
-        })
+        });
       }
       this.setDateProperty();
     },
@@ -745,7 +753,11 @@ export default {
     },
     setDateProperty() {
       if (this.addProperty.length > 0 || this.subProperty.length > 0) {
-        this.dateProperty = [...this.addProperty, ...this.subProperty, ...this.staticProperty];
+        this.dateProperty = [
+          ...this.addProperty,
+          ...this.subProperty,
+          ...this.staticProperty
+        ];
       }
     },
     setBudgetsID(id, type) {
@@ -753,7 +765,7 @@ export default {
         const budgetable = this.budgets.find(
           v => v.budgetable_id === id && v.budgetable_type === type
         );
-        return budgetable.id;
+        return budgetable ? budgetable.id : null;
       }
       return null;
     },
@@ -798,8 +810,7 @@ export default {
           v.plans_attributes.forEach(p => {
             p.costume = p.costume ? p.costume.split(", ") : [];
             p.plan_time = format(new Date(p.plan_time), "HH:mm");
-
-});
+          });
         });
       }
       if (this.contract.date_takens_attributes.length === 0) {
