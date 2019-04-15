@@ -16,10 +16,30 @@
           <el-table v-loading="loading" :data="dateContracts" style="width: 100%">
             <el-table-column type="expand">
               <template slot-scope="props">
-                <p>State: {{ props.row.state }}</p>
-                <p>City: {{ props.row.city }}</p>
-                <p>Address: {{ props.row.address }}</p>
-                <p>Zip: {{ props.row.zip }}</p>
+                <div class="meta-contract">
+                  <p>
+                    <b class="yellow"><font-awesome-icon :icon="'sun'"/></b>
+                    Tổng số show: {{ props.row.contracts.length }}
+                  </p>
+                  <p>
+                    <b class="yellow"><font-awesome-icon :icon="'graduation-cap'"/></b>
+                    Thuê đồ combo: {{ props.row.contracts.map(x => x.packages.filter(x => x.kind_package === 1)[0]).filter(x => x != null).length }}</p>
+                  <p>
+                    <b class="yellow"><font-awesome-icon :icon="'tshirt'"/></b>
+                    Thuê đồ concept: {{ props.row.city }}</p>
+                  <p>
+                    <b class="yellow"><font-awesome-icon :icon="'star'"/></b>
+                    Chụp đêm: {{ props.row.contracts.map(x => x.packages.filter(x => x.kind_package === 2)[0]).filter(x => x != null).length }}</p>
+                  <p>
+                    <b class="yellow"><font-awesome-icon :icon="'video'"/></b>
+                    Video: {{ props.row.contracts.map(x => x.packages.filter(x => x.kind_package === 3)[0]).filter(x => x != null).length }}</p>
+                  <p>
+                    <b class="yellow"><font-awesome-icon :icon="'campground'"/></b>
+                    Trang trí: {{ props.row.contracts.map(x => x.packages.filter(x => x.kind_package === 4)[0]).filter(x => x != null).length }}</p>
+                     <p>
+                  <b class="yellow"><font-awesome-icon :icon="'id-card'"/></b>
+                    Số thợ dự kiến: {{ props.row.contracts.map(x => Math.round(x.total_member/20)).reduce((x,y) => x+y) + props.row.contracts.map(x => x.packages.filter(x => x.kind_package === 3)[0]).filter(x => x != null).length }}</p>
+                </div>
               </template>
             </el-table-column>
             <el-table-column label="ID" width="150">
@@ -30,10 +50,13 @@
             <el-table-column prop="name" label="Hợp đồng" width>
               <template slot-scope="scope">
                 <p v-for="(item, index) of scope.row.contracts" :key="index"> 
-                  <b class="active"><font-awesome-icon :icon="'sun'"/></b>
-                  <b class="active"><font-awesome-icon :icon="'star'"/></b>
-                  <b class="active"><font-awesome-icon :icon="'video'"/></b>
-                  <b class="active"><font-awesome-icon :icon="'campground'"/></b>
+                  <b :class="item.packages.filter(x => x.kind_package === 0 || x.kind_package === 1 ).length ? 'yellow' : ''">
+                    <font-awesome-icon :icon="'sun'"/>
+                    <font-awesome-icon v-if="item.packages.filter(x => x.kind_package === 1 ).length" :icon="'graduation-cap'"/>
+                  </b>
+                  <b :class="item.packages.filter(x => x.kind_package === 2).length ? 'orange' : ''"><font-awesome-icon :icon="'star'"/></b>
+                  <b :class="item.packages.filter(x => x.kind_package === 3).length ? 'red' : ''"><font-awesome-icon :icon="'video'"/></b>
+                  <b :class="item.packages.filter(x => x.kind_package === 4).length ? 'green' : ''"><font-awesome-icon :icon="'campground'"/></b>
                   {{item.name}}</p>
               </template>
             </el-table-column>
@@ -148,8 +171,22 @@ h3 {
   .el-table .el-table__expanded-cell {
     background-color: #FAFAD2;
   }
-  .active {
+  .red {
     color: #d6336c;
+  }
+  .yellow {
+    color: #f2b911;
+  }
+  .orange {
+    color: #f77e05;
+  }
+  .green {
+    color: #82b440
+  }
+  .meta-contract {
+    p {
+      margin-top: 5px;
+    }
   }
 }
 </style>
