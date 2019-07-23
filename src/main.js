@@ -9,19 +9,27 @@ import VueResource from 'vue-resource'
 import GlobalComponents from './GlobalComponent'
 import VueI18n from 'vue-i18n'
 import i18n from './locales/config'
-import ElementUI from 'element-ui'
 import VueProgressiveImage from 'vue-progressive-image'
 import VueLazyload from 'vue-lazyload'
 import 'element-ui/lib/theme-chalk/index.css'
 import './assets/animation/animate.css'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import './assets/styling/style.scss'
+import ElementUI from 'element-ui'
 
+import { fas } from '@fortawesome/free-solid-svg-icons'
+
+library.add(
+  fas
+)
+Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.use(ElementUI)
 Vue.use(VueI18n)
 Vue.use(router)
 Vue.use(VueResource)
 Vue.use(GlobalComponents)
 Vue.use(VueProgressiveImage)
-
 Vue.use(VueLazyload, {
   preLoad: 2.0,
   attempt: 1,
@@ -35,16 +43,15 @@ Vue.use(VueLazyload, {
 Vue.http.options.root = process.env.SERVER_IP
 
 // set header for all request
-Vue.http.headers.common['Access-Control-Allow-Origin'] = '*'
-Vue.http.headers.common['Access-Control-Allow-Methods'] = 'POST, GET, PUT, OPTIONS, DELETE'
-Vue.http.headers.common['Access-Control-Allow-Headers'] = 'Access-Control-Allow-Methods, Access-Control-Allow-Origin, Origin, Accept, Content-Type'
-Vue.http.headers.common['X-My-Custom-Header'] = 'Header-Value'
-Vue.http.headers.common['Content-Type'] = 'application/json'
-Vue.http.headers.common['Accept'] = 'application/json'
-Vue.http.headers.common['Access-Token'] = localStorage.getItem('ACCESS_TOKEN')
-Vue.http.headers.common['Uid'] = localStorage.getItem('UID')
-Vue.http.headers.common['Provider'] = localStorage.getItem('PROVIDER')
-
+Vue.http.headers.common[ 'Access-Control-Allow-Origin' ] = '*'
+Vue.http.headers.common[ 'Access-Control-Allow-Methods' ] = 'POST, GET, PUT, OPTIONS, DELETE'
+Vue.http.headers.common[ 'Access-Control-Allow-Headers' ] = 'Access-Control-Allow-Methods, Access-Control-Allow-Origin, Origin, Accept, Content-Type'
+Vue.http.headers.common[ 'X-My-Custom-Header' ] = 'Header-Value'
+Vue.http.headers.common[ 'Content-Type' ] = 'application/json'
+Vue.http.headers.common[ 'Accept' ] = 'application/json'
+Vue.http.headers.common[ 'access-Token' ] = localStorage.getItem('ACCESS_TOKEN')
+Vue.http.headers.common[ 'uid' ] = localStorage.getItem('UID')
+Vue.http.headers.common[ 'provider' ] = localStorage.getItem('PROVIDER')
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

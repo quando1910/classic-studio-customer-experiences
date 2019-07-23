@@ -1,0 +1,28 @@
+.inventory {
+  @extend %br-img;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // position: relative;
+  height: 100%;
+  min-height: 100vh;
+  margin-left: 80px;
+  .form-style {
+    height: 280px;
+  }
+
+  &-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    width: 80%;
+    max-width: 800px;
+    min-width: 350px;
+  }
+  
+}
+.w-dialog {
+  .el-dialog {
+    width: 50% !important;
+  }
+}

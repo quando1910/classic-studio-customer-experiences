@@ -58,3 +58,58 @@
   border-radius: 50%;
   padding: 0;
 }
+
+.btn-float {
+  &:link,
+  &:visited {
+    text-transform: uppercase;
+    text-decoration: none;
+    @include pxRem('padding', 12 30);
+    @include pxRem('border-radius', 20);
+    display: inline-block;
+    transition: all 0.2s ease;
+    transition: box-shadow 0.2s;
+  }
+
+  &-white {
+    background: #fff;
+    color: $grey-dark;
+  }
+
+  &-green {
+    background: $primary;
+    color: $white;
+  }
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  } 
+
+  &:active {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  }
+}
+.btn-text {
+  &:link,
+  &:visited {
+    @include pxRem('padding', 15 25);
+    text-decoration: none;
+    border-bottom: 1px solid $primary;
+    transition: all 0.2s;
+    color: $primary;
+  }
+
+  &:hover {
+    color: $white;
+    background: $primary;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    transform: translateY(-3px);
+  }
+
+  &:active {
+    color: $white;
+    background: $primary
+  }
+}

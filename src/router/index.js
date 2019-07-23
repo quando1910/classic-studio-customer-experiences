@@ -1,6 +1,22 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/pages/home'
+import Login from '@/components/pages/login/login'
+import Viewer from '@/components/pages/viewer/viewer'
+import Contract from '@/components/pages/viewer/contracts'
+import ContractList from '@/components/pages/viewer/contracts-list'
+import ContractView from '@/components/pages/viewer/contracts-view'
+import ListUse from '@/components/pages/viewer/list-user'
+import InfoUse from '@/components/pages/viewer/info-user'
+import Photographers from '@/components/pages/viewer/photographers'
+import Photographer from '@/components/pages/viewer/photographer'
+import { AuthService } from "../service/authService";
+
+import Inventory from '@/components/pages/inventory/inventory'
+import InventoryMain from '@/components/pages/inventory/inventory-main'
+import Status from '@/components/pages/inventory/status'
+import Contracts from '@/components/pages/contracts/contracts'
+import Payment from '@/components/pages/contracts/payment'
 
 // const Showrooms = () => import(/* webpackChunkName: "group-news" */ '@/components/showrooms.vue')
 // const Preview = () => import(/* webpackChunkName: "group-news" */ '@/components/post/post-preview')
@@ -14,11 +30,13 @@ import Home from '@/components/pages/home'
 // const AuthSignUp = () => import(/* webpackChunkName: "group-auth" */ '@/components/auth/auth-signup')
 // const Suggestion = () => import(/* webpackChunkName: "group-suggest" */ '@/components/suggestion')
 
+const auth = new AuthService();
 Vue.use(Router)
 
 const router = new Router({
   base: '/',
   mode: 'history',
+  linkExactActiveClass: 'activated',
   scrollBehavior () {
     return { x: 0, y: 0 }
   },
@@ -28,10 +46,69 @@ const router = new Router({
       redirect: '/home'
     },
     {
+      path: '/login',
+      component: Login,
+      beforeEnter: auth.ifNotAuthenticated,
+
+    },
+    {
       path: '/home',
       name: 'Home',
       component: Home
-    }
+    },
+    {
+      path: '/inventory',
+      component: Inventory,
+      beforeEnter: auth.ifAuthenticated,
+      children: [
+        {
+          path: '', component: InventoryMain,
+        },
+        {
+          path: 'status', component: Status,
+        },
+      ]
+    },
+    {
+      path: '/contracts/:token/:id',
+      component: Contracts
+    },
+    {
+      path: '/viewer', component: Viewer,
+      beforeEnter: auth.ifAuthenticated,
+      children: [
+        {
+          path: 'contract', component: ContractList,
+        },
+        {
+          path: 'contract/add', component: Contract,
+        },
+        {
+          path: 'contract/:id', component: ContractView,
+        },
+        {
+          path: 'contract/:id/edit', component: Contract,
+        },
+        {
+          path: 'contract/:id/payment', component: Payment,
+        },
+        {
+          path: 'list-use', component: ListUse,
+        },
+        {
+          path: 'info-user', component: InfoUse,
+        },
+        {
+          path: 'photographers', component: Photographers,
+        },
+        {
+          path: 'photographers/add', component: Photographer,
+        },
+        // {
+        //   path: 'photographers/:id/edit', component: Photographer,
+        // }
+      ]
+    },
   ]
 })
 

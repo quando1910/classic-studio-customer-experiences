@@ -1,0 +1,374 @@
+.section {
+  height: 100vh;
+  background-size: cover;
+  background-position: top;
+  position: relative;
+}
+.section-about {
+  background-image: url('../../assets/images/wall1.jpg');
+}
+.section-night {
+  background-image: linear-gradient(to right bottom,
+                                    rgba(208, 144, 62, 0.5),
+                                    rgba(85, 51, 35, 0.5)),
+                    url('../../assets/images/night.jpg');
+}
+.section-decorate {
+  background-image: linear-gradient(to right bottom,
+                                    rgba(208, 62, 149, 0.5),
+                                    rgba(66, 42, 51, 0.5)),
+                    url('../../assets/images/decorator.jpg');
+  background-position: center;
+}
+.section-vehicle {
+  background-image: linear-gradient(to right bottom,
+                                    rgba(205, 208, 62, 0.5),
+                                    rgba(157, 165, 92, 0.5)),
+                    url('../../assets/images/van.jpg');
+}
+.section-invoice {
+  display: flex;
+  justify-content: center;
+  .invoice-container {
+    width: 70%;
+    th, td {
+      text-align: left;
+      padding: 8px;
+    }
+    tr:nth-child(even){
+      background-color: #f2f2f2
+    }
+    th {
+      background-color: $primary;
+      color: white;
+    }
+    .total {
+      font-weight: bold;
+    }
+  }
+}
+section:not(:last-child) {
+  .arrow-down {
+    @include pxRem('border-left', 20px solid transparent);
+    @include pxRem('border-right', 20px solid transparent);
+    @include pxRem('border-top', 20px solid $primary);
+    position: absolute;
+    top: 95%;
+    left: 50%;
+    &:hover {
+      cursor: pointer;
+      @include pxRem('border-left', 20px solid transparent);
+      @include pxRem('border-right', 20px solid transparent);
+      @include pxRem('border-top', 20px solid $primary-dark);
+    }
+  }
+}
+.text-box {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  .btn-hs {
+    animation: moveFromLeft 2s;
+  }
+  .btn-sv {
+    animation: moveFromRight 2s;
+  }
+}
+.section-option {
+  background-image: linear-gradient(to right, rgb(240, 242, 240), rgb(0, 12, 64));
+  .container {
+
+    height: 100%;
+    @include pxRem('padding', 100 0);
+  }
+  .option-heading {
+    @include pxRem('margin-bottom', 100);
+    text-align: center;
+  }
+}
+
+.option-wrapper {
+  display: flex;
+  justify-content: space-around;
+  .option-container {
+    width: 30%;
+  }
+}
+
+.option {
+  perspective: 100rem;
+  position: relative;
+  @include pxRem('height', 480);
+  width: 85%;
+  &__side {
+    text-align: center;
+    border-radius: 3px;
+    height: 30rem;
+    box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.8);
+    transition: all 0.5s;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    backface-visibility: hidden;
+    overflow: hidden;
+
+    &--front {
+      background-color: rgba($white, 0.8);
+    }
+
+    &--back {
+      transform: rotateY(180deg);
+
+      &-1 {
+        background-image: linear-gradient(to right bottom, $secondary-light, $secondary-dark);
+      }
+      &-2 {
+        background-image: linear-gradient(to right bottom, $primary-light, $primary-dark);
+      }
+      &-3 {
+        background-image: linear-gradient(to right bottom, $tertiary-light, $tertiary-dark);
+      }
+    }
+  }
+
+  &:hover &__side--front {
+    transform: rotateY(-180deg);
+  }
+
+  &:hover &__side--back {
+    transform: rotateY(0);
+  }
+
+  &__picture {
+    background-size: cover;
+    @include pxRem('height', 240);
+    background-blend-mode: screen;
+    background-position: top;
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+    &-1 {
+      background-image: linear-gradient(to right bottom, $secondary-light, $secondary-dark), 
+                        url('../../assets/images/wall1.jpg');
+    }
+    &-2 {
+      background-image: linear-gradient(to right bottom, $primary-light, $primary-dark), 
+                        url('../../assets/images/wall2.jpg');
+    }
+    &-3 {
+      background-image: linear-gradient(to right bottom, $tertiary-light, $tertiary-dark), 
+                        url('../../assets/images/wall3.png');
+    }
+  }
+
+  &__heading {
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: $white;
+    position: absolute;
+    @include pxRem('height', 160);
+    right: 1rem;
+    text-align: right;
+    top: 50%;
+  }
+
+  &__heading-span {
+    padding: 0.5rem 1rem;
+    &-1 {
+      background-image: linear-gradient(to right bottom, rgba($secondary-light, .85), rgba($secondary-dark, .85));
+    }
+    &-2 {
+      background-image: linear-gradient(to right bottom, rgba($primary-light, .85), rgba($primary-dark, .85));
+    }
+    &-3 {
+      background-image: linear-gradient(to right bottom, rgba($tertiary-light, .85), rgba($tertiary-dark, .85));
+    }
+  }
+
+  &__detail {
+    padding: 1rem;
+    ul {
+      list-style: none;
+      width: 80%;
+      margin: 0 auto;
+      li {
+        text-align: center;
+        padding: .5rem;
+
+        &:not(:last-child) {
+          border-bottom: 1px solid $grey-light-2;
+        }
+      }
+    }
+  }
+
+  &__cta {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+  }
+
+  &__price-box {
+    text-align: center;
+    color: $white;
+    @include pxRem('margin-bottom', 48);
+  }
+
+  &__price-only {
+    font-size: 1.4rem;
+    text-transform: uppercase;
+  }
+
+  &__price-value {
+    font-size: 3rem;
+    font-weight: 100;
+  }
+}
+.section-package {
+  color: black;
+  height: 100vh;
+  background-image: linear-gradient(to right bottom,rgb(101, 153, 153), rgb(244, 121, 31));
+  .mock-heading {
+    visibility: hidden;
+  }
+  .package-container {
+    display: flex;
+    .image-container {
+      .composition {
+        position: relative;
+      
+        &__photo {
+          box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.4);
+          position: absolute;
+          transition: all 0.2s;
+          height: 70vh;
+          @include pxRem('max-width', 550);
+      
+          &--p1 {
+            @include pxRem('right', -80);
+            @include pxRem('top', 40);
+          }
+      
+          &--p2 {
+            @include pxRem('right', -40);
+            @include pxRem('top', 90);
+          }
+      
+      
+          &:hover {
+            box-shadow: 0 2.5rem 2rem rgba(0, 0, 0, 0.5);
+            z-index: 1;
+            transform: scale(1.05);
+          }
+        }
+      
+        &:hover &__photo:not(:hover) {
+          transform: scale(0.9);
+        }
+      }
+    }
+    .description-container {
+      z-index: 2;
+      position: relative;
+      color: $white;
+      .heading {
+        font-size: xx-large;
+        text-transform: uppercase;
+        position: absolute;
+        @include pxRem('top', 100);
+        @include pxRem('left', -20);
+      }
+      .paragraph {
+        position: absolute;
+        @include pxRem('top', 170);
+        @include pxRem('padding', 0 120);
+      }
+      .package-button {
+        position: absolute;
+        @include pxRem('top', 240);
+        @include pxRem('left', 200);
+        color: $white;
+      }
+    }
+  }
+}
+.section-booking {
+  .popup {
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba($black, .8);
+    z-index: 9000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s;
+  
+    &__close {
+      &:link, &:visited {
+        color: $black;
+        text-decoration: none;
+        transition: all 0.2s;
+      }
+      &:hover {
+        transform: translateY(-3px);
+        color: $primary;
+      }
+      position: absolute;
+      top: 0;
+      right: 2rem;
+      font-size: 3rem;
+    }
+  
+    &:target {
+      opacity: 1;
+      visibility: visible;
+    }
+  
+    &__content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 75%;
+      height: 40rem;
+      background-color: $white;
+      box-shadow: 0 2rem 4rem rgba($black, 0.2);
+      border-radius: 3px;
+      display: table;
+      overflow: hidden;
+      transition: all 0.4s 0.2s;
+    }
+  
+    &__left {
+      width: 33.3333333%;
+      display: table-cell;
+    }
+  
+    &__right {
+      width: 66.6666667%;
+      display: table-cell;
+      vertical-align: top;
+      @include pxRem('padding', 40);
+      .btn-green {
+        background: $primary;
+        color: $white;
+      }
+    }
+  
+    &__image {
+      display: block;
+      width: 100%;
+    }
+  
+    &__text {
+      @include pxRem('margin-bottom', 32);
+    }
+  }
+}

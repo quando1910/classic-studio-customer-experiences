@@ -56,3 +56,44 @@
 .bounceIn {
   animation-duration: 1s;
 }
+
+// Animation introduction
+@keyframes moveFromLeft {
+  0% {
+    transform: translateX(-100px);
+    opacity: 0;
+  }
+  80% {
+    transform: translateX(20px);
+  }
+  100% {
+    transform: translate(0);
+    opacity: 1;
+  }
+}
+
+@keyframes moveFromRight {
+  0% {
+    transform: translateX(100px);
+    opacity: 0;
+  }
+  80% {
+    transform: translateX(-20px);
+  }
+  100% {
+    transform: translate(0);
+    opacity: 1;
+  }
+}
+.show-out {
+  animation: show-out 0.5s;
+}
+
+@keyframes show-out {
+  0% {
+    opacity: 0.1;
+  }
+  100% {
+    opacity: 1;
+  }
+}

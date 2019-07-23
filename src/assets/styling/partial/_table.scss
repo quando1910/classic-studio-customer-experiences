@@ -2,7 +2,7 @@ table {
   font-size: 14px;
   padding-top: 0.5rem;
   th {
-    font-family: 'Gibson Regular';
+    // font-family: 'Gibson Regular';
     width: 20%;
     padding-bottom: 0.6rem;
   }
@@ -24,4 +24,9 @@ table {
   @include sl640 {
     
   }
+}
+.text-ellipsis {
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

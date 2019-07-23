@@ -1,0 +1,293 @@
+.viewer {
+  @extend %br-img;
+  padding: 20px 0;
+  padding-left: 82px;
+  min-height: 100vh;
+  height: 100%;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .viewer-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    width: 80%;
+    max-width: 800px;
+    min-width: 350px;
+  } 
+}
+
+#contract {
+  .contract-form {
+    width: 90%;
+    min-width: 500px;
+    margin: 0px auto;
+    border-radius: 10px;
+  }
+  .label-contract {
+    @extend %label;
+  }
+  .field-contract {
+    font-size: 1em;
+    line-height: 1.4em;
+    margin-bottom: 20px;
+    color: #444;
+  }
+  .sub-propety {
+    border: 0;
+    border-bottom: 1px dashed;
+    border-radius: 0;
+    padding: 10px 5px;
+    color: #606266;
+    span {
+      margin-right: 5px;
+      &::after {
+        content: ','
+      }
+      &:last-child::after {
+        content: '.';
+      }
+    }
+  }
+  .border-bottom {
+    border-bottom: 1px solid #dedede;
+  }
+  $container-shadow: 0.5rem 0.5rem 2rem 0 rgba(black, 0.2);
+  $gutter: 30px;
+  $border-width: 4px;
+  $dot-diameter: 8px;
+  
+  .timeline {
+    width: 100%;
+    padding: 50px;
+    position: relative;
+    &:before {
+      content: "";
+      position: absolute;
+      top: 0px;
+      left: calc(33% + 15px); //$gutter/2
+      bottom: 0px;
+      width: $border-width;
+      background: #ddd;
+    }
+    &:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+  }
+  .input-contract { 
+    @extend %input;
+  }  
+  .input-contract--time {
+    input {
+      padding-left: 35px;
+    }
+  }
+  .plain-contract {
+    margin-bottom: 10px;
+    border-bottom: 3px double;
+    padding-bottom: 10px;
+  }
+  .entry {
+    clear: both;
+    text-align: left;
+    position: relative;
+    .title {
+      margin-bottom: 0.5em;
+      float: left;
+      width: 33%;
+      padding-right: $gutter;
+      text-align: right;
+      position: relative;
+      &:before {
+        content: "";
+        position: absolute;
+        width: $dot-diameter;
+        height: $dot-diameter;
+        border: $border-width solid rgb(250, 186, 114);
+        background-color: #fff;
+        border-radius: 100%;
+        top: 15%;
+        right: -$dot-diameter;
+        z-index: 99;
+      }
+      h4 {
+        color: rgb(250, 186, 114);
+        margin-bottom: 5px;
+      }
+      p {
+        margin: 0;
+        font-size: 100%;
+      }
+    }
+    .body {
+      margin: 0 0 3em;
+      float: right;
+      width: 66%;
+      padding-left: $gutter;
+      p {
+        line-height: 1.4em;
+        &:first-child {
+          margin-top: 0;
+          font-weight: 400;
+        }
+      }
+      ul {
+        color: #aaa;
+        padding-left: 0;
+        list-style-type: none;
+        li:before {
+          content: "–";
+          margin-right: 0.5em;
+        }
+      }
+    }
+  }
+}
+#list-user {
+  .list-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+   } 
+}
+#photographers {
+  .laber-photographers {
+    @extend %label;
+  }
+  .input-photographers { 
+    @extend %input;
+  } 
+}
+
+.form-style {
+  max-width: 600px;
+  min-width: 500px;
+  padding: 10px 20px;
+  background: #f4f7f8;
+  margin: 0px auto;
+  padding: 20px;
+  background: #f4f7f8;
+  border-radius: 8px;
+  fieldset {
+    border: none;
+  }
+  legend {
+    font-size: 1.4em;
+    margin-bottom: 10px;
+  }
+  label {
+    display: block;
+    margin-bottom: 8px;
+  }
+  input {
+    &[type="text"],
+    &[type="date"],
+    &[type="datetime"],
+    &[type="email"],
+    &[type="number"],
+    &[type="search"],
+    &[type="time"],
+    &[type="url"] {
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      border-radius: 4px;
+      font-size: 15px;
+      margin: 0;
+      outline: 0;
+      padding: 10px;
+      width: 100%;
+      box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      background-color: #e8eeef;
+      color: #8a97a0;
+      -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
+      box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
+      margin-bottom: 30px;
+    }
+  }
+  textarea,
+  select {
+    // font-family: Georgia, "Times New Roman", Times, serif;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 4px;
+    font-size: 15px;
+    margin: 0;
+    outline: 0;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    background-color: #e8eeef;
+    color: #8a97a0;
+    -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
+    margin-bottom: 30px;
+  }
+  input {
+    &[type="text"]:focus,
+    &[type="date"]:focus,
+    &[type="datetime"]:focus,
+    &[type="email"]:focus,
+    &[type="number"]:focus,
+    &[type="search"]:focus,
+    &[type="time"]:focus,
+    &[type="url"]:focus {
+      background: #d2d9dd;
+    }
+  }
+  textarea:focus {
+    background: #d2d9dd;
+  }
+  select {
+    &:focus {
+      background: #d2d9dd;
+    }
+    -webkit-appearance: menulist-button;
+    height: 35px;
+  }
+  .number {
+    background: #1abc9c;
+    color: #fff;
+    height: 30px;
+    width: 30px;
+    display: inline-block;
+    font-size: 0.8em;
+    margin-right: 4px;
+    line-height: 30px;
+    text-align: center;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
+    border-radius: 15px 15px 15px 0px;
+  }
+  input {
+    &[type="submit"],
+    &[type="button"] {
+      position: relative;
+      display: block;
+      padding: 19px 39px 18px 39px;
+      color: #fff;
+      margin: 0 auto;
+      background: #1abc9c;
+      font-size: 18px;
+      text-align: center;
+      font-style: normal;
+      width: 100%;
+      border: 1px solid #16a085;
+      border-width: 1px 1px 3px;
+      margin-bottom: 10px;
+    }
+    &[type="submit"]:hover,
+    &[type="button"]:hover {
+      background: #109177;
+    }
+  }
+}
+.borer-0 {
+  border: 0;
+}
